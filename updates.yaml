@@ -23,15 +23,17 @@
        do nothing.
 1:
     title: Release
-    version: 1.0
+    version: 1.0.1
     date: 13-01-2026
     install: https://lifelinepyr.jasperredis.net
     desc: |
       Welcome to Lifeline.PYR! :3
       (This is scrollable.)
       
-      This is the first version of the
+      This is the second version of the
       game.
+      The first time, I messed up the
+      URL to the updates file.
       
       I hope you like it.
       
