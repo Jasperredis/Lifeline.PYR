@@ -1,0 +1,5 @@
+Lifeline.PYR Project Licensing Details
+
+- ALL FILES inside of the /src/assets/images/ and /src/assets/audio/ directories of this repository are under the CC-BY-SA 4.0 (Creative Commons Attribution-ShareAlike). For more information, see the LICENSE-CC-BY-SA file at the project root.
+- The font in /src/assets/fonts/font/ (PYR5x5, see https://github.com/Jasperredis/PYR5x5) is licensed under the SIL OFL (SIL Open Font License). For more information, see the LICENSE-OFL file at the project root.
+- ALL OTHER FILES (besides license files) are licensed under the GNU GPLv3 (GNU General Public License v3). For more information, see the LICENSE-GPL file at the project root.
