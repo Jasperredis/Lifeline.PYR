@@ -5,8 +5,9 @@
   <img alt="Version: 1.0.0" src="https://img.shields.io/badge/Version-Beta_1.0-green?style=flat-square">
   <img alt="License: GPLv3" src="https://img.shields.io/badge/License-GPLv3-red?style=flat-square"><br>
 	Lifeline.PYR is a retro-style arcade game where you try and keep your constantly decreasing life down with constricted movement.<br>
-  <a href="https://jasperredis.github.io/Lifeline.PYR">Website</a> |
-  <a href="https://jris.straw.page">jasperredis</a><br>
+  <a href="https://lifelinepyr.jasperredis.net">Website</a> |
+  <a href="https://jris.straw.page">jasperredis</a> |
+  <a href="https://github.com/Jasperredis/Lifeline.PYR">GitHub</a>
 </p>
   
 ![Gameplay showing the normal 1D gameplay mode](.readme/screenshot1.png) 
