@@ -1,0 +1,97 @@
+@font-face {
+    font-family: 'PYR5x5';
+    src: url('./assets/PYR5x5Regular.ttf') format('truetype');
+}
+
+body {
+	background-color: #192130;
+	color: #ffffff;
+	font-family: PYR5x5;
+	font-size: 19px;
+	margin: 0;
+}
+
+/* Header */
+header {
+	display: flex;
+	flex-direction: column;
+	background-image: url("./assets/background.png");
+	background-size: 30%;
+	justify-content: center;
+	align-items: center;
+	color: #192130;
+}
+#title {
+	height: 15vh;
+	padding: 1%;
+}
+
+/* Links / Buttons */
+a, button {
+	display: inline-block;
+	padding: 3px;
+	background-color: #5c677d;
+	text-decoration: none;
+	color: #c7eca4;
+}
+a:hover, button:hover {
+	color: #d95763;
+	background-color: #ffffff;
+}
+button {
+	border-radius: 0px;
+	border: 3px solid;
+	font-family: inherit;
+	font-size: inherit;
+}
+#itch-io-button {
+	background-color: #487d15;
+}
+#gamejolt-button {
+	background-color: #192130;
+}
+
+/* Footer */
+#license-logos {
+	width: 50%;
+}
+footer {
+	display: flex;
+	background-color: #ffffff;
+	color: #192130;
+	justify-content: center;
+	padding: 2%;
+}
+
+/* Other */
+main {
+	padding: 0 5% 0 5%;
+}
+.screenshot {
+	width: 30%;
+	border: 5px solid #ffffff;
+	transition: 0.2s ease-out;
+}
+.screenshot:hover {
+	transform: scale(1.1);
+	box-shadow: 0px 0px 10px #000000;
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+    body {
+		font-size: 14px;
+	}
+	header {
+		padding: 0 5% 0 5%;
+	}
+	#title {
+		height: 12vh;
+	}
+	.screenshot {
+		width: 100%;
+	}
+	.button-a, button {
+		width: 100%;
+	}
+}
