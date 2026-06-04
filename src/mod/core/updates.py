@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>
 
-# Lifeline.PYR v1.0
+# Lifeline.PYR v1.0.1
 
 # Import libraries
 from cerbose import cprint, mprint
@@ -27,7 +27,7 @@ import sys
 # Core modules
 from mod.core import args
 
-VERSION = 1.0
+VERSION = "1.0.1"
 
 # Get update data
 def get_all_data():
@@ -35,7 +35,7 @@ def get_all_data():
     if not args.no_updates:
         args.cprint_iv("proc", "Fetching update data...")
         try:
-            response = requests.get('https://raw.githubusercontent.com/Jasperredis/Lifeline.PYR/updates/updates.yaml')
+            response = requests.get('https://lifelinepyr.jasperredis.net/updates.yaml')
             response.raise_for_status()
             UPDATA = yaml.safe_load(response.text)
             args.cprint_iv("ok", "Succesfully fetched update data!")

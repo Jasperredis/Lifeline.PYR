@@ -1,4 +1,4 @@
 pygame
 requests
 pyyaml
-cerbose
+cerbose==1.0.1.post1
