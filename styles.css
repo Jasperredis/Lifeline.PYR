@@ -3,10 +3,29 @@
     src: url('./assets/PYR5x5Regular.ttf') format('truetype');
 }
 
+/* Font stuff */
+:root {
+	font-family: PYR5x5;
+	--font-btn-font: sans-serif;
+}
+:root.easy-font {
+	font-family: sans-serif;
+	--font-btn-font: PYR5x5;
+}
+#font-btn {
+	font-family: var(--font-btn-font);
+	margin-top: 20px;
+	background-color: #ffffff;
+	color: #192130;
+}
+#font-btn:hover {
+	background-color: #192130;
+	color: #ffffff;
+}
+
 body {
 	background-color: #192130;
 	color: #ffffff;
-	font-family: PYR5x5;
 	font-size: 19px;
 	margin: 0;
 }
@@ -24,6 +43,12 @@ header {
 #title {
 	height: 15vh;
 	padding: 1%;
+}
+#new {
+	background-color: #9f1825;
+	color: #ffffff;
+	text-align: center;
+	width: 100%;
 }
 
 /* Links / Buttons */
