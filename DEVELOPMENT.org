@@ -1,0 +1,44 @@
+Yes, this is an org file. I use Emacs.
+
+** Please consider contributing!
+During development of this update, I am /very/ open to contributions!
+See the ~CONTRIBUTING.md~ for more info. :-3
+
+* Lifeline.PYR v1.1 Development
+This file is for me to organise what I (and possibly contributers) should
+prioritise working on, and to list (and publish) what I'm planning.
+
+** New QoL features for Lifeline.PYR [1/8]
+- [ ] Save file generation / reset
+- [ ] Keybinding support
+- [x] Mouse-based player movement
+  - [ ] ^^^ Refactor this
+- [ ] Mouse-based menu navigation
+- [ ] More tips
+- [ ] Font options. Yes, that means rewrite text rendering.
+- [ ] Rewrite major parts of the how to play for brevity, and to add missing
+      info.
+
+** Gameplay features for Lifeline.PYR [0/3]
+- [ ] Score powerups/hazards (-50, +25, +50, +100)
+- [ ] Scoring screen on death
+- [ ] Cheats
+
+** Bugs to fix [0/2]
+*Note:* If you find any bugs, /please/ make a GitHub Issue, Discussion, or
+contact me about it (see _Contact_ header in ~CONTRIBUTING.md~)!
+- [ ] Updates screen crashes on others tab without WiFi
+- [ ] Speaking of the others tab, it probably shouldn't fetch its text content
+      from the updates.yaml file.
+
+** General goals to work for
+- Refactor old and bad code
+- Make bad systems better, more extensible, more practical, etc.
+- Adhere to style guides and conventions
+- Remove unneccessary comments
+- Make the game look overall better
+
+** Considerable features [0/2]
+These are things that may be added, though I'm not all too sure.
+- [ ] Update colour palette
+- [ ] Perhaps another game mode? o.o

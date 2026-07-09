@@ -1,21 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# Lifeline.PYR -- A retro-style arcade game made by jasperredis.
-# Copyright (C) 2025  jasperredis
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>
-
 # Lifeline.PYR v1.0.1
 
 OPTS = {
@@ -69,6 +53,14 @@ OPTS = {
         "bool": False
     },
     3: {
+        "desc": "Move the player with]]your mouse instead]]of keys.",
+        "key": "mouse-move",
+        "name": "Mouse movement",
+        "call": {0: "Off", 1: "On"},
+        "clamp": "0,1",
+        "bool": True
+    },
+    4: {
         "desc": "Change the soundtrack]]selection.",
         "key": "ost",
         "name": "Soundtrack",
@@ -82,7 +74,7 @@ OPTS = {
         "clamp": "1,5",
         "bool": False
     },
-    4: {
+    5: {
         "desc": "Scale the window to]]fit your screen.",
         "key": "winscale",
         "name": "Window size",
@@ -103,7 +95,7 @@ OPTS = {
         "clamp": "1,12",
         "bool": False,
     },
-    5: {
+    6: {
         "desc": "Change the chance of]]enemy spawns.",
         "key": "dif",
         "name": "Difficulty",
@@ -111,7 +103,7 @@ OPTS = {
         "clamp": "1,3",
         "bool": False,
     },
-    6: {
+    7: {
         "desc": "Self-explanatory.",
         "key": "fullscreen",
         "name": "Fullscreen",
@@ -119,7 +111,7 @@ OPTS = {
         "clamp": "0,1",
         "bool": True,
     },
-    7: {
+    8: {
         "desc": "Gives the player]]velocity physics.",
         "key": "inertia",
         "name": "Inertia",
@@ -127,7 +119,7 @@ OPTS = {
         "clamp": "0,1",
         "bool": True,
     },
-    8: {
+    9: {
         "desc": "Shows icons where]]heals and enemies]]are.",
         "key": "indicators",
         "name": "Indicators",
@@ -135,7 +127,7 @@ OPTS = {
         "clamp": "0,1",
         "bool": True,
     },
-    9: {
+    10: {
         "desc": "Shows the velocity of]]the player if inertia]]is enabled.",
         "key": "velocity-icon",
         "name": "Velocity icon",
@@ -143,7 +135,7 @@ OPTS = {
         "clamp": "0,1",
         "bool": True,
     },
-    10: {
+    11: {
         "desc": "Changes the colours in]]the HOW TO PLAY menu.",
         "key": "htp-theme",
         "name": "HTP theme",

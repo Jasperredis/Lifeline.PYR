@@ -18,18 +18,13 @@
 
 # Lifeline.PYR v1.0.1
 
-# Import libraries
 from cerbose import cprint, cerbar
 import pygame as pg
-
-# Core modules
 from mod.core.save import S, wr
 import mod.core.assets as ast
 import mod.core.args as args
 import mod.core.updates as updates
 import mod.core.music as music
-
-# Stage modules
 import mod.stage.updates_stage as updates_stage
 import mod.stage.howtoplay as howtoplay
 import mod.stage.etc.wintop as wintop
@@ -40,8 +35,6 @@ import mod.stage.about as about
 import mod.stage.intro as intro
 import mod.stage.begin as begin
 import mod.stage.tips as tips
-
-# Other modules
 import mod.etc.screenshot as screenshot
 import mod.etc.magicvars as mgv 
 import mod.etc.etcils as etc
