@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# Lifeline.PYR v1.0.1
+# Lifeline.PYR v1.1-dev
 
 from cerbose import cprint
 import pygame as pg
 import sys
 import mod.core.assets as ast
-from mod.core.save import So
+from mod.core.save import S
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
 import mod.etc.BTXT as B

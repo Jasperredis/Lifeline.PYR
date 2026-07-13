@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# Lifeline.PYR v1.0.1
+# Lifeline.PYR v1.1-dev
 
 import pygame as pg
 from mod.stage.game.game.ui import draw_ui, draw_ui_before_entities

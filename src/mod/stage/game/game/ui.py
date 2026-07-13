@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# Lifeline.PYR v1.0.1
+# Lifeline.PYR v1.1-dev
 
 # from collections import Counter (see line 183)
 import pygame as pg

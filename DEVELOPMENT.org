@@ -40,5 +40,5 @@ contact me about it (see _Contact_ header in ~CONTRIBUTING.md~)!
 
 ** Considerable features [0/2]
 These are things that may be added, though I'm not all too sure.
-- [ ] Update colour palette
+- [ ] Update colour palette -- in progress by jasperredis
 - [ ] Perhaps another game mode? o.o
