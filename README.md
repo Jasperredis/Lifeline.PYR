@@ -2,7 +2,7 @@
   <img alt="Lifeline.PYR" src="./.readme/logo.png">
   <img alt="Language: Python" src="https://img.shields.io/badge/Language-Python-purple?style=flat-square">
   <img alt="Python Version: 3.12.3" src="https://img.shields.io/badge/Python_Version-3.12.3-purple?style=flat-square">
-  <img alt="Version: 1.1 (DEVELOPMENT)" src="https://img.shields.io/badge/Version-1.1_(DEVELOPMENT)-green?style=flat-square">
+  <img alt="Version: 1.1-dev" src="https://img.shields.io/badge/Version-1.1--dev-green?style=flat-square">
   <img alt="License: GPLv3" src="https://img.shields.io/badge/License-GPLv3-red?style=flat-square"><br>
 	Lifeline.PYR is a retro-style arcade game where you try and keep your constantly decreasing life down with constricted movement.<br>
   <a href="https://lifelinepyr.jasperredis.net">Website</a> |
