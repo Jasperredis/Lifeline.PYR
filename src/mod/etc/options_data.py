@@ -1,11 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 # Lifeline.PYR v1.1-dev
 
 OPTS = {
-    "count": 10,
+    "count": 11,
     1: {
-        "desc": "Use one of 9]]background options of]]various colours.",
+        "desc": "Use one of 9]]background options of]]various colours.]]$bg_pre",
         "key": "bg",
         "name": "Background",
         "call": {
@@ -26,12 +25,26 @@ OPTS = {
             15: "Deer",
             16: "Nothing",
             17: "Wire",
-            18: "Expirimental"
+            18: "Palette Test"
         },
-        "clamp": "1,17",
+        "clamp": "1,18",
         "bool": False,
     },
     2: {
+        "desc": "Use one of 5 colour]]palette options.]]THIS IS COOL!!!]]$col",
+        "key": "palette",
+        "name": "Colour palette",
+        "call": {
+            1: "Canonical",
+            2: "Classic",
+            3: "Inverted",
+            4: "Warm",
+            5: "Intense"
+        },
+        "clamp": "1,5",
+        "bool": False,
+    },
+    3: {
         "desc": "Change the appearance]]of the mouse.",
         "key": "mouse-theme",
         "name": "Mouse theme",
@@ -52,7 +65,7 @@ OPTS = {
         "clamp": "1,12",
         "bool": False
     },
-    3: {
+    4: {
         "desc": "Move the player with]]your mouse instead]]of keys.",
         "key": "mouse-move",
         "name": "Mouse movement",
@@ -60,7 +73,7 @@ OPTS = {
         "clamp": "0,1",
         "bool": True
     },
-    4: {
+    5: {
         "desc": "Change the soundtrack]]selection.",
         "key": "ost",
         "name": "Soundtrack",
@@ -74,7 +87,7 @@ OPTS = {
         "clamp": "1,5",
         "bool": False
     },
-    5: {
+    6: {
         "desc": "Scale the window to]]fit your screen.",
         "key": "winscale",
         "name": "Window size",
@@ -95,7 +108,7 @@ OPTS = {
         "clamp": "1,12",
         "bool": False,
     },
-    6: {
+    7: {
         "desc": "Change the chance of]]enemy spawns.",
         "key": "dif",
         "name": "Difficulty",
@@ -103,7 +116,7 @@ OPTS = {
         "clamp": "1,3",
         "bool": False,
     },
-    7: {
+    8: {
         "desc": "Self-explanatory.",
         "key": "fullscreen",
         "name": "Fullscreen",
@@ -111,7 +124,7 @@ OPTS = {
         "clamp": "0,1",
         "bool": True,
     },
-    8: {
+    9: {
         "desc": "Gives the player]]velocity physics.",
         "key": "inertia",
         "name": "Inertia",
@@ -119,7 +132,7 @@ OPTS = {
         "clamp": "0,1",
         "bool": True,
     },
-    9: {
+    10: {
         "desc": "Shows icons where]]heals and enemies]]are.",
         "key": "indicators",
         "name": "Indicators",
@@ -127,7 +140,7 @@ OPTS = {
         "clamp": "0,1",
         "bool": True,
     },
-    10: {
+    11: {
         "desc": "Shows the velocity of]]the player if inertia]]is enabled.",
         "key": "velocity-icon",
         "name": "Velocity icon",
@@ -135,7 +148,7 @@ OPTS = {
         "clamp": "0,1",
         "bool": True,
     },
-    11: {
+    12: {
         "desc": "Changes the colours in]]the HOW TO PLAY menu.",
         "key": "htp-theme",
         "name": "HTP theme",

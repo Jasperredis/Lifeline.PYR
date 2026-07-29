@@ -16,13 +16,13 @@ def make_player(rsurface, GAMEDATA, tick, keys):
         # Base data
         y_deduction = 999
         pointer_sprite = (
-            ast.ASSETS["game/pointer_jumpend"]
+            ast.assets_data["game/pointer_jumpend"]
             if (tick - GAMEDATA["last_jump"]) >= con.jumpend_marker
-            else ast.ASSETS["game/pointer_jump"]
+            else ast.assets_data["game/pointer_jump"]
         )
         # Player ghost
         if select.game_type != "2d":
-            plrcol = mgv.COLOURS[19] if tick - GAMEDATA["last_jump"] >= con.jumpend_marker else mgv.COLOURS[15]
+            plrcol = mgv.colours[20] if tick - GAMEDATA["last_jump"] >= con.jumpend_marker else mgv.colours[16]
             plrghost = pg.Rect(
                 (GAMEDATA["plrx"], GAMEDATA["plry"] - 1), 
                 (3, 1)
@@ -30,17 +30,17 @@ def make_player(rsurface, GAMEDATA, tick, keys):
             pg.draw.rect(rsurface, plrcol, plrghost)  # Draw player ghost
         else:
             plrcol = "jumpend" if tick - GAMEDATA["last_jump"] >= con.jumpend_marker else "jumping"
-            rsurface.blit(ast.ASSETS[f"game/plr_{plrcol}_2d"], (GAMEDATA["plrx"], GAMEDATA["plry"] - 1))
+            rsurface.blit(ast.assets_data[f"game/plr_{plrcol}_2d"], (GAMEDATA["plrx"], GAMEDATA["plry"] - 1))
             
     else: # Not jumping (wow no dip)
         y_deduction = 1
         if select.game_type != "2d":
             if keys[pg.K_s]:
-                plrcol = mgv.COLOURS[9]
+                plrcol = mgv.colours[10]
             elif keys[pg.K_e] and (keys[pg.K_a] or keys[pg.K_d]) and GAMEDATA["dash"] > con.dash_functioning_min:
-                plrcol = mgv.COLOURS[4]
+                plrcol = mgv.colours[5]
             else:
-                plrcol = mgv.COLOURS[18]
+                plrcol = mgv.colours[19]
         else:
             if keys[pg.K_DOWN]:
                 plrcol = "slow_"
@@ -48,7 +48,7 @@ def make_player(rsurface, GAMEDATA, tick, keys):
                 plrcol = "dash_"
             else:
                 plrcol = ""
-        pointer_sprite = ast.ASSETS["game/pointer"]
+        pointer_sprite = ast.assets_data["game/pointer"]
 
     # Create rect
     plr_height = 1 if select.game_type != "2d" else 3
@@ -61,7 +61,7 @@ def make_player(rsurface, GAMEDATA, tick, keys):
     if select.game_type != "2d":
         pg.draw.rect(rsurface, plrcol, plr)
     elif not GAMEDATA["jumping"]:
-        rsurface.blit(ast.ASSETS[f"game/plr_{plrcol}2d"], (GAMEDATA["plrx"], GAMEDATA["plry"] - 1))
+        rsurface.blit(ast.assets_data[f"game/plr_{plrcol}2d"], (GAMEDATA["plrx"], GAMEDATA["plry"] - 1))
     pointer_offset = 2 if select.game_type != "2d" else 7
     pointer_y = con.pointer_y if select.game_type != "2d" else GAMEDATA["plry"] - pointer_offset
     rsurface.blit(pointer_sprite, (GAMEDATA["plrx"] - 1, pointer_y))

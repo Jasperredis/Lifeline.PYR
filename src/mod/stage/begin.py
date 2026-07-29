@@ -1,10 +1,9 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 # Lifeline.PYR v1.1-dev
 
 import pygame as pg
 import mod.core.assets as ast
-from mod.core.save import S
+from mod.core.save import save_data
 import mod.etc.etcils as etc
 import mod.etc.magicvars as mgv
 
@@ -21,14 +20,15 @@ TEXT_ADDONS = [
     ""
 ]
 
-def ACT(rsurface, keys, tick):
-    global TEXT, text_phase, lkpt, TEXT_ADDONS
-    
+
+def act(rsurface, keys, tick):
+    global text_phase, lkpt
+
     text_y = 1
     text_temp = TEXT + ["", "Press [RETURN] to continue."]
     for line in text_temp:
-        text_surf = ast.ASSETS["font1"].render(
-            line, False, mgv.COLOURS[18]
+        text_surf = ast.assets_data["font1"].render(
+            line, False, mgv.colours[19]
         )
         rsurface.blit(text_surf, (1, text_y))
         text_y += 6
@@ -39,5 +39,5 @@ def ACT(rsurface, keys, tick):
         lkpt = tick
 
     if text_phase >= len(TEXT_ADDONS) - 1:
-        S["seen_begin"] = True
+        save_data["seen_begin"] = True
         return "title"

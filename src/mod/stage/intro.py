@@ -1,15 +1,17 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 # Lifeline.PYR v1.1-dev
 
-from mod.core.assets import ASSETS
-from mod.core.save import S
+from mod.core.assets import assets_data
+from mod.core.save import save_data
 from mod.etc import etcils as etc
 
-def ACT(rsurface, tick):
+
+def act(rsurface, tick):
     if tick <= 90:
-        rsurface.blit(ASSETS["intro/jris"], etc.centrexy(ASSETS["intro/jris"]))
+        rsurface.blit(assets_data["intro/jris"],
+                      etc.centrexy(assets_data["intro/jris"]))
     elif tick <= 180:
-        rsurface.blit(ASSETS["intro/proud"], etc.centrexy(ASSETS["intro/proud"]))
+        rsurface.blit(assets_data["intro/proud"],
+                      etc.centrexy(assets_data["intro/proud"]))
     else:
-        return "title" if S["seen_begin"] else "begin"
+        return "title" if save_data["seen_begin"] else "begin"

@@ -3,7 +3,7 @@
 # Lifeline.PYR v1.1-dev
 
 import mod.core.assets as ast
-from mod.core.save import S, wr
+from mod.core.save import save_data, write_save
 import mod.etc.etcils as etc
 from mod.stage.game.game import constants as con
 
@@ -15,16 +15,16 @@ def do_updates(rsurface, tick, GAMEDATA):
             GAMEDATA["life"] -= 1
             if not GAMEDATA["gameover"]: # Score
                 GAMEDATA["score"] += con.score_increment
-                S["total"] += con.score_increment
+                save_data["total"] += con.score_increment
                 # Handle highscore
-                if GAMEDATA["score"] > S["high"]:
-                    S["high"] = GAMEDATA["score"]
+                if GAMEDATA["score"] > save_data["high"]:
+                    save_data["high"] = GAMEDATA["score"]
 
         # Handle game over
         if GAMEDATA["life"] <= 0 and not GAMEDATA["gameover"]:
-            wr(S)  # Update save
+            write_save(save_data)  # Update save
             GAMEDATA["gameover"] = True  # Enable flag
-            ast.ASSETS["gameaud/gameover"].play()
+            ast.assets_data["gameaud/gameover"].play()
 
         # Handle iframes
         if GAMEDATA["iframe"]:
@@ -32,8 +32,8 @@ def do_updates(rsurface, tick, GAMEDATA):
                 GAMEDATA["iframe"] = False
             else:
                 rsurface.blit(
-                    ast.ASSETS["game/iframe"],
-                    (etc.centrexy(ast.ASSETS["game/iframe"], onecoord="x"), 1),
+                    ast.assets_data["game/iframe"],
+                    (etc.centrexy(ast.assets_data["game/iframe"], onecoord="x"), 1),
                 )
 
     # Ensure correct life ticking

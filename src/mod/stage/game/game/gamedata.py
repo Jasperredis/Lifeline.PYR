@@ -2,7 +2,7 @@
 
 # Lifeline.PYR v1.1-dev
 
-from mod.core.save import S
+from mod.core.save import save_data
 from mod.stage.game.game import constants
 
 GAMEDATA = {}
@@ -26,7 +26,7 @@ def init(tick):
         "gameover": False,
         "jumping": False,
         "last_jump": -300,
-        "initial_high": S["high"],
+        "initial_high": save_data["high"],
         "velocity": 3,
         "velocity_y": 3,
         "falls": [],
@@ -34,7 +34,7 @@ def init(tick):
         "start_tick": tick,
         "lasers": []
     }
-    S["played"] += 1
+    save_data["played"] += 1
 
     # my cat typed the garbled part of the line below
     # print("log init gdata78u9-06=4wsa6.789-0078-9564444444444444444444444444444444444444444444444x21q   ")

@@ -3,4 +3,4 @@
 # Lifeline.PYR v1.1-dev
 # Oh boy I sure do love my one line of code
 
-BTX = "Welcome to Lifeline.PYR."
+bottom_text = "Welcome to Lifeline.PYR."

@@ -8,13 +8,13 @@ See the ~CONTRIBUTING.md~ for more info. :-3
 This file is for me to organise what I (and possibly contributers) should
 prioritise working on, and to list (and publish) what I'm planning.
 
-** New QoL features for Lifeline.PYR [1/8]
-- [ ] Save file generation / reset
+** New QoL features for Lifeline.PYR [3/8]
+- [x] Save file generation / reset
 - [ ] Keybinding support
 - [x] Mouse-based player movement
   - [ ] ^^^ Refactor this
 - [ ] Mouse-based menu navigation
-- [ ] More tips
+- [x] More tips
 - [ ] Font options. Yes, that means rewrite text rendering.
 - [ ] Rewrite major parts of the how to play for brevity, and to add missing
       info.
@@ -38,7 +38,26 @@ contact me about it (see _Contact_ header in ~CONTRIBUTING.md~)!
 - Remove unneccessary comments
 - Make the game look overall better
 
-** Considerable features [0/2]
+** Considerable features [1/2]
 These are things that may be added, though I'm not all too sure.
-- [ ] Update colour palette -- in progress by jasperredis
+- [x] Update colour palette
 - [ ] Perhaps another game mode? o.o
+
+* Changes so Far
+If you're coming here for gameplay updates, note that this is a mix of both
+technical changes and updates!
+- Save file is now in JSON
+- Save file can now be generated if not found
+  - This also means that the save file does not need to be packaged/included!
+- Various excsessive comments removed
+- Various variables renamed (to make more sense, fit conventions, etc.)
+- Colour palette changing added. This means:
+  - New colour palette option in settings, reloads images when changed
+  - Colour palette is applied when loading images
+  - Assets reload now rebuilds other magic variables
+  - Colour palette preview in options menu
+  - Some magic variable architecture changed to accomodate
+- wintop.py moved into mod/etc
+- Other minor changes, including but not limited to:
+  - Corrected links in terminal greeting
+    

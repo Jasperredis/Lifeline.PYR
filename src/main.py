@@ -1,3 +1,4 @@
+
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 # Lifeline.PYR -- A retro-style arcade game made by jasperredis.
@@ -18,16 +19,14 @@
 
 # Lifeline.PYR v1.0.1
 
-from cerbose import cprint, cerbar
+from cerbose import cprint
 import pygame as pg
-from mod.core.save import S, wr
+from mod.core.save import save_data
 import mod.core.assets as ast
 import mod.core.args as args
-import mod.core.updates as updates
 import mod.core.music as music
 import mod.stage.updates_stage as updates_stage
 import mod.stage.howtoplay as howtoplay
-import mod.stage.etc.wintop as wintop
 import mod.stage.game.stage as game
 import mod.stage.options as options
 import mod.stage.title as title
@@ -36,22 +35,27 @@ import mod.stage.intro as intro
 import mod.stage.begin as begin
 import mod.stage.tips as tips
 import mod.etc.screenshot as screenshot
-import mod.etc.magicvars as mgv 
+import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
 import mod.etc.BTXT as B
+# ↓↓↓ Responsible for metrics, bottom text display, and window buttons
+import mod.etc.wintop as wintop
 
 # Init pygame
 pg.init()
 pg.font.init()
 pg.mixer.init()
 
+
 # Init window
-def make_disp():
-    global screen, rsurface, winsize, winscale, base_winsize, game_area, game_base_winsize
+def make_display():
+    global screen, rsurface, winsize, base_winsize
+    global game_area, game_base_winsize
     base_winsize = (256, 144)
     game_base_winsize = (256, 128)
-    if not S["fullscreen"]:
-        winsize = (base_winsize[0] * S["winscale"], base_winsize[1] * S["winscale"])
+    if not save_data["fullscreen"]:
+        winsize = (base_winsize[0] * save_data["winscale"],
+                   base_winsize[1] * save_data["winscale"])
         screen = pg.display.set_mode((winsize))
     else:
         winsize = base_winsize
@@ -60,126 +64,105 @@ def make_disp():
     game_area = pg.Surface(game_base_winsize)
 
 
-make_disp()
-pg.display.set_caption("Lifeline.PYR")
+make_display()
+pg.display.set_caption("Lifeline.PYR v1.0.1-dev")
 pg.mouse.set_visible(False)
+pg.display.set_icon(ast.assets_data['global/windicon'])
+
 clock = pg.time.Clock()
-
-pg.display.set_icon(ast.ASSETS['global/windicon'])
-
-# Important variables
+done_text_intro = False
 if args.no_intro:
-    stage = "title" if S["seen_begin"] else "begin"
+    stage = "title" if save_data["seen_begin"] else "begin"
 else:
     stage = "intro"
 stage_history = [stage]
-done_text_intro = False
 
-# "Dynamic variables"; core variables that rapidly change
 tick, nc_tick, mb, mx, my, keys = 0, 0, 0, 0, 0, pg.key.get_pressed()
-#? nc_tick = non-changing tick
+# nc_tick = non-changing tick
 
-# Form magic variables
-mgv.BGS = mgv.form_BGS()
-mgv.mice = mgv.form_mice()
 
-STAGE_DATA = {
+STAGES = {
     "intro": {
-        "function": lambda: intro.ACT(game_area, tick)
+        "function": lambda: intro.act(game_area, tick)
     },
     "title": {
-        "function": lambda: title.ACT(game_area, keys, tick, mx, my)
+        "function": lambda: title.act(game_area, keys, tick, mx, my)
     },
     "game": {
-        "function": lambda: game.ACT(game_area, keys, tick, mx, my, mb)
+        "function": lambda: game.act(game_area, keys, tick, mx, my, mb)
     },
     "options": {
-        "function": lambda: options.ACT(game_area, keys, tick, stage_history),
+        "function": lambda: options.act(game_area, keys, tick, stage_history),
         "special": {
-            "remake_display": make_disp
+            "remake_display": make_display
         }
     },
     "about": {
-        "function": lambda: about.ACT(game_area, tick, keys, mb, mx, my)
+        "function": lambda: about.act(game_area, tick, keys, mb, mx, my)
     },
     "updates": {
-        "function": lambda: updates_stage.ACT(game_area, tick, keys, mx, my)
+        "function": lambda: updates_stage.act(game_area, tick, keys, mx, my)
     },
     "howtoplay": {
-        "function": lambda: howtoplay.ACT(game_area, keys, tick)
+        "function": lambda: howtoplay.act(game_area, keys, tick)
     },
     "begin": {
-        "function": lambda: begin.ACT(game_area, keys, tick)
+        "function": lambda: begin.act(game_area, keys, tick)
     },
     "tips": {
-        "function": lambda: tips.ACT(game_area, keys, tick)
+        "function": lambda: tips.act(game_area, keys, tick)
     }
 }
 
-running = True
 
+running = True
 while running:
     try:
-        # Update dynamic variables
         mx, my = pg.mouse.get_pos()
         keys = pg.key.get_pressed()
         fps = int(clock.get_fps())
         mb = pg.mouse.get_pressed()
         tick += 1
         nc_tick += 1
-
         # Poll for events
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 running = False
-                etc.CLOSE()
-
+                etc.close()
         # Wipe surfaces
-        rsurface.fill(mgv.COLOURS[0])
-        game_area.fill(mgv.COLOURS[0])
-
-        #* Stage handler
-        new_stage = STAGE_DATA[stage]["function"]()
+        rsurface.fill(mgv.colours[1])
+        game_area.fill(mgv.colours[1])
+        # Stage handler
+        new_stage = STAGES[stage]["function"]()
         if new_stage is not None:
-            if "special" in STAGE_DATA[stage] and new_stage in STAGE_DATA[stage]["special"]:
-                STAGE_DATA[stage]["special"][new_stage]()
+            if "special" in STAGES[stage] \
+               and new_stage in STAGES[stage]["special"]:
+                STAGES[stage]["special"][new_stage]()
             else:
-                if new_stage in STAGE_DATA:
+                if new_stage in STAGES:
                     cprint("info", f"Switching to stage: {new_stage}")
                     tick = 0
                     stage = new_stage
                     stage_history.append(stage)
                     music.switch_music(stage)
-                    B.BTX = f"Set stage to {new_stage}."
-
-        # Add metrics
-        #TODO: This needs to go into a seperate module.
-        text = ast.ASSETS["font1"].render(f"FPS: {fps} - Tick: {tick} - Mouse: {mx}, {my}", False, mgv.COLOURS[18])
-        rsurface.blit(text, (2, 2))
-
-        # Add front-layered objects
-        if wintop.ACT(rsurface, tick, mx, my, mb):  # Window buttons
-            make_disp()
-        # B.BTX
-        text = ast.ASSETS["font1"].render(B.BTX, False, mgv.COLOURS[18])
-        rsurface.blit(text, (1, 138)) 
-
+                    B.bottom_text = f"Set stage to {new_stage}."
         # Render all
-        rsurface.blit(game_area, (0, 8)) # Add content
-        rsurface.blit(mgv.mice[str(S['mouse-theme'])], (mx, my))  # Mouse
-
+        if wintop.act(rsurface, fps, tick, mx, my, mb):  # See line 41
+            make_display()
+        rsurface.blit(game_area, (0, 8))  # Content
+        rsurface.blit(
+            mgv.mice[str(save_data['mouse-theme'])], (mx, my))  # Mouse
         # Scale
         scaled_surface = pg.transform.scale(rsurface, winsize)
         screen.blit(scaled_surface, (0, 0))
-
         # Loop ending
-        screenshot.ACT(keys, rsurface, nc_tick)
+        screenshot.act(keys, rsurface, nc_tick)
         pg.display.flip()
         clock.tick(30)   # Limit FPS to 30
 
-    except KeyboardInterrupt: # Except ^C
+    except KeyboardInterrupt:  # Except ^C
         print()
         cprint("warn", "Game interrupted by ^C.")
-        etc.CLOSE()
+        etc.close()
 
 pg.quit()

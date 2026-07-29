@@ -20,8 +20,8 @@ def ACT(rsurface, keys, tick):
 
     # Show top text
     text_y = 4
-    text_surf = ast.ASSETS['font1'].render(
-        "Select Game Type:", False, mgv.COLOURS[18], mgv.COLOURS[0]
+    text_surf = ast.assets_data['font1'].render(
+        "Select Game Type:", False, mgv.colours[19], mgv.colours[1]
     )
     rsurface.blit(
         text_surf, (etc.centrexy(text_surf, onecoord='x'), text_y)
@@ -31,16 +31,16 @@ def ACT(rsurface, keys, tick):
     if keys[pg.K_RIGHT] and etc.srp(tick, lkpt):
         sel += 1
         lkpt = tick
-        ast.ASSETS['mainaud/blip'].play()
+        ast.assets_data['mainaud/blip'].play()
     elif keys[pg.K_LEFT] and etc.srp(tick, lkpt):
         sel -= 1
         lkpt = tick
-        ast.ASSETS['mainaud/blip'].play()
+        ast.assets_data['mainaud/blip'].play()
     sel = max(1, min(sel, 3))
 
     # Options
     # Base variables
-    opt_y = etc.centrexy(ast.ASSETS['game/normal_game'], onecoord='y')
+    opt_y = etc.centrexy(ast.assets_data['game/normal_game'], onecoord='y')
     base_x_offset = 11
     options = ["normal_game", "2d", "back"]
     return_chart = {
@@ -56,16 +56,16 @@ def ACT(rsurface, keys, tick):
         # Get position
         y = opt_y - 2 if sel == count else opt_y
         x = base_x_offset + (
-            ast.ASSETS['game/normal_game'].get_width() * 
+            ast.assets_data['game/normal_game'].get_width() * 
             0.75 * 
             (count - 1)
         ) - ( count * closeness )
         # Render
-        rsurface.blit(ast.ASSETS[f"game/{i}"], (x, y))
+        rsurface.blit(ast.assets_data[f"game/{i}"], (x, y))
         # Act
         if keys[pg.K_RETURN] and etc.srp(tick, lkpt) and sel == count:
             lkpt = tick
-            ast.ASSETS['mainaud/blip'].play()
+            ast.assets_data['mainaud/blip'].play()
             game_type = i
             return return_chart[i]
 

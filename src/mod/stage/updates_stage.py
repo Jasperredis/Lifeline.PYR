@@ -1,13 +1,11 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 # Lifeline.PYR v1.1-dev
 
-from cerbose import cprint
 import pygame as pg
 import webbrowser
 import mod.core.assets as ast
 from mod.core import updates
-from mod.core.save import S
+from mod.core.save import save_data
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
 
@@ -19,7 +17,8 @@ others_current = 0
 contentbox_sprite = 1
 contentbox_last_change = 0
 
-def ACT(rsurface, tick, keys, mx, my):
+
+def act(rsurface, tick, keys, mx, my):
     global lkpt, sel, scroll, PAGE_ON, others_tab, others_current, contentbox_sprite, contentbox_last_change
 
     contentbox_change_delay = 90
@@ -34,17 +33,17 @@ def ACT(rsurface, tick, keys, mx, my):
         contentbox_last_change = tick
 
     # Render bg
-    rsurface.blit(mgv.BGS[str(S["bg"])], (0, 0))
+    rsurface.blit(mgv.bgs[str(save_data["bg"])], (0, 0))
     # Render images
     rsurface.blit(
-        ast.ASSETS["title/title"],
-        (etc.centrexy(ast.ASSETS["title/title"], onecoord="x"), 1),
+        ast.assets_data["title/title"],
+        (etc.centrexy(ast.assets_data["title/title"], onecoord="x"), 1),
     )
     rsurface.blit(
-        ast.ASSETS[f"updates/contentbox{contentbox_sprite}"],
+        ast.assets_data[f"updates/contentbox{contentbox_sprite}"],
         (
-            etc.centrexy(ast.ASSETS["updates/contentbox1"], onecoord="x"),
-            ast.ASSETS["title/title"].get_height() + 3,
+            etc.centrexy(ast.assets_data["updates/contentbox1"], onecoord="x"),
+            ast.assets_data["title/title"].get_height() + 3,
         ),
     )
     # Add buttons
@@ -54,20 +53,20 @@ def ACT(rsurface, tick, keys, mx, my):
     # Button data
     buttons = [
         {
-            "asset": ast.ASSETS["updates/exit"],
+            "asset": ast.assets_data["updates/exit"],
             "x": global_offset,
         },
         {
-            "asset": ast.ASSETS["updates/others"],
-            "x": global_offset + padding + ast.ASSETS["updates/exit"].get_width()
+            "asset": ast.assets_data["updates/others"],
+            "x": global_offset + padding + ast.assets_data["updates/exit"].get_width()
         },
         {
-            "asset": ast.ASSETS["updates/install"],
-            "x": global_offset + (padding * 2) + ast.ASSETS["updates/exit"].get_width() + ast.ASSETS["updates/install"].get_width()
+            "asset": ast.assets_data["updates/install"],
+            "x": global_offset + (padding * 2) + ast.assets_data["updates/exit"].get_width() + ast.assets_data["updates/install"].get_width()
         },
         {
-            "asset": ast.ASSETS["updates/refresh"],
-            "x": global_offset + (padding * 3) + ast.ASSETS["updates/exit"].get_width() + (ast.ASSETS["updates/install"].get_width() * 2)
+            "asset": ast.assets_data["updates/refresh"],
+            "x": global_offset + (padding * 3) + ast.assets_data["updates/exit"].get_width() + (ast.assets_data["updates/install"].get_width() * 2)
         }
     ]
     i = 0
@@ -80,16 +79,16 @@ def ACT(rsurface, tick, keys, mx, my):
     if keys[pg.K_RIGHT] and etc.srp(tick, lkpt):
         sel += 1
         lkpt = tick
-        ast.ASSETS['mainaud/blip'].play()
+        ast.assets_data['mainaud/blip'].play()
     elif keys[pg.K_LEFT] and etc.srp(tick, lkpt):
         sel -= 1
         lkpt = tick
-        ast.ASSETS['mainaud/blip'].play()
+        ast.assets_data['mainaud/blip'].play()
     sel = max(1, min(sel, len(buttons)))
     # Select
     if keys[pg.K_RETURN] and etc.srp(tick, lkpt):
         lkpt = tick
-        ast.ASSETS['mainaud/blip'].play()
+        ast.assets_data['mainaud/blip'].play()
         if sel == 1:
             return "title"
         elif sel == 2:
@@ -101,22 +100,22 @@ def ACT(rsurface, tick, keys, mx, my):
     # Render update content
     if updates.UPDATA == "failed":
         rsurface.blit(
-            ast.ASSETS['updates/nonetwork'],
+            ast.assets_data['updates/nonetwork'],
             (
-                etc.centrexy(ast.ASSETS['updates/nonetwork'], onecoord='x'),
-                ast.ASSETS["title/title"].get_height() + 15, 
+                etc.centrexy(ast.assets_data['updates/nonetwork'], onecoord='x'),
+                ast.assets_data["title/title"].get_height() + 15, 
             )
         )
     else:
         #* Render text
         # Header
         header_text = f"{PAGE_ON['title']} | V{PAGE_ON['version']}"
-        header_surf = ast.ASSETS['font1'].render(header_text, False, mgv.COLOURS[18])
+        header_surf = ast.assets_data['font1'].render(header_text, False, mgv.colours[19])
         rsurface.blit(
             header_surf, 
             (
                 etc.centrexy(header_surf, onecoord='x'), 
-                ast.ASSETS["title/title"].get_height() + 5
+                ast.assets_data["title/title"].get_height() + 5
             ),
         )
         
@@ -143,11 +142,11 @@ def ACT(rsurface, tick, keys, mx, my):
             scrolled_desc_text = back_desc_text[:max_line_length]
         else:
             scrolled_desc_text = back_desc_text
-        desc_x = etc.centrexy(ast.ASSETS["updates/contentbox1"], onecoord="x") + 2
-        desc_y = ast.ASSETS["title/title"].get_height() + 13
+        desc_x = etc.centrexy(ast.assets_data["updates/contentbox1"], onecoord="x") + 2
+        desc_y = ast.assets_data["title/title"].get_height() + 13
         for line in scrolled_desc_text:
-            text_surf = ast.ASSETS['font1'].render(
-                line, False, mgv.COLOURS[18]
+            text_surf = ast.assets_data['font1'].render(
+                line, False, mgv.colours[19]
             )
             rsurface.blit(text_surf, (desc_x, desc_y))
             desc_y += 6
@@ -177,7 +176,7 @@ def ACT(rsurface, tick, keys, mx, my):
                 others_current += 1
                 others_current = max(1, min(others_current, max(updates.UPDATA) - 1))
                 PAGE_ON = updates.get_spec(others_current)
-                lkpt = tick                
+                lkpt = tick
 
         # Sample update data for reference
         # {'title': 'test123', 

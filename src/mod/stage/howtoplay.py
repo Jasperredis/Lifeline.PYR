@@ -1,10 +1,9 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 # Lifeline.PYR v1.1-dev
 
 import pygame as pg
 import mod.core.assets as ast
-from mod.core.save import S
+from mod.core.save import save_data
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
 
@@ -21,7 +20,7 @@ TEXTS = {
         "the letter R) is you, the player. In",
         "gameplay, you can use the [A] key to move",
         "left, and [D] to move right.",
-        "You can also hold [S] to slow down for",
+        "You can also hold [save_data] to slow down for",
         "precision.", "",
         "|howtoplay/life",
         "This is your life. Each green orb",
@@ -57,7 +56,7 @@ TEXTS = {
         "invincible for 2 seconds, but you also",
         "cannot collect heals during this time.",
         "You can end the jump early by pressing",
-        "[S]. The jump takes 10 seconds to",
+        "[save_data]. The jump takes 10 seconds to",
         "recharge.", "",
         "|howtoplay/dash",
         "This is your dash bar. It ranges from 0 to",
@@ -132,7 +131,7 @@ TEXTS = {
         "Along with that, some controls are",
         "different:",
         "Move up: W",
-        "Move down: S",
+        "Move down: save_data",
         "Move left (not different, refresher): [A]",
         "Move right (not different, refresher): [D]",
         "Jump: Up arrow",
@@ -149,11 +148,12 @@ TEXTS = {
 
 text_y, tab, lkpt = 2, 0, 0
 
-def ACT(rsurface, keys, tick):
+
+def act(rsurface, keys, tick):
     global TEXT, text_y, tab, lkpt
     text_y_min = 2
 
-    THEME = mgv.THEMES[S['htp-theme']]
+    THEME = mgv.themes[save_data['htp-theme']]
     rsurface.fill(THEME['bg'])
 
     if lkpt > tick:
@@ -177,33 +177,34 @@ def ACT(rsurface, keys, tick):
 
     TEXT = TEXTS[tab]
 
-    etc.make_fullscreen_scroll_text(rsurface, TEXT, text_y + 10, THEME, specialty_render="images")
+    etc.make_fullscreen_scroll_text(
+        rsurface, TEXT, text_y + 10, THEME, specialty_render="images")
     # Note: text_y gets 10 added to account for the tab bar being in the way.
     # Bottom text
-    bottom_border_rect = pg.Rect(0, rsurface.get_height() - 7, rsurface.get_width(), 7)
-    pg.draw.rect(rsurface, mgv.COLOURS[0], bottom_border_rect)
-    text_surf = ast.ASSETS['font1'].render(
-        "Press [X] to exit.", False, mgv.COLOURS[18]
+    bottom_border_rect = pg.Rect(
+        0, rsurface.get_height() - 7, rsurface.get_width(), 7)
+    pg.draw.rect(rsurface, mgv.colours[1], bottom_border_rect)
+    text_surf = ast.assets_data['font1'].render(
+        "Press [X] to exit.", False, mgv.colours[19]
     )
     rsurface.blit(text_surf, (1, rsurface.get_height() - 6))
 
     # Render tabs (yoinked from about.py, wink)
     tab_box = pg.Rect(0, 0, rsurface.get_width(), 9)
     tab_box_border = pg.Rect(0, 9, rsurface.get_width(), 1)
-    pg.draw.rect(rsurface, mgv.COLOURS[2], tab_box)
-    pg.draw.rect(rsurface, mgv.COLOURS[18], tab_box_border)
+    pg.draw.rect(rsurface, mgv.colours[3], tab_box)
+    pg.draw.rect(rsurface, mgv.colours[19], tab_box_border)
     tabs = ["1D", "2D"]
     for i in range(len(tabs)):
         x_pos = 3
         for j in tabs[:i]:
             x_pos += ((len(j) * 6) + 3)
         col = 15 if i == tab else 18
-        text_surf = ast.ASSETS['font1'].render(
-            tabs[i], False, mgv.COLOURS[col]
+        text_surf = ast.assets_data['font1'].render(
+            tabs[i], False, mgv.colours[col]
         )
         rsurface.blit(text_surf, (x_pos, 2))
 
-
     if keys[pg.K_x]:
-        ast.ASSETS['mainaud/blip'].play()
+        ast.assets_data['mainaud/blip'].play()
         return "title"

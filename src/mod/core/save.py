@@ -1,41 +1,82 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 # Lifeline.PYR v1.1-dev
 
-from cerbose import cprint, mprint, cerbar
+from cerbose import cprint
 from datetime import datetime
-import yaml
-import sys
-from mod.core import args
+import json
+import os
 import mod.etc.BTXT as B
 
-args.cprint_iv("proc", "Loading save...")
-try:
-    with open('save.yaml', 'r') as f: # Read and parse save.yaml
-        DATA = f.read()
-    args.cprint_iv("ok", "Opened and read save!")
-    S = yaml.safe_load(DATA) #* SAVE DATA!!!
-    args.cprint_iv("ok", "Fully loaded save!")
-except Exception as e:
-    cprint("fatal", f"Could not read save because: {e}.", logfile="logs/errors.txt", timestamp=True)
-    cprint("debug", "Press [RETURN] to exit.")
-    input()
-    sys.exit()
+DEFAULT_SAVE = {
+    "bg": 1,
+    "dif": 1,
+    "fullscreen": False,
+    "high": 0,
+    "htp-theme": 1,
+    "indicators": True,
+    "inertia": True,
+    "keybinds": {
+        "game-1d-jump": "w",
+        "game-1d-slow": "s",
+        "game-1d-stop-jump": "s",
+        "game-2d-jump": "UP",
+        "game-2d-move-down": "s",
+        "game-2d-move-up": "w",
+        "game-2d-slow": "DOWN",
+        "game-2d-stop-jump": "DOWN",
+        "game-move-left": "a",
+        "game-move-right": "d",
+        "game-pause": "ESCAPE",
+        "menu-decrease": "RIGHT",
+        "menu-down": "DOWN",
+        "menu-exit": "x",
+        "menu-increase": "LEFT",
+        "menu-left": "LEFT",
+        "menu-right": "RIGHT",
+        "menu-up": "UP",
+        "screenshot": "F12",
+        "select": "RETURN",
+    },
+    "mouse-move": False,
+    "mouse-theme": 1,
+    "ost": 1,
+    "palette": 1,
+    "played": 0,
+    "seen_begin": False,
+    "seenup": False,
+    "total": 0,
+    "velocity-icon": False,
+    "winscale": 4,
+}
 
-def wr(sv): # Write the save to save.yaml
-    """
-    Writes to the save file. Arguments:
-    - sv (dict): Save data.
-    """
+cprint("proc", "Loading save...")
+try:
+    with open('save.json', 'r') as f:  # Read and parse save.json
+        save_data = json.load(f)  # Save data variable!!!
+    cprint("ok", "Loaded save!")
+except FileNotFoundError:  # Write new save if save is not found
+    with open('save.json', 'w') as f:
+        json.dump(DEFAULT_SAVE, f)
+    save_data = DEFAULT_SAVE
+    cprint("info", "Save not found; Wrote new save.")
+
+
+def write_save(save_data):  # Write the save to save.json
     cprint("proc", "Writing save...")
+    time = datetime.now()
     try:
-        with open('save.yaml', 'w') as f:
-            yaml.dump(sv, f)
+        with open('save.json', 'w') as f:
+            json.dump(save_data, f)
         cprint("ok", "Wrote save!")
-        time = datetime.now()
-        B.BTX = f"Updated save at {time.hour}:{time.minute}:{time.second}."
+        B.bottom_text = \
+            f"Updated save at {time.hour}:{time.minute}:{time.second}."
+
     except Exception as e:
-        cprint("error", f"Could not write save because: {e}", logfile="logs/errors.txt", timestamp=True)
-        cprint("warn", f"The game can continue, but it cannot write your save. Below, your save that would have been written will be show:")
-        mprint("debug", f"Save:\n{sv}", logfile="logs/errors.txt", timestamp=True)
-        B.BTX = "Check logs/errors.txt NOW!"
+        ERROR_MSG = f"""
+=== SAVE ERROR AT {time.hour}:{time.minute}:{time.second} ===
+Could not write save because of an unknown error:\n{e}\n
+Below is the save that would have been writen:\n{save_data}\n
+        """
+        B.bottom_text = "Save failure; see logs/errors.txt."
+        with open(os.path.join("logs", "errors.txt"), 'a') as f:
+            f.write(ERROR_MSG)

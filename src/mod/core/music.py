@@ -1,17 +1,16 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 # Lifeline.PYR v1.1-dev
 
 from cerbose import cprint
 import pygame as pg
 import mod.core.assets as ast
-from mod.core.save import S
+from mod.core.save import save_data
 import mod.etc.BTXT as B
 
 pg.mixer.init()
 
-MUSIC = ast.ASSETS['music/main']
-CURRENT = ""
+music = ast.assets_data['music/main']
+current = ""
 
 MUSIC_DATA = {
     1: {
@@ -66,24 +65,21 @@ MUSIC_DATA = {
     }
 }
 
-def switch_music(stage):
-    """
-    The name is self-explanatory. Arguments:
-    - stage (str): The stage it currently is; determines the track.
-    """
-    global CURRENT, MUSIC, MUSIC_DATA
 
-    stage_val = MUSIC_DATA[S['ost']][stage]
+def switch_music(stage):
+    global current, music
+
+    stage_val = MUSIC_DATA[save_data['ost']][stage]
     track_name = stage_val() if callable(stage_val) else stage_val
 
-    if track_name != CURRENT:
+    if track_name != current:
         music_temp = f"music/{track_name}"
-        if music_temp in ast.ASSETS:
-            MUSIC.stop()
-            MUSIC = ast.ASSETS[music_temp]
-            CURRENT = track_name
-            if CURRENT != None:
-                MUSIC.play(loops=-1)
+        if music_temp in ast.assets_data:
+            music.stop()
+            music = ast.assets_data[music_temp]
+            current = track_name
+            if current is not None:
+                music.play(loops=-1)
         else:
             cprint("error", f"Track for {stage} does not exist.")
-            B.BTX = f"Track for \"{stage}\" does not exist!"
+            B.bottom_text = f"Track for \"{stage}\" does not exist!"

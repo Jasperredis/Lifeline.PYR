@@ -4,7 +4,7 @@
 
 import pygame as pg
 import mod.core.assets as ast
-from mod.core.save import S, wr
+from mod.core.save import save_data, write_save
 import mod.etc.etcils as etc
 
 lkpt, sel = 0, 1
@@ -16,7 +16,7 @@ def do_pause(rsurface, keys, tick, GAMEDATA):
         lkpt = 0
 
     # Render
-    rsurface.blit(ast.ASSETS["game/pause"], etc.centrexy(ast.ASSETS["game/pause"]))
+    rsurface.blit(ast.assets_data["game/pause"], etc.centrexy(ast.assets_data["game/pause"]))
     etc.MKTX(rsurface, sel, 1, "RESUME", "game")
     etc.MKTX(rsurface, sel, 2, "RESTART", "game")
     etc.MKTX(rsurface, sel, 3, "OPTIONS", "game")
@@ -26,13 +26,13 @@ def do_pause(rsurface, keys, tick, GAMEDATA):
     if keys[pg.K_UP] and etc.srp(tick, lkpt):
         sel -= 1
         lkpt = tick
-        ast.ASSETS["mainaud/blip"].play()
+        ast.assets_data["mainaud/blip"].play()
     elif keys[pg.K_DOWN] and etc.srp(tick, lkpt):
         sel += 1
         lkpt = tick
-        ast.ASSETS["mainaud/blip"].play()
+        ast.assets_data["mainaud/blip"].play()
     elif keys[pg.K_RETURN] and etc.srp(tick, lkpt):
-        ast.ASSETS["mainaud/blip"].play()
+        ast.assets_data["mainaud/blip"].play()
         if sel == 1:
             GAMEDATA["paused"] = False
             return GAMEDATA
@@ -40,11 +40,11 @@ def do_pause(rsurface, keys, tick, GAMEDATA):
             sel = 1
             return "restart"
         elif sel == 3:
-            wr(S)
+            write_save(save_data)
             lkpt = 0
             return "options"
         else:
-            wr(S)
+            write_save(save_data)
             lkpt = 0
             return "back"
         lkpt = tick

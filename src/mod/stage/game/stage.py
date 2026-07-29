@@ -3,7 +3,7 @@
 # Lifeline.PYR v1.1-dev
 
 import pygame as pg
-from mod.core.save import S, wr 
+from mod.core.save import save_data, write_save 
 import mod.core.assets as ast
 from mod.stage.game import select
 from mod.stage.game.game import game
@@ -12,10 +12,10 @@ import mod.etc.magicvars as mgv
 main_stage = "select"
 lkpt = 0
 
-def ACT(rsurface, keys, tick, mx, my, mb):
+def act(rsurface, keys, tick, mx, my, mb):
     global main_stage
 
-    rsurface.blit(mgv.BGS[str(S["bg"])], (0, 0))
+    rsurface.blit(mgv.bgs[str(save_data["bg"])], (0, 0))
 
     if main_stage == "select":
         main_stage = select.ACT(rsurface, keys, tick)

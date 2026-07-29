@@ -6,7 +6,7 @@ import pygame as pg
 import random as rd
 import math
 import mod.core.assets as ast
-from mod.core.save import S
+from mod.core.save import save_data
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
 from mod.stage.game.game import constants as con
@@ -58,21 +58,21 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
         )
         # Render
         if select.game_type != "2d":
-            pg.draw.rect(rsurface, mgv.COLOURS[11], i)
+            pg.draw.rect(rsurface, mgv.colours[12], i)
         else:
-            rsurface.blit(ast.ASSETS["game/enemy_2d"], (enemy["x"], enemy["y"]))
+            rsurface.blit(ast.assets_data["game/enemy_2d"], (enemy["x"], enemy["y"]))
         # Collisions
         if not GAMEDATA["paused"] and plr.colliderect(i):
             if not GAMEDATA["iframe"]:
                 GAMEDATA["life"] -= 1
                 GAMEDATA["iframe"] = True
                 GAMEDATA["last_iframe_time"] = tick
-                ast.ASSETS["gameaud/hurt"].play()
+                ast.assets_data["gameaud/hurt"].play()
         else:
             new_enemies.append({"x": enemy["x"], "y": enemy["y"]})
-        if S['indicators']:
+        if save_data['indicators']:
             rsurface.blit(
-                ast.ASSETS['game/enemy_indicator'], 
+                ast.assets_data['game/enemy_indicator'], 
                 (enemy["x"] - 1, enemy["y"] - con.enemy_indicator_offset + (2 if select.game_type == "2d" else 0))
             )
 
@@ -85,18 +85,18 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
         )
         # Render
         if select.game_type != "2d":
-            pg.draw.rect(rsurface, mgv.COLOURS[10], i)
+            pg.draw.rect(rsurface, mgv.colours[11], i)
         else:
-            rsurface.blit(ast.ASSETS["game/heal_2d"], (heal["x"], heal["y"]))
+            rsurface.blit(ast.assets_data["game/heal_2d"], (heal["x"], heal["y"]))
         # Collisions
         if not GAMEDATA["paused"] and plr.colliderect(i):
             GAMEDATA["life"] += 1
-            ast.ASSETS["gameaud/heal"].play()
+            ast.assets_data["gameaud/heal"].play()
         else:
             new_heals.append({"x": heal["x"], "y": heal["y"]})
-        if S['indicators']:
+        if save_data['indicators']:
             rsurface.blit(
-                ast.ASSETS['game/heal_indicator'], 
+                ast.assets_data['game/heal_indicator'], 
                 (heal["x"] - 1, heal["y"] - con.heal_indicator_offset + (2 if select.game_type == "2d" else 0))
             )
             
@@ -123,24 +123,24 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
     new_falls = []
     for fall in GAMEDATA["falls"]:
         # Create rect
-        fall_rect = ast.ASSETS[f"game/{fall['type']}"].get_rect()
+        fall_rect = ast.assets_data[f"game/{fall['type']}"].get_rect()
         fall["y"] += 2 if not GAMEDATA["paused"] else 0
         fall_rect.x, fall_rect.y = fall["x"], fall["y"]
-        rsurface.blit(ast.ASSETS[f"game/{fall['type']}"], fall_rect) # Render
+        rsurface.blit(ast.assets_data[f"game/{fall['type']}"], fall_rect) # Render
         # Collisions
         if not GAMEDATA["paused"] and plr.colliderect(fall_rect):
             if fall["type"] == "clear_enemies":
-                ast.ASSETS["gameaud/jump"].play()
+                ast.assets_data["gameaud/jump"].play()
                 GAMEDATA["enemies"] = []
             elif fall["type"] == "max_life":
-                ast.ASSETS["gameaud/heal"].play()
+                ast.assets_data["gameaud/heal"].play()
                 GAMEDATA["life"] = 5
             elif fall["type"] == "max_jump":
-                ast.ASSETS["gameaud/jump"].play()
+                ast.assets_data["gameaud/jump"].play()
                 GAMEDATA["last_jump"] = con.jump_init
             else:
                 GAMEDATA["life"] = 0
-                ast.ASSETS["gameaud/falling_obj_kill"].play()
+                ast.assets_data["gameaud/falling_obj_kill"].play()
         else:
             new_falls.append(fall)
     GAMEDATA["falls"] = new_falls
@@ -156,7 +156,7 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
                 "frame": 2
             }
         )
-        ast.ASSETS["gameaud/laser_warn"].play()
+        ast.assets_data["gameaud/laser_warn"].play()
 
     # Handle lasers
     new_lasers = []
@@ -167,21 +167,21 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
                     if tick - laser["start_time"] >= con.laser_fire_time:
                         laser["fired"] =  True
                         laser["fire_time"] = tick
-                        ast.ASSETS["gameaud/laser_strike"].play()
+                        ast.assets_data["gameaud/laser_strike"].play()
                     else:
                         rsurface.blit(
-                            ast.ASSETS["game/laser_warn"],
-                            (laser["x"] - 2, con.laser_warn_y_pos - ast.ASSETS["game/laser_warn"].get_height())
+                            ast.assets_data["game/laser_warn"],
+                            (laser["x"] - 2, con.laser_warn_y_pos - ast.assets_data["game/laser_warn"].get_height())
                         )
                     new_lasers.append(laser)
                 else:
-                    laser_rect = ast.ASSETS["game/laser_1_top"].get_rect()
+                    laser_rect = ast.assets_data["game/laser_1_top"].get_rect()
                     laser_rect.x, laser_rect.y = laser["x"], 0
-                    rsurface.blit(ast.ASSETS[f"game/laser_{laser['frame']}_top"], laser_rect)
+                    rsurface.blit(ast.assets_data[f"game/laser_{laser['frame']}_top"], laser_rect)
                     laser_rect.height = rsurface.get_height()
                     rsurface.blit(
-                        ast.ASSETS[f"game/laser_{laser['frame']}_bottom"],
-                        (laser["x"] - 2, ast.ASSETS["game/laser_1_top"].get_height())
+                        ast.assets_data[f"game/laser_{laser['frame']}_bottom"],
+                        (laser["x"] - 2, ast.assets_data["game/laser_1_top"].get_height())
                     )
                     if tick - laser["last_frame_change"] >= con.laser_frame_interval:
                        laser["frame"] = 1 if laser["frame"] == 2 else 2
@@ -192,7 +192,7 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
                         new_lasers.append(laser)
                 if tick - laser["start_time"] >= con.laser_fire_time and tick - laser["start_time"] <= con.laser_flash_time:
                     flash_rect = pg.Rect(0, 0, rsurface.get_width(), rsurface.get_height())
-                    pg.draw.rect(rsurface, mgv.COLOURS[18], flash_rect)
+                    pg.draw.rect(rsurface, mgv.colours[19], flash_rect)
         else:
             laser["start_time"] += 1
             laser["last_frame_change"] += 1

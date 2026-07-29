@@ -4,7 +4,7 @@
 
 import pygame as pg
 import mod.core.assets as ast
-from mod.core.save import S
+from mod.core.save import save_data
 from mod.stage.game.game import constants as con
 from mod.stage.game import select
 
@@ -24,7 +24,7 @@ def take_input(GAMEDATA, keys, tick, mx, my, mb):
             GAMEDATA["dash"] -= con.dash_decrement
             if GAMEDATA["dash"] > con.dash_functioning_min:
                 plrx_mod *= con.dash_multiplier
-                ast.ASSETS['gameaud/dash'].play()
+                ast.assets_data['gameaud/dash'].play()
         else:
             GAMEDATA["dash"] += con.dash_constant_increment
         GAMEDATA["dash"] = max(0, min(GAMEDATA["dash"], con.dash_max))
@@ -37,30 +37,30 @@ def take_input(GAMEDATA, keys, tick, mx, my, mb):
                 GAMEDATA["dash"] -= con.dash_decrement
                 if GAMEDATA["dash"] > con.dash_functioning_min:
                     plry_mod *= con.dash_multiplier
-                    ast.ASSETS['gameaud/dash'].play()
+                    ast.assets_data['gameaud/dash'].play()
             else:
                 GAMEDATA["dash"] += con.dash_constant_increment
             GAMEDATA["dash"] = max(0, min(GAMEDATA["dash"], con.dash_max))
 
         # Inertia
-        if S["inertia"]:
+        if save_data["inertia"]:
             plrx_mod /= con.inertia_base_plrx_divisor
-            if (keys[pg.K_a] and not S["mouse-move"]) or (
-                mx < (GAMEDATA["plrx"] + 10) and mb[0] and S["mouse-move"]
+            if (keys[pg.K_a] and not save_data["mouse-move"]) or (
+                mx < (GAMEDATA["plrx"] + 10) and mb[0] and save_data["mouse-move"]
             ):
                 GAMEDATA["velocity"] -= plrx_mod
-            if (keys[pg.K_d] and not S["mouse-move"]) or (
-                mx > (GAMEDATA["plrx"] - 10) and mb[0] and S["mouse-move"]
+            if (keys[pg.K_d] and not save_data["mouse-move"]) or (
+                mx > (GAMEDATA["plrx"] - 10) and mb[0] and save_data["mouse-move"]
             ):
                 GAMEDATA["velocity"] += plrx_mod
             if select.game_type == "2d":
                 plry_mod /= con.inertia_base_plrx_divisor
-                if (keys[pg.K_w] and not S["mouse-move"]) or (
-                    my < (GAMEDATA["plry"] + 10) and mb[0] and S["mouse-move"]
+                if (keys[pg.K_w] and not save_data["mouse-move"]) or (
+                    my < (GAMEDATA["plry"] + 10) and mb[0] and save_data["mouse-move"]
                 ):
                     GAMEDATA["velocity_y"] -= plry_mod
-                if (keys[pg.K_s] and not S["mouse-move"]) or (
-                    my > (GAMEDATA["plry"] - 10) and mb[0] and S["mouse-move"]
+                if (keys[pg.K_s] and not save_data["mouse-move"]) or (
+                    my > (GAMEDATA["plry"] - 10) and mb[0] and save_data["mouse-move"]
                 ):
                     GAMEDATA["velocity_y"] += plry_mod
             GAMEDATA["plrx"] += GAMEDATA["velocity"]
@@ -74,12 +74,12 @@ def take_input(GAMEDATA, keys, tick, mx, my, mb):
                 else GAMEDATA["velocity_y"] / con.inertia_divisor_norm
             )
         else:  # No inertia
-            if (keys[pg.K_a] and not S["mouse-move"]) or (
-                mx < GAMEDATA["plrx"] and mb[0] and S["mouse-move"]
+            if (keys[pg.K_a] and not save_data["mouse-move"]) or (
+                mx < GAMEDATA["plrx"] and mb[0] and save_data["mouse-move"]
             ):
                 GAMEDATA["plrx"] -= plrx_mod
-            if (keys[pg.K_d] and not S["mouse-move"]) or (
-                mx > GAMEDATA["plrx"] and mb[0] and S["mouse-move"]
+            if (keys[pg.K_d] and not save_data["mouse-move"]) or (
+                mx > GAMEDATA["plrx"] and mb[0] and save_data["mouse-move"]
             ):
                 GAMEDATA["plrx"] += plrx_mod
             if select.game_type == "2d":
@@ -95,17 +95,17 @@ def take_input(GAMEDATA, keys, tick, mx, my, mb):
         if GAMEDATA["jumping"] and (tick - GAMEDATA["last_jump"]) >= \
            con.jump_tick_end or GAMEDATA["jumping"] and slow_key:
             GAMEDATA["jumping"] = False
-            ast.ASSETS["gameaud/land"].play()
+            ast.assets_data["gameaud/land"].play()
         elif jump_key and (
             (tick - GAMEDATA["last_jump"]) >= con.jump_cooldown_time
         ):
             GAMEDATA["jumping"] = True
             GAMEDATA["last_jump"] = tick
-            ast.ASSETS["gameaud/jump"].play()
+            ast.assets_data["gameaud/jump"].play()
 
     # Pause
     if keys[pg.K_ESCAPE] and not GAMEDATA["paused"]:
-        ast.ASSETS["gameaud/pause"].play()
+        ast.assets_data["gameaud/pause"].play()
         GAMEDATA["paused"] = True
 
     # This must stay at the end!
