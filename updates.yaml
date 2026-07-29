@@ -1,30 +1,30 @@
 0:
-     title: How to Use this Tab
-     version: 1.0
-     date: x
-     install: https://lifelinepyr.jasperredis.net
-     desc: |
-       This is the Others tab.
-       Here, you can see previous
-       updates.
-       ---
-       Press [Q] or to see the next
-       oldest.
-       Press [E] or to see the next
-       newest.
-       Press [X] to leave this tab and
-       return to the most recent update.
-       Remember: Q, E, X.
-       ---
-       Press [SPACE] to get on to the
-       first page.
-       Warning: If there is only one
-       update availible, [SPACE] will
-       do nothing.
+    title: How to Use this Tab
+    version: 1.0
+    date: x
+    install: https://lifelinepyr.jasperredis.net
+    desc: |
+      This is the Others tab.
+      Here, you can see previous
+      updates.
+      ---
+      Press [Q] or to see the next
+      oldest.
+      Press [E] or to see the next
+      newest.
+      Press [X] to leave this tab and
+      return to the most recent update.
+      Remember: Q, E, X.
+      ---
+      Press [SPACE] to get on to the
+      first page.
+      Warning: If there is only one
+      update availible, [SPACE] will
+      do nothing.
 1:
     title: Release
     version: 1.0.1
-    date: 13-01-2026
+    date: 2026-06-04
     install: https://lifelinepyr.jasperredis.net
     desc: |
       Welcome to Lifeline.PYR! :3
@@ -44,3 +44,43 @@
       the game.
       
       Have fun! :3c
+2:
+    title: Update progress
+    version: 1.0.1
+    date: 2026-07-28
+    install: https://lifelinepyr.jasperredis.net
+    desc: |
+      The v1.1 update for Lifeline.PYR
+      has begun in progress! It
+      actually did that a bit before
+      this update, though I never
+      wrote anything about it.
+      (This is scrollable.)
+      
+      For updates on how that is
+      going, see the GitHub
+      repository (press the X, go to
+      ABOUT, scroll down and click GO
+      next to the text saying GitHub),
+      and find the dev branch, then
+      see the "DEVELOPMENT.org" file.
+
+      If you, however, do not want to
+      do that, I may occasionally log
+      changes here.
+
+      As of the most recent update,
+      there is now:
+      - Colour palettes (the new one,
+        "Canonical", is pretty)
+      - A slightly different life tick
+        sprite
+      - More tips
+      - Minor technical changes (good
+        ones)
+      - Possibly more? I'm honestly
+        not 100% sure, I'd have to
+        check.
+      
+      That's all for now!
+      Bye bye :3
