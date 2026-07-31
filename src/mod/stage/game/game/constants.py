@@ -1,9 +1,11 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 # Lifeline.PYR v1.1-dev
 
-# Import game module
 from mod.stage.game import select
+from mod.core import args
+import mod.etc.BTXT as B
+from cerbose import cprint
+import json
 
 # core_updates
 life_depletion_time = 60
@@ -17,17 +19,16 @@ heal_indicator_offset = 8
 falling_thing_chance = 1
 dire_falling_thing_chance = 3.5
 falling_powerup_chance = 10
+falling_scorer_chance = 25
 dire_falling_powerup_chance = 80
-falling_hazards = [
-    "ow_a", "ow_b"
-]
-falling_powerups = [
-    "max_life", "clear_enemies", "max_jump"
-]
+falling_hazards = ["ow_a", "ow_b"]
+falling_powerups = ["max_life", "clear_enemies", "max_jump"]
+falling_scorers = ["-50_pts", "25_pts", "50_pts", "100_pts"]
 falling_ignore_pref_chance = 10
-enemy_crowdedness = 12 # How many enemies needed until a clear_enemies powerup is considered
+enemy_crowdedness = 12  # How many enemies needed until a clear_enemies powerup
+                        # is considered
 falling_hazard_x_range = 55
-falling_object_init_y = -9 # Right above the screen
+falling_object_init_y = -9  # Right above the screen
 jump_init = -300
 laser_chance = 0.2
 laser_fire_time = 80
@@ -42,7 +43,7 @@ plrx_norm_mod = 3
 dash_decrement = 12
 dash_multiplier = 3.5
 dash_constant_increment = 0.7
-dash_max = 106 # Pixel length of the dash bar
+dash_max = 106  # Pixel length of the dash bar
 inertia_base_plrx_divisor = 3
 inertia_divisor_slow = 2
 inertia_divisor_norm = 5
@@ -56,10 +57,25 @@ pointer_y = 55
 # Global
 dash_functioning_min = 10
 
+
 # Game type dependent
 def do_depend():
     global x_min, x_max, y_min, y_max
     x_min = 4 if select.game_type == "normal_game" else 42
     x_max = 249 if select.game_type == "normal_game" else 211
     y_min = 64 if select.game_type == "normal_game" else 19
-    y_max = 64 if select.game_type == "normal_game" else 107   
+    y_max = 64 if select.game_type == "normal_game" else 107
+
+    # Additionally, check for constants to override
+    if args.constants_override:
+        try:
+            with open("constants.json", "r") as f:
+                override = json.load(f)
+            cprint("info", "Overriding constants.")
+            cprint("warn", "If the game crashes, it is your fault!")
+            for var in override:
+                globals()[var] = override[var]
+        except FileNotFoundError:
+            B.bottom_text = "Cannot override constants as file does not exist."
+            cprint("error",
+                   "Cannot override constants as file does not exist.")

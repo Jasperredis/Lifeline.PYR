@@ -1,4 +1,3 @@
-
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 # Lifeline.PYR -- A retro-style arcade game made by jasperredis.
@@ -17,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>
 
-# Lifeline.PYR v1.0.1
+# Lifeline.PYR v1.1-dev
 
 from cerbose import cprint
 import pygame as pg
@@ -25,15 +24,12 @@ from mod.core.save import save_data
 import mod.core.assets as ast
 import mod.core.args as args
 import mod.core.music as music
-import mod.stage.updates_stage as updates_stage
-import mod.stage.howtoplay as howtoplay
 import mod.stage.game.stage as game
 import mod.stage.options as options
 import mod.stage.title as title
-import mod.stage.about as about
+import mod.stage.license_stage as license_stage
 import mod.stage.intro as intro
 import mod.stage.begin as begin
-import mod.stage.tips as tips
 import mod.etc.screenshot as screenshot
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
@@ -97,20 +93,11 @@ STAGES = {
             "remake_display": make_display
         }
     },
-    "about": {
-        "function": lambda: about.act(game_area, tick, keys, mb, mx, my)
-    },
-    "updates": {
-        "function": lambda: updates_stage.act(game_area, tick, keys, mx, my)
-    },
-    "howtoplay": {
-        "function": lambda: howtoplay.act(game_area, keys, tick)
+    "license": {
+        "function": lambda: license_stage.act(game_area, screen, keys)
     },
     "begin": {
         "function": lambda: begin.act(game_area, keys, tick)
-    },
-    "tips": {
-        "function": lambda: tips.act(game_area, keys, tick)
     }
 }
 
@@ -119,6 +106,9 @@ running = True
 while running:
     try:
         mx, my = pg.mouse.get_pos()
+        if not save_data['fullscreen']:
+            mx //= save_data['winscale']
+            my //= save_data['winscale']
         keys = pg.key.get_pressed()
         fps = int(clock.get_fps())
         mb = pg.mouse.get_pressed()

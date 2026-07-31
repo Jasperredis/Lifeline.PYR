@@ -6,6 +6,7 @@ import sys
 
 no_intro = False
 no_updates = False
+constants_override = False
 
 # Get and translate args
 if len(sys.argv) >= 2:
@@ -14,5 +15,7 @@ if len(sys.argv) >= 2:
         no_intro = True
     if 'u' in args:
         no_updates = True
+    if 'c' in args:
+        constants_override = True
 else:
     cprint("info", "No args.")

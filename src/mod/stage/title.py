@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Lifeline.PYR v1.1-dev
 
-from cerbose import cprint
 import pygame as pg
-import sys
+import webbrowser
 import mod.core.assets as ast
 from mod.core.save import save_data
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
 import mod.etc.BTXT as B
 
-friction, sel, lkpt, stats, done_text, done_animation, show_cat = 1, 1, 0, False, False, False, False
+friction, sel, lkpt = 1, 1, 0
+stats, done_text, done_animation, show_cat = False, False, False, False
 INTRO_TEXT = """
 Welcome to Lifeline.PYR!
 Made by jasperredis, in open-source.
@@ -30,6 +30,8 @@ This program comes with ABSOLUTELY NO WARRANTY; for details, see the GPLv3.
 This is free software, and you are welcome to redistribute it
 under certain conditions; see the GPLv3 for details.
 """
+HOW_TO_PLAY_URL = "https://lifelinepyr.jasperredis.net/how-to-play.html"
+WEBSITE_URL = "https://lifelinepyr.jasperredis.net"
 
 
 def act(rsurface, keys, tick, mx, my):
@@ -85,12 +87,11 @@ def act(rsurface, keys, tick, mx, my):
                 etc.centrexy(ast.assets_data['title/title'], onecoord='x'), 17))
             etc.MKTX(rsurface, sel, 1, "START", "title")
             etc.MKTX(rsurface, sel, 2, "OPTIONS", "title")
-            etc.MKTX(rsurface, sel, 3, "UPDATES", "title")
-            etc.MKTX(rsurface, sel, 4, "HOW TO PLAY", "title")
-            etc.MKTX(rsurface, sel, 5, "TIPS", "title")
-            etc.MKTX(rsurface, sel, 6, "STATS", "title")
-            etc.MKTX(rsurface, sel, 7, "ABOUT", "title")
-            etc.MKTX(rsurface, sel, 8, "QUIT", "title")
+            etc.MKTX(rsurface, sel, 3, "STATS", "title")
+            etc.MKTX(rsurface, sel, 4, "LICENSE", "title")
+            etc.MKTX(rsurface, sel, 5, "HOW TO PLAY", "title")
+            etc.MKTX(rsurface, sel, 6, "WEBSITE", "title")
+            etc.MKTX(rsurface, sel, 7, "QUIT", "title")
 
             # Take input
             if keys[pg.K_DOWN] and etc.srp(tick, lkpt):
@@ -101,7 +102,7 @@ def act(rsurface, keys, tick, mx, my):
                 sel -= 1
                 lkpt = tick
                 ast.assets_data['mainaud/blip'].play()
-            sel = max(1, min(sel, 8))
+            sel = max(1, min(sel, 7))
             if keys[pg.K_RETURN] and etc.srp(tick, lkpt):
                 ast.assets_data['mainaud/blip'].play()
                 if sel == 1:
@@ -109,16 +110,14 @@ def act(rsurface, keys, tick, mx, my):
                 elif sel == 2:
                     return "options"
                 elif sel == 3:
-                    return "updates"
-                elif sel == 4:
-                    return "howtoplay"
-                elif sel == 5:
-                    return "tips"
-                elif sel == 6:
                     stats = True
+                elif sel == 4:
+                    return "license"
+                elif sel == 5:
+                    webbrowser.open(HOW_TO_PLAY_URL)
+                elif sel == 6:
+                    webbrowser.open(WEBSITE_URL)
                 elif sel == 7:
-                    return "about"
-                elif sel == 8:
                     etc.close()
 
     # Title cat !!!!!!!! :3c
