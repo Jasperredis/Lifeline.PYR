@@ -3,29 +3,52 @@
     src: url('./assets/PYR5x5Regular.ttf') format('truetype');
 }
 
-/* Font stuff */
 :root {
 	font-family: PYR5x5;
 	--font-btn-font: sans-serif;
+	--dark: #192130;
+	--header-text: #192130;
+	--grey: #5c677d;
+	--light: #ffffff;
+	--red-1: #9f1825;
+	--red-2: #d95763;
+	--green-1: #487d15;
+	--green-2: #c7eca4;
+	--bg-img: url("./assets/background.png");
 }
-:root.easy-font {
-	font-family: sans-serif;
-	--font-btn-font: PYR5x5;
+:root.easy-font { font-family: sans-serif; --font-btn-font: PYR5x5; }
+:root.light {
+	--dark: #ffffff; --light: #192130;
+	--red-2: #9f1825; --red-1: #d95763;
 }
-#font-btn {
-	font-family: var(--font-btn-font);
-	margin-top: 20px;
-	background-color: #ffffff;
-	color: #192130;
+:root.sand {
+	--dark: #dd9551; --light: #ffe3c9;
+	--red-2: #9f1825; --red-1: #d95763;
+	--bg-img: url("./assets/background-sand.png");
 }
-#font-btn:hover {
-	background-color: #192130;
-	color: #ffffff;
+:root.ocean {
+	--dark: #2a8282; --light: #ffe3c9;
+	--red-2: #9f1825; --red-1: #d95763;
+	--bg-img: url("./assets/background-thunder.png");
+}
+:root.watermelon {
+	--dark: #e27d86; --light: #c7eca4;
+	--red-2: #9f1825; --red-1: #d95763;
+	--bg-img: url("./assets/background-alt.png");
+}
+:root.demo {
+	--dark: #9f1825; --light: #ffffff;
+	--bg-img: url("./assets/background-red.png");
+}
+:root.original {
+	--dark: #ca7728; --light: #192130;
+	--red-2: #9f1825; --red-1: #d95763;
+	--bg-img: url("./assets/background-jrises.png");
 }
 
 body {
-	background-color: #192130;
-	color: #ffffff;
+	background-color: var(--dark);
+	color: var(--light);
 	font-size: 19px;
 	margin: 0;
 }
@@ -34,19 +57,18 @@ body {
 header {
 	display: flex;
 	flex-direction: column;
-	background-image: url("./assets/background.png");
+	background-image: var(--bg-img);
 	background-size: 30%;
 	justify-content: center;
 	align-items: center;
-	color: #192130;
+	color: var(--header-text);
+	text-align: center;
 }
-#title {
-	height: 15vh;
-	padding: 1%;
-}
+h2 { margin: 2px; }
+#title { height: 15vh; padding: 1%; }
 #new {
-	background-color: #9f1825;
-	color: #ffffff;
+	background-color: var(--red-1);
+	color: var(--light);
 	text-align: center;
 	width: 100%;
 }
@@ -55,13 +77,13 @@ header {
 a, button {
 	display: inline-block;
 	padding: 3px;
-	background-color: #5c677d;
+	background-color: var(--grey);
 	text-decoration: none;
-	color: #c7eca4;
+	color: var(--green-2);
 }
 a:hover, button:hover {
-	color: #d95763;
-	background-color: #ffffff;
+	color: var(--red-2);
+	background-color: var(--light);
 }
 button {
 	border-radius: 0px;
@@ -69,38 +91,52 @@ button {
 	font-family: inherit;
 	font-size: inherit;
 }
-#itch-io-button {
-	background-color: #487d15;
-}
-#gamejolt-button {
-	background-color: #192130;
-}
+#itch-io-button { background-color: var(--green-1); }
+#gamejolt-button { background-color: var(--dark); }
 
 /* Footer */
-#license-logos {
-	width: 50%;
-}
+#license-logos { width: 50%; }
 footer {
 	display: flex;
-	background-color: #ffffff;
-	color: #192130;
+	background-color: var(--light);
+	color: var(--dark);
 	justify-content: center;
 	padding: 2%;
 }
 
-/* Other */
-main {
-	padding: 0 5% 0 5%;
+/* Dropdown */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	padding: 5px;
+	background-color: var(--light);
+	color: var(--dark);
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
+.dropdown-content p { margin: 0; }
+.dropdown:hover .dropdown-content { display: block; }
+
+/* Other */
+main { padding: 0 5% 0 5%; }
 .screenshot {
 	width: 30%;
-	border: 5px solid #ffffff;
+	border: 5px solid var(--light);
 	transition: 0.2s ease-out;
 }
-.screenshot:hover {
-	transform: scale(1.1);
-	box-shadow: 0px 0px 10px #000000;
+.screenshot:hover { transform: scale(1.1); box-shadow: 0px 0px 10px #000000; }
+main img { width: 90%; }
+#laser { width: 5%; }
+pyr { font-family: PYR5x5; }
+th { text-align: left; }
+
+/* Look button */
+.look-btn {
+	background-color: var(--light);
+	color: var(--dark);
+	width: 100%;
 }
+.look-btn:hover { background-color: var(--dark); color: var(--light); }
+#font-btn { margin: 20px 0 20px 0; font-family: var(--font-btn-font); }
 
 /* Mobile */
 @media screen and (max-width: 768px) {

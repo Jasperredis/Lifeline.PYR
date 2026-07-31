@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lifeline.PYR | How to Play</title>
+	<link rel="icon" type="image/x-icon" href="assets/favicon.png">
+	<link rel="stylesheet" href="styles.css">
+	<script src="look.js"></script>
+  </head>
+  
+  <body>
+	<header>
+	  <img src="./assets/title.png" alt="Lifeline.PYR logo" id="title"><br>
+	  <h2>How to Play</h2>
+	  <p>
+		<a href="index.html">Home</a><br>
+		<a href="https://jasperredis.net">jasperredis</a> | 
+		<a href="https://jasperredis.itch.io/lifelinepyr">Itch.io</a> |
+		<a href="https://gamejolt.com/games/lifelinepyr/1074695">GameJolt</a> |
+		<a href="https://github.com/Jasperredis/Lifeline.PYR">GitHub</a>
+	  </p>
+	  <div id="new">
+		<p><strong>NEWEST NEW THING:</strong>
+		  New how to play page! Will eventually replace the how to play screen in v1.1.</p>
+	  </div>
+	</header>
+	
+	<main>
+	  <button onclick="toggleFont()" class="look-btn" id="font-btn">Change font (for easier reading)</button>
+	  <div class="dropdown">
+		<button class="look-btn">Change theme</button>
+		<div class="dropdown-content">
+		  <p>
+			These are all based on the in-game "HTP Themes" (how-to-play themes).<br>
+			These are not built for readability; they are just novelty looks for fun :P<br>
+			The default is "<b>White-on-Black (Dark)</b>".
+		  </p>
+		  <button onclick="setTheme('light')">Black-on-White (Light)</button>
+		  <button onclick="setTheme('sand')">Sand</button>
+		  <button onclick="setTheme('ocean')">Ocean</button>
+		  <button onclick="setTheme('watermelon')">Watermelon</button>
+		  <button onclick="setTheme('dark')">White-on-Black (Dark)</button>
+		  <button onclick="setTheme('demo')">Demo</button>
+		  <button onclick="setTheme('original')">Original</button>
+		</div>
+	  </div>
+
+	  <p>
+		Note that this is not word-for-word the exact in-game how to play screen,
+		but it is an arguably better how to play screen.<br>
+		This will soon be the new how to play screen, as v1.1 replaces the how to play screen
+		with a link to this website.
+	  </p>
+
+	  <h1>Table of Contents</h1>
+	  <ul>
+		<li><a href="#1d">General Gameplay & 1D Mode</a></li>
+		<li><a href="#2d">2D Mode</a></li>
+	  </ul>
+	  <p>
+		Note: Some of the images here have ever-so-slightly messed up colours.
+		I am not sure why, and quite frankly, I don't care, but I do want to point it out regardless.
+	  </p>
+
+	  <h1 id="1d">General Gameplay & 1D Mode</h1>
+	  <p>
+		In 1D Mode, you are playing on a line. You can only move left and right.
+		If you want a general understanding of this game's gameplay, see the Gameplay section on
+		<a href="index.html">the home page</a>. Do note, that section will not explain how to play;
+		that is the job of this page. If your goal is to find out how to play this game,
+		you have come to the right place.
+	  </p>
+	  <img src="assets/htp-player.png">
+	  <p>
+		In the red circle / the circle marked by the letter <pyr>R</pyr>,
+		is your player. You can tell because of the green arrow pointing to it
+		(not to be confused with heal indicators).<br>
+		In gameplay, you can use <code>[A]</code> to move left, and <code>[D]</code>
+		to move right. These keys cannot yet be changed.<br>
+		You can also hold <code>[S]</code> to slow down. This is not useless; it is
+		used to help precision when trying to get something such as a heal or
+		power-up while avoiding enemies or other hazards.
+	  </p>
+	  <img src="assets/htp-life.png">
+	  <p>
+		This is your life. It starts at, and has a maximum of, 5. Each green orb represents a health point.<br>
+		In gameplay, you may, and should, notice that you are constantly losing these orbs.<br>
+		On the far right of your health bar is the time orb;
+		it shows how long you have until your next health point decreases. This interval is <i>2 seconds</i>.<br><br>
+		<b>Note:</b> You can pause by pressing <code>[ESCAPE]</code>.
+	  </p>
+	  <img src="assets/htp-enemy.png">
+	  <p>
+		This is an enemy. They spawn in random positions and at random times.
+		You must avoid running into them, as doing so decreases your health.<br>
+		Once hit by one, you have 10 ticks (<i>~<sup>1</sup>/<sub>3</sub> second</i>) of invincibility
+		<!-- I know it's dumb to use sub/superscript for fractions, but PYR5x5 does not have fraction symbols. -->
+		(indicated by a red shield at the top of the screen).<br>
+		If indicators are enabled in settings, then these enemies will be marked above them by a red minus sign
+		(<code>-</code>).<br>
+	  </p>
+	  <img src="assets/htp-heal.png">
+	  <p>
+		This is a heal; it is the only thing keeping you alive.<br>
+		They spawn in random positions and at random times, just like enemies.<br>
+		Running into them will increase your health by one health point.<br>
+		If indicators are enabled in settings, then these heals will be marked above them by a green plus sign
+		(<code>+</code>).<br>
+	  </p>
+	  <img src="assets/htp-info.png">
+	  <p>
+		This is your game info. Evidently, by the text, it tells you your
+		<b>score</b>, <b>high score</b>, <b>total score</b>, and <b>game</b>.<br>
+		For clarification on the second two terms:
+	  </p>
+	  <ul>
+		<li><b>Total score</b> is the sum of all of the scores you have ever had.</li>
+		<li><b>Game</b> is how many games (as in, Lifeline.PYR runs) you have played.</li>
+	  </ul>
+	  <img src="assets/htp-jump.png">
+	  <p>
+		This is your jump charge. Once it reaches its full capacity of 4/4 (which it also starts at),
+		you may perform a jump by pressing <code>[W]</code>.<br>
+		This gives you 2 seconds of invincibility, however, you cannot collect heals during this.
+		It is useful to avoid enemies that are in the way of heals.<br>
+		You can stop this jump early by pressing <code>[S]</code>.<br>
+		The jump charge takes 10 seconds to recharge.<br>
+		Note: You cannot slow down while jumping. This is why slow down and stop jump are both <code>[S]</code>.
+	  </p>
+	  <img src="assets/htp-dash.png">
+	  <p>
+		This is your dash bar. It ranges from 0 to 106 (because 106 is how many pixels wide it is,
+		and it was convenient to develop it that way).<br>
+		You can use your dash by holding <code>[E]</code>. You will then be able to go ~2.5x faster
+		than your normal speed while you hold <code>[E]</code>.<br>
+		However, it only takes <i>~<sup>1</sup>/<sub>3</sub> second</i> for your dash to run out,
+		and it will then take <i>5 seconds</i> to recharge.<br>
+		Dash will not work if the charge is under <i>10</i> (which is marked by the red part of the
+		bottom border).
+	  </p>
+	  <img src="assets/htp-falling-object.png">
+	  <p>
+		This is a falling object. They spawn randomly at the top of your screen and fall down.<br>
+		There are 5 varieties of them, 2 of which are hazards and 3 of which are power-ups.
+	  </p>
+	  <img src="assets/htp-all-falling-objects.png">
+	  <p>
+		<i>To help read: top-to-bottom-left-to-right, ow_a, ow_b, max_life, max_jump, clear_enemies)</i><br><br>
+		Here is what all of these falling objects do:
+	  </p>
+	  <ul>
+		<li><b>Hazards</b> (ow_a, ow_b) kill you instantly on contact, so you must avoid them.</li>
+		<li><b>max_life</b> restores your health to the maximum of <i>5</i>.</li>
+		<li><b>max_jump</b> instantly charges your jump charge to maximum capacity (4/4).</li>
+		<li><b>clear_enemies</b> gets rid of all <i>current</i> enemies (it does not stop more from spawning).</li>
+	  </ul>
+	  <img src="assets/htp-laser-warn.png">
+	  <p>
+		This is a laser warning. It appears at random times and it serves to, well, warn you of a laser.
+		Here be no dragons; it cannot hurt you on its own.<br>
+		In <i>~3 seconds</i> (2 <sup>2</sup>/<sub>3</sub>)
+		a laser will strike where the warning is. If you failed to get out of the way in time,
+		you will die instantly. If you touch the laser, you will also die instantly.<br>
+		After another <i>~3  seconds</i> (3 <sup>1</sup>/<sub>3</sub>),
+		the laser will disappear.<br>
+		Below is a picture of a laser. I waited until now to show it because the image is rather large,
+		and I do apologise for that, though I don't want to fix it.
+	  </p>
+	  <img id="laser" src="assets/htp-laser.png">
+	  <p>
+		Congratulations! You can now play Lifeline.PYR's 1D Mode, at least presumably.<br>
+		Or you could read the guide for 2D Mode?
+	  </p>
+
+	  <h1 id="2d">2D Mode</h1>
+	  <p>
+		If you have not read the guide for 1D Mode, do that. This guide assumes you have already read that.<br><br>
+		2D Mode uses the same gameplay as 1D mode, but instead of playing on a line (which is actually called a bar, technically,
+		not even I knew that), you are playing on a 2D "field". It also changes some controls because 2D movement is greedy
+		and stole the <code>[S]</code> and <code>[W]</code> keys (not literally, but you get the joke); more on that later.
+	  </p>
+	  <img src="assets/htp-2dlayout.png">
+	  <p>Various things here are circled with letters next to them to showcase the 2D Mode UI. Here is what they all are:</p>
+	  <ul>
+		<li>Tan circle (letter <pyr>Y</pyr>): Jump charge; in the exact same place as in 1D Mode.</li>
+		<li>Grey circle (letter <pyr>G2</pyr>): Dash bar; also in the exact same place as in 1D Mode.</li>
+		<li>Sky blue circle (letter <pyr>B2</pyr>): Life. Now sideways!</li>
+		<li>Green circle (letter <pyr>G</pyr>): Player. Now a square instead of a line.
+		  Do note that the arrow's texture is slightly messed up in this image, I'm not sure why.
+   		  In-game, it looks the same as in 1D Mode.</li>
+		<li>Red circle (letter <pyr>R</pyr>): A heal, also a square now.</li>
+		<li>Pink circle (letter <pyr>P</pyr>): An enemy, also also a square now.</li>
+		<li>Blue circle (letter <pyr>B</pyr>): A falling object. They fall just like in 1D Mode, but now you <i>also</i> have a Y axis.</li>
+		<li>Orange circle (letter <pyr>O</pyr>): Your game info, now in the top-left because the 2D Mode field is hungry for space.</li>
+	  </ul>
+	  <p>Here are the keybindings in 2D Mode:</p>
+	  <table>
+		<tr><th>Move up</th><td><code>[W]</code></td></tr>
+		<tr><th>Move down</th><td><code>[S]</code></td></tr>
+		<tr><th>Jump</th><td><code>[↑]</code> (up arrow)</td></tr>
+		<tr><th>Stop jump</th><td><code>[↓]</code> (down arrow)</td></tr>
+		<tr><th>Slow</th><td><code>[↓]</code> (down arrow)</td></tr>
+	  </table>
+	  <p>Here are the rest of the keybindings, which are not different, but this is for a refresher.</p>
+	  <table>
+		<tr><th>Move left</th><td><code>[A]</code></td></tr>
+		<tr><th>Move right</th><td><code>[D]</code></td></tr>
+		<tr><th>Dash</th><td><code>[E]</code></td></tr>
+		<tr><th>Pause</th><td><code>[ESCAPE]</code></td></tr>
+	  </table>
+	  <p>
+		That's all! Not really much to cover here.
+		Goodbye, and consider playing 2D Mode to put your new knowledge to use.<br>
+		Have fun! :3
+	  </p>
+
+	  <hr>
+	  <p>
+		Site licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode.en">CC-BY-SA 4.0</a>
+		(Creative Commons Attribution-ShareAlike 4.0).
+	  </p>
+	</main>
+	<footer>
+	  <img id="license-logos" src="./assets/licenses.png" alt="Pixelated versions of license logos">
+	</footer>
+  </body>
+</html>

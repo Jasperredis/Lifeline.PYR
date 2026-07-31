@@ -6,16 +6,13 @@
 	<title>Lifeline.PYR</title>
 	<link rel="icon" type="image/x-icon" href="assets/favicon.png">
 	<link rel="stylesheet" href="styles.css">
-	<script>
-	  function toggleFont() {
-		  document.documentElement.classList.toggle("easy-font")
-	  }
-	</script>
+	<script src="look.js"></script>
   </head>
   <body>
 	<header>
 	  <img src="./assets/title.png" alt="Lifeline.PYR logo" id="title"><br>
 	  <p>
+		<a href="how-to-play.html">How to Play</a><br>
 		<a href="https://jasperredis.net">jasperredis</a> | 
 		<a href="https://jasperredis.itch.io/lifelinepyr">Itch.io</a> |
 		<a href="https://gamejolt.com/games/lifelinepyr/1074695">GameJolt</a> |
@@ -23,14 +20,32 @@
 	  </p>
 	  <div id="new">
 		<p><strong>NEWEST NEW THING:</strong>
-		  2Work on v1.1 started and public! See dev branch on the GitHub repository to see progress or contribute :3</p>
+		  New how to play page! Will eventually replace the how to play screen in v1.1.</p>
 	  </div>
 	</header>
 	<main>
-	  <button onclick="toggleFont()" id="font-btn">Change font (for easier reading)</button>
+	  <button onclick="toggleFont()" class="look-btn" id="font-btn">Change font (for easier reading)</button>
+	  <div class="dropdown">
+		<button class="look-btn">Change theme</button>
+		<div class="dropdown-content">
+		  <p>
+			These are all based on the in-game "HTP Themes" (how-to-play themes).<br>
+			These are not built for readability; they are just novelty looks for fun :P<br>
+			The default is "<b>White-on-Black (Dark)</b>".
+		  </p>
+		  <button onclick="setTheme('light')">Black-on-White (Light)</button>
+		  <button onclick="setTheme('sand')">Sand</button>
+		  <button onclick="setTheme('ocean')">Ocean</button>
+		  <button onclick="setTheme('watermelon')">Watermelon</button>
+		  <button onclick="setTheme('def')">White-on-Black (Dark)</button>
+		  <button onclick="setTheme('demo')">Demo</button>
+		  <button onclick="setTheme('original')">Original</button>
+		</div>
+	  </div>
+
 	  <h1 id="welcome">Welcome to Lifeline.PYR!</h1>
 	  <p>
-		Or, more, accurately, welcome to its website. :-3<br>
+		Or, more accurately, welcome to its website. :-3<br>
 		<i>Lifeline.PYR</i> is an arcade-style game for desktop (Linux & Windows)
 		where you play on a line, with your health constantly depleting,
 		and try to get randomly spawning heals.
@@ -42,8 +57,6 @@
 	  
 	  <h1 id="toc">Table of Contents</h1>
 	  <ul>
-		<li><a href="#welcome">Welcome to Lifeline.PYR!</a></li>
-		<li><a href="#toc">Table of Contents</a></li>
 		<li><a href="#gameplay">Gameplay</a></li>
 		<li><a href="#screenshots">Screenshots</a></li>
 		<li><a href="#download">Download</a></li>
@@ -52,6 +65,7 @@
 	  
 	  <h1 id="gameplay">Gameplay</h1>
 	  <p>
+		<i>For more info, see the <a href="how-to-play.html">How to Play</a>!</i><br><br>
 		You are on a line (<i>or in a rectangle, if in the 2D gamemode</i>),
 		and can move left and right (<i>or left, right, up, and down, if in the 2D gamemode</i>).
 		Your health starts at 5 and is constantly decreasing.<br>
@@ -62,14 +76,14 @@
 	  <ul>
 		<li>
 		  Jumping (a two-second invincibility frame that takes ten seconds to recharge,
-		  but you also can't get heals while using it (don't worry you can stop a jump by pressing [S])
+		  but you also can't get heals while using it (don't worry, you can stop a jump by pressing [S]))
 		</li>
 		<li>
 		  Dashing (self-explanatory)
 		</li>
 		<li>
-		  Power-ups (fall from the top of the screen and help you,
-		  are more common when you need them because of a deliberate mechanic i call "urgency")
+		  Power-ups (fall from the top of the screen and help you, and
+		  are more common when you need them because of a deliberate mechanic I call "urgency")
 		</li>
 		<li>
 		  Hazards (also fall from the top of the screen but they don't really help you)
@@ -99,16 +113,19 @@
 		<a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPLv3</a>
 		(GNU General Public License v3). It is FREE SOFTWARE.<br>
 		Most assets in the game (besides the font, we will get to that) are licensed under the
-		<a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode.en">CC-BY-SA</a>
-		(Creative Commons Attribution-ShareAlike).<br>
+		<a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode.en">CC-BY-SA 4.0</a>
+		(Creative Commons Attribution-ShareAlike 4.0).<br>
 		The game's font (and the one used here),
 		<a href="https://github.com/Jasperredis/PYR5x5">PYR5x5</a>, is licensed under the
 		<a href="https://openfontlicense.org/open-font-license-official-text/">SIL OFL</a>
 		(SIL Open Font License).<br>
-		Finally, this website itself is licensed under the
-		<a href="https://opensource.org/license/MIT">MIT License</a>.<br><br>
+		Finally, this website itself is <i>also</i> licensed under the
+		<a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode.en">CC-BY-SA 4.0</a>
+		(Creative Commons Attribution-ShareAlike 4.0).*<br>
+		*: <i>Older versions of the website (specifically those predating 2026-07-30) were licensed
+		under the <a href="https://opensource.org/license/MIT">MIT License</a>.</i><br><br>
 		The code is listed on <a href="https://github.com/Jasperredis/Lifeline.PYR">GitHub</a>.
-		Contributions are always welcome.
+		Contributions are always welcome.<br><br>
 	  </p>
 	</main>
 	<footer>

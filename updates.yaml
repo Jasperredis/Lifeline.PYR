@@ -84,3 +84,46 @@
       
       That's all for now!
       Bye bye :3
+3:
+    title: v1.1 Updates, New HTP
+    version: 1.0.1
+    date: 2026-07-30
+    install: https://lifelinepyr.jasperredis.net
+    desc: |
+      Hello!
+      I've just written a brand new How
+      to Play screen, but it's not in
+      the game; it's on the website.
+      To get to said website, you can
+      use the INSTALL button.
+      Then, you click "How to Play" in
+      the header.
+      (This is scrollable.)
+      
+      This how to play screen is nice,
+      because it explains things better
+      and actually has a laser image.
+
+      Why did I write this? I'm getting
+      rid of the HOW TO PLAY screen
+      in Lifeline.PYR v1.1, because
+      it's unnecessarily complicated,
+      updates are difficult without
+      having to update the entire game,
+      and a webpage can actually render
+      a more readable font.
+
+      This is also going to be one of
+      the last updates. Which sounds
+      pretty dramatic considering
+      there's only 3 of them. I'm also
+      removing the UPDATES menu in
+      Lifeline.PYR v1.1, for the same
+      reasons as I am the HOW TO PLAY
+      screen, except even more so
+      because fetching this stupid
+      YAML file is incredibly complex
+      for what could just be a web
+      browser link.
+
+      That's all. Bye bye :3
