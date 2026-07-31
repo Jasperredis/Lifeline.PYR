@@ -19,17 +19,30 @@ prioritise working on, and to list (and publish) what I'm planning.
 - [ ] Rewrite major parts of the how to play for brevity, and to add missing
       info.
 
+** Meta changes [0/2]
+These are changes that aren't exactly to the game itself, but to the docs around
+it. These are to be handled by jasperredis xemself. …Why am I talking about
+myself in third person?
+- [ ] Add ABOUT_AND_LICENSING.txt
+- [ ] Document constants override
+
 ** Gameplay features for Lifeline.PYR [0/3]
 - [ ] Score powerups/hazards (-50, +25, +50, +100)
 - [ ] Scoring screen on death
 - [ ] Cheats
 
-** Bugs to fix [0/2]
+** Bugs to fix [3/5]
 *Note:* If you find any bugs, /please/ make a GitHub Issue, Discussion, or
 contact me about it (see _Contact_ header in ~CONTRIBUTING.md~)!
-- [ ] Updates screen crashes on others tab without WiFi
-- [ ] Speaking of the others tab, it probably shouldn't fetch its text content
-      from the updates.yaml file.
+- [x] +Updates screen crashes on others tab without WiFi+
+- [x] +Speaking of the others tab, it probably shouldn't fetch its text content
+      from the updates.yaml file.+
+      - These first two are no longer concerns as the updates screen no longer
+	exists.
+- [x] Mouse must be in 256x144 frame in windowed mode
+- [ ] Cannot dash in mouse player movement mode
+- [ ] Unneccessary extra assets are present. While this isn't exactly a /bug/,
+  it still needs to be fixed.
 
 ** General goals to work for
 - Refactor old and bad code
@@ -60,4 +73,22 @@ technical changes and updates!
 - wintop.py moved into mod/etc
 - Other minor changes, including but not limited to:
   - Corrected links in terminal greeting
-    
+- Added optional mouse-based player movement
+  - This is done by simply adding mouse input to the normal movement system
+- Got rid of updates screen, how to play screen, and about screen. They're
+  excsessively (did I spell that right?) complictaed for an arcade game, and
+  web pages/TXT files do that better for various reasons (update no. 3 in
+  updates.yaml, read it).
+  - Add license stage to disclose basic licensing info, linking to the
+    ABOUT_AND_LICENSING.txt file, which does not yet exist, by the way.
+- Added falling scorers.
+  - Added the constants for falling scorers
+  - Added the assets for falling scorers (images, sfx)
+  - Added the scoring functions for falling scorers
+  - Slightly changed falling object type picking logic to allow scorers to exist
+  - /The chances will need to be iterated on and tweaked!/
+- Added constants override
+  - This will be needing documentation.
+  - Added the -c flag for constants override.
+  - Added the empty (for now) JSON file for constants override.
+  - Added the constants override logic to the game constants module.
