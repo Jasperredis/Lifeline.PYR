@@ -33,7 +33,7 @@ myself in third person?
 
 ** Bugs to fix [3/5]
 *Note:* If you find any bugs, /please/ make a GitHub Issue, Discussion, or
-contact me about it (see _Contact_ header in ~CONTRIBUTING.md~)!
+contact me about it (see _Contact_ header @ https://jasperredis.net)!
 - [x] +Updates screen crashes on others tab without WiFi+
 - [x] +Speaking of the others tab, it probably shouldn't fetch its text content
       from the updates.yaml file.+
