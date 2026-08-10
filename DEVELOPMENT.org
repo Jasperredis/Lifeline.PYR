@@ -8,6 +8,11 @@ See the ~CONTRIBUTING.md~ for more info. :-3
 This file is for me to organise what I (and possibly contributers) should
 prioritise working on, and to list (and publish) what I'm planning.
 
+** Playability Status
+Broken; the pause menu has yet to use the new etcils mk_text_opt() function, and
+crashes immediately because it attempts to reference one that does not exist
+anymore.
+
 ** New QoL features for Lifeline.PYR [3/8]
 - [x] Save file generation / reset
 - [ ] Keybinding support
