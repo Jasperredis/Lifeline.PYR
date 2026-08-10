@@ -2,7 +2,6 @@
 # Lifeline.PYR v1.1-dev
 
 from mod.core.assets import assets_data
-from mod.core.save import save_data
 from mod.etc import etcils as etc
 
 
@@ -14,4 +13,4 @@ def act(rsurface, tick):
         rsurface.blit(assets_data["intro/proud"],
                       etc.centrexy(assets_data["intro/proud"]))
     else:
-        return "title" if save_data["seen_begin"] else "begin"
+        return "title"

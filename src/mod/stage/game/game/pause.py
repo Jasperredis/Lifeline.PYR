@@ -16,10 +16,10 @@ def do_pause(rsurface, keys, tick, GAMEDATA):
 
     # Render
     rsurface.blit(ast.assets_data["game/pause"], etc.centrexy(ast.assets_data["game/pause"]))
-    etc.MKTX(rsurface, sel, 1, "RESUME", "game")
-    etc.MKTX(rsurface, sel, 2, "RESTART", "game")
-    etc.MKTX(rsurface, sel, 3, "OPTIONS", "game")
-    etc.MKTX(rsurface, sel, 4, "TITLE", "game")
+    etc.make_text(rsurface, sel, 1, "RESUME", "game")
+    etc.make_text(rsurface, sel, 2, "RESTART", "game")
+    etc.make_text(rsurface, sel, 3, "OPTIONS", "game")
+    etc.make_text(rsurface, sel, 4, "TITLE", "game")
 
     # Take input
     if keys[pg.K_UP] and etc.srp(tick, lkpt):

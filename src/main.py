@@ -29,7 +29,6 @@ import mod.stage.options as options
 import mod.stage.title as title
 import mod.stage.license_stage as license_stage
 import mod.stage.intro as intro
-import mod.stage.begin as begin
 import mod.etc.screenshot as screenshot
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
@@ -67,10 +66,7 @@ pg.display.set_icon(ast.assets_data['global/windicon'])
 
 clock = pg.time.Clock()
 done_text_intro = False
-if args.no_intro:
-    stage = "title" if save_data["seen_begin"] else "begin"
-else:
-    stage = "intro"
+stage = "title" if args.no_intro else "intro"
 stage_history = [stage]
 
 tick, nc_tick, mb, mx, my, keys = 0, 0, 0, 0, 0, pg.key.get_pressed()
@@ -95,9 +91,6 @@ STAGES = {
     },
     "license": {
         "function": lambda: license_stage.act(game_area, screen, keys)
-    },
-    "begin": {
-        "function": lambda: begin.act(game_area, keys, tick)
     }
 }
 
