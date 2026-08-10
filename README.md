@@ -7,11 +7,17 @@
 	Lifeline.PYR is a retro-style arcade game where you try and keep your constantly decreasing life down with constricted movement.<br>
   <a href="https://lifelinepyr.jasperredis.net">Website</a> |
   <a href="https://jasperredis.net">jasperredis</a> |
-  <a href="https://github.com/Jasperredis/Lifeline.PYR">GitHub</a>
+  <a href="https://codeberg.org/jasperredis/Lifeline.PYR">Codeberg</a>
 </p>
   
 ![Gameplay showing the normal 1D gameplay mode](.readme/screenshot1.png) 
 ![Gameplay showing the 2D gameplay mode](.readme/screenshot2.png)
+
+# Note!
+This repository was recently (as of 2026-08-09) migrated from GitHub to Codeberg.
+The GitHub repository is a mirror, and the Codeberg repository can be found at the Codeberg link up top.
+To see the mirror, go [here](https://github.com/Jasperredis/Lifeline.PYR).
+
 
 # Gameplay
 > See the "HOW TO PLAY" menu on the title screen for more details.
