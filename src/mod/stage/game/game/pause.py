@@ -5,8 +5,10 @@ import pygame as pg
 import mod.core.assets as ast
 from mod.core.save import save_data, write_save
 import mod.etc.etcils as etc
+import mod.etc.magicvars as mgv
 
 lkpt, sel = 0, 1
+
 
 def do_pause(rsurface, keys, tick, GAMEDATA):
     global lkpt, sel
@@ -15,12 +17,12 @@ def do_pause(rsurface, keys, tick, GAMEDATA):
         lkpt = 0
 
     # Render
-    rsurface.blit(ast.assets_data["game/pause"], etc.centrexy(ast.assets_data["game/pause"]))
-    etc.make_text(rsurface, sel, 1, "RESUME", "game")
-    etc.make_text(rsurface, sel, 2, "RESTART", "game")
-    etc.make_text(rsurface, sel, 3, "OPTIONS", "game")
-    etc.make_text(rsurface, sel, 4, "TITLE", "game")
-
+    rsurface.blit(ast.assets_data["game/pause"],
+                  etc.centrexy(ast.assets_data["game/pause"]))
+    OPTIONS = ["RESUME", "RESTART", "OPTIONS", "TITLE"]
+    for i, text in enumerate(OPTIONS):
+        etc.mk_text_option(rsurface, sel, i + 1, text, mgv.colours[19], True,
+                           (rsurface.get_height() / 2) - 19)
     # Take input
     if keys[pg.K_UP] and etc.srp(tick, lkpt):
         sel -= 1
@@ -47,6 +49,6 @@ def do_pause(rsurface, keys, tick, GAMEDATA):
             lkpt = 0
             return "back"
         lkpt = tick
-    sel = max(1, min(sel, 4))
+    sel = max(1, min(sel, len(OPTIONS)))
 
     return "game"

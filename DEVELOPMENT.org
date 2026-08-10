@@ -9,9 +9,7 @@ This file is for me to organise what I (and possibly contributers) should
 prioritise working on, and to list (and publish) what I'm planning.
 
 ** Playability Status
-Broken; the pause menu has yet to use the new etcils mk_text_opt() function, and
-crashes immediately because it attempts to reference one that does not exist
-anymore.
+Working!
 
 ** New QoL features for Lifeline.PYR [3/8]
 - [x] Save file generation / reset
@@ -97,3 +95,5 @@ technical changes and updates!
   - Added the -c flag for constants override.
   - Added the empty (for now) JSON file for constants override.
   - Added the constants override logic to the game constants module.
+- Various refactors, many involving breaking mega-functions into multiple
+  smaller functions.
