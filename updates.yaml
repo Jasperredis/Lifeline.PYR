@@ -127,3 +127,41 @@
       browser link.
 
       That's all. Bye bye :3
+4:
+    title: This is retired!
+    version: 1.0.1
+    date: 2026-08-10
+    install: https://jasperredis.net/updates.html#lifelinepyr
+    desc: |
+      Hello!
+      As you may be able to infer from
+      the title of this update, the in-
+      game updates screen is now
+      retired. (This is scrollable.)
+      The new canonical source of
+      updates can be found by pressing
+      the INSTALL button down below
+      (I used it as a hyperlink, haha),
+      or you can manually type in:
+      >> jasperredis.net/updates.html
+      The updates are now held at my
+      main website.
+      
+      Now, this is not all I have to
+      say in this update. The code
+      repository for this game has been
+      migrated from GitHub to Codeberg.
+      Yes, that means that the GitHub
+      link on the terminal text and
+      ABOUT screen is somewhat outdated
+      now. The GitHub repository still
+      exists, but only as a mirror. If
+      you are looking to contribute, do
+      so on the Codeberg repository.
+
+      This is the last update that will
+      be on the updates screen!!!!
+
+      Bye :3
+
+      
