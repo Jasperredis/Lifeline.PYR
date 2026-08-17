@@ -92,8 +92,8 @@ $opts/bg_preview",
             1: "Lifeline.PYR (Game A)",
             2: "Lifeline.PYR (Game B)",
             3: "Lifeline.PYR (Bonus)",
-            4: "Alternate",
-            5: "Lifeline.py"
+            4: "Lifeline.py",
+            5: "No music"
         },
         "clamp": "1,5",
         "bool": False

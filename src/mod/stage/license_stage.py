@@ -11,9 +11,8 @@ TEXT = """Lifeline.PYR | Licensing
 
 This is a very short piece of text. For
 more information, please refer to the
-ABOUT_AND_LICENSING.txt file that should
-be in the root of the folder that this
-game came in.
+LICENSE file that should be in the root of
+the folder that this game came in.
 Each license will be followed by what file
 the license text is found in.
 
@@ -21,8 +20,8 @@ GAME CODE: GNU GPLv3    | LICENSE-GPL
 ASSETS   : CC-BY-SA 4.0 | LICENSE-CC-BY-SA
 FONT     : SIL OFL 1.1  | LICENSE-OFL
 
-See ABOUT_AND_LICENSING.txt for links to
-these licenses and more info.
+See the LICENSE file for links to these
+licenses and more info.
 
 Press [X] to close this.
 """

@@ -22,11 +22,10 @@ Working!
 - [ ] Rewrite major parts of the how to play for brevity, and to add missing
       info.
 
-** Meta changes [0/2]
+** Meta changes [0/1]
 These are changes that aren't exactly to the game itself, but to the docs around
 it. These are to be handled by jasperredis xemself. …Why am I talking about
 myself in third person?
-- [ ] Add ABOUT_AND_LICENSING.txt
 - [ ] Document constants override
 
 ** Gameplay features for Lifeline.PYR [0/3]
@@ -34,14 +33,9 @@ myself in third person?
 - [ ] Scoring screen on death
 - [ ] Cheats
 
-** Bugs to fix [3/5]
+** Bugs to fix [1/3]
 *Note:* If you find any bugs, /please/ make a GitHub Issue, Discussion, or
 contact me about it (see _Contact_ header @ https://jasperredis.net)!
-- [x] +Updates screen crashes on others tab without WiFi+
-- [x] +Speaking of the others tab, it probably shouldn't fetch its text content
-      from the updates.yaml file.+
-      - These first two are no longer concerns as the updates screen no longer
-	exists.
 - [x] Mouse must be in 256x144 frame in windowed mode
 - [ ] Cannot dash in mouse player movement mode
 - [ ] Unneccessary extra assets are present. While this isn't exactly a /bug/,
@@ -82,8 +76,7 @@ technical changes and updates!
   excsessively (did I spell that right?) complictaed for an arcade game, and
   web pages/TXT files do that better for various reasons (update no. 3 in
   updates.yaml, read it).
-  - Add license stage to disclose basic licensing info, linking to the
-    ABOUT_AND_LICENSING.txt file, which does not yet exist, by the way.
+  - Add license stage to disclose basic licensing info.
 - Added falling scorers.
   - Added the constants for falling scorers
   - Added the assets for falling scorers (images, sfx)

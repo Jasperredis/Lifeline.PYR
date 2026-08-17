@@ -35,18 +35,18 @@ MUSIC_DATA = {
         "begin": None,
     },
     4: {
-        "title": "main_alt",
-        "options": "main_alt",
-        "game": "game_alt",
-        "license": "main_alt",
-        "begin": None,
-    },
-    5: {
         "title": "main_Lifeline.py",
         "options": "main_Lifeline.py",
         "game": "gameplay_Lifeline.py",
         "license": "main_Lifeline.py",
         "begin": None,
+    },
+    5: {
+        "title": None,
+        "options": None,
+        "game": None,
+        "license": None,
+        "begin": None
     }
 }
 
@@ -57,6 +57,8 @@ def switch_music(stage):
     stage_val = MUSIC_DATA[save_data['ost']][stage]
     track_name = stage_val() if callable(stage_val) else stage_val
 
+    if track_name is None:
+        music.stop()
     if track_name != current:
         music_temp = f"music/{track_name}"
         if music_temp in ast.assets_data:
