@@ -16,6 +16,7 @@ MUSIC_DATA = {
     1: {
         "title": "main",
         "options": "options",
+        "keybindings": "options",
         "game": "game_a",
         "license": "main",
         "begin": None,
@@ -23,6 +24,7 @@ MUSIC_DATA = {
     2: {
         "title": "main",
         "options": "options",
+        "keybindings": "options",
         "game": "game_b",
         "license": "main",
         "begin": None,
@@ -30,6 +32,7 @@ MUSIC_DATA = {
     3: {
         "title": "main",
         "options": "options",
+        "keybindings": "options",
         "game": "bonus",
         "license": "main",
         "begin": None,
@@ -37,6 +40,7 @@ MUSIC_DATA = {
     4: {
         "title": "main_Lifeline.py",
         "options": "main_Lifeline.py",
+        "keybindings": "main_Lifeline.py",
         "game": "gameplay_Lifeline.py",
         "license": "main_Lifeline.py",
         "begin": None,
@@ -44,6 +48,7 @@ MUSIC_DATA = {
     5: {
         "title": None,
         "options": None,
+        "keybindings": None,
         "game": None,
         "license": None,
         "begin": None
@@ -59,6 +64,7 @@ def switch_music(stage):
 
     if track_name is None:
         music.stop()
+        return
     if track_name != current:
         music_temp = f"music/{track_name}"
         if music_temp in ast.assets_data:

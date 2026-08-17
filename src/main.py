@@ -69,7 +69,8 @@ done_text_intro = False
 stage = "title" if args.no_intro else "intro"
 stage_history = [stage]
 
-tick, nc_tick, mb, mx, my, keys = 0, 0, 0, 0, 0, pg.key.get_pressed()
+tick, nc_tick, mb, mx, my, key = 0, 0, 0, 0, 0, None
+keys = pg.key.get_pressed()
 # nc_tick = non-changing tick
 
 
@@ -84,10 +85,15 @@ STAGES = {
         "function": lambda: game.act(game_area, keys, tick, mx, my, mb)
     },
     "options": {
-        "function": lambda: options.act(game_area, keys, tick, stage_history),
+        "function": lambda: options.act(game_area, keys, key, tick,
+                                        stage_history, "options"),
         "special": {
             "remake_display": make_display
         }
+    },
+    "keybindings": {
+        "function": lambda: options.act(game_area, keys, key, tick,
+                                        stage_history, "keybindings")
     },
     "license": {
         "function": lambda: license_stage.act(game_area, screen, keys)
@@ -107,8 +113,11 @@ while running:
         mb = pg.mouse.get_pressed()
         tick += 1
         nc_tick += 1
+        key = None
         # Poll for events
         for event in pg.event.get():
+            if event.type == pg.KEYDOWN:
+                key = event.key
             if event.type == pg.QUIT:
                 running = False
                 etc.close()

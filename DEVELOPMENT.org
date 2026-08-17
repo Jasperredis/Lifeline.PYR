@@ -11,16 +11,13 @@ prioritise working on, and to list (and publish) what I'm planning.
 ** Playability Status
 Working!
 
-** New QoL features for Lifeline.PYR [3/8]
+** New QoL features for Lifeline.PYR [4/5]
 - [x] Save file generation / reset
-- [ ] Keybinding support
+- [x] Keybinding support
 - [x] Mouse-based player movement
-  - [ ] ^^^ Refactor this
+  - [x] ^^^ Refactor this
 - [ ] Mouse-based menu navigation
-- [x] More tips
-- [ ] Font options. Yes, that means rewrite text rendering.
-- [ ] Rewrite major parts of the how to play for brevity, and to add missing
-      info.
+- +More tips+ (tips no longer exist)
 
 ** Meta changes [0/1]
 These are changes that aren't exactly to the game itself, but to the docs around
@@ -28,18 +25,19 @@ it. These are to be handled by jasperredis xemself. …Why am I talking about
 myself in third person?
 - [ ] Document constants override
 
-** Gameplay features for Lifeline.PYR [0/3]
-- [ ] Score powerups/hazards (-50, +25, +50, +100)
-- [ ] Scoring screen on death
+** Gameplay features for Lifeline.PYR [1/2]
+- [x] Score powerups/hazards (-50, +25, +50, +100)
 - [ ] Cheats
+- +Scoring screen on death+ (scrapped)
 
-** Bugs to fix [1/3]
+** Bugs to fix [3/4]
 *Note:* If you find any bugs, /please/ make a GitHub Issue, Discussion, or
 contact me about it (see _Contact_ header @ https://jasperredis.net)!
 - [x] Mouse must be in 256x144 frame in windowed mode
-- [ ] Cannot dash in mouse player movement mode
-- [ ] Unneccessary extra assets are present. While this isn't exactly a /bug/,
+- [x] Cannot dash in mouse player movement mode
+- [x] Unneccessary extra assets are present. While this isn't exactly a /bug/,
   it still needs to be fixed.
+- [ ] Keybindings do not apply outside of the options and keybindings menus.
 
 ** General goals to work for
 - Refactor old and bad code
@@ -90,3 +88,14 @@ technical changes and updates!
   - Added the constants override logic to the game constants module.
 - Various refactors, many involving breaking mega-functions into multiple
   smaller functions.
+- Added "notifs" (I couldn't think of a better name) that appear when you:
+  - Get points
+  - Collide with a heal/enemy/falling object
+  ...as small numbers/symbols over you.
+- Added keybindings menu as an argument in the options func (and its own stage
+  for ease of use)
+- Added helper function in save module for getting key input
+- Added "No music" soundtrack
+  - This required adding the ability for the music module to stop music if the
+    track is None
+- Removed "Alternate" soundtrack

@@ -1,1 +1,4 @@
-{}
+{
+    "falling_thing_chance": 10,
+    "falling_powerup_chance": 100
+}

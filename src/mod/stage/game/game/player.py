@@ -6,6 +6,7 @@ import mod.core.assets as ast
 import mod.etc.magicvars as mgv
 from mod.stage.game.game import constants as con
 from mod.stage.game import select
+from mod.stage.game.game import inputx
 
 def make_player(rsurface, GAMEDATA, tick, keys):
     global plr
@@ -30,20 +31,20 @@ def make_player(rsurface, GAMEDATA, tick, keys):
         else:
             plrcol = "jumpend" if tick - GAMEDATA["last_jump"] >= con.jumpend_marker else "jumping"
             rsurface.blit(ast.assets_data[f"game/plr_{plrcol}_2d"], (GAMEDATA["plrx"], GAMEDATA["plry"] - 1))
-            
-    else: # Not jumping (wow no dip)
+
+    else: # Not jumping
         y_deduction = 1
         if select.game_type != "2d":
             if keys[pg.K_s]:
                 plrcol = mgv.colours[10]
-            elif keys[pg.K_e] and (keys[pg.K_a] or keys[pg.K_d]) and GAMEDATA["dash"] > con.dash_functioning_min:
+            elif keys[pg.K_e] and inputx.moving and GAMEDATA["dash"] > con.dash_functioning_min:
                 plrcol = mgv.colours[5]
             else:
                 plrcol = mgv.colours[19]
         else:
             if keys[pg.K_DOWN]:
                 plrcol = "slow_"
-            elif keys[pg.K_e] and (keys[pg.K_a] or keys[pg.K_d] or keys[pg.K_s] or keys[pg.K_w]) and GAMEDATA["dash"] > con.dash_functioning_min:
+            elif keys[pg.K_e] and inputx.moving and GAMEDATA["dash"] > con.dash_functioning_min:
                 plrcol = "dash_"
             else:
                 plrcol = ""

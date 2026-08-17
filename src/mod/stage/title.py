@@ -34,8 +34,8 @@ packaged LICENSE file.
 """
 HOW_TO_PLAY_URL = "https://lifelinepyr.jasperredis.net/how-to-play.html"
 WEBSITE_URL = "https://lifelinepyr.jasperredis.net"
-BUTTONS = [
-    "START", "OPTIONS", "STATS", "LICENSE", "HOW TO PLAY", "WEBSITE", "QUIT"]
+BUTTONS = ["START", "OPTIONS", "KEYBINDINGS", "STATS", "LICENSE",
+           "HOW TO PLAY", "WEBSITE", "QUIT"]
 
 
 def do_title_animation(rsurface, tick):
@@ -117,14 +117,16 @@ def take_input(keys, tick):
         elif sel == 2:
             return "options"
         elif sel == 3:
-            stats = True
+            return "keybindings"
         elif sel == 4:
-            return "license"
+            stats = True
         elif sel == 5:
-            webbrowser.open(HOW_TO_PLAY_URL)
+            return "license"
         elif sel == 6:
-            webbrowser.open(WEBSITE_URL)
+            webbrowser.open(HOW_TO_PLAY_URL)
         elif sel == 7:
+            webbrowser.open(WEBSITE_URL)
+        elif sel == 8:
             etc.close()
         return None
 

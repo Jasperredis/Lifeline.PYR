@@ -3,6 +3,7 @@
 
 from cerbose import cprint
 from datetime import datetime
+import pygame as pg
 import json
 import os
 import mod.etc.BTXT as B
@@ -15,7 +16,7 @@ DEFAULT_SAVE = {
     "htp-theme": 1,
     "indicators": True,
     "inertia": True,
-    "keybinds": {
+    "keybindings": {
         "game-1d-jump": "w",
         "game-1d-slow": "s",
         "game-1d-stop-jump": "s",
@@ -37,8 +38,10 @@ DEFAULT_SAVE = {
         "screenshot": "F12",
         "select": "RETURN",
     },
+    "life-tick-sound": False,
     "mouse-move": False,
     "mouse-theme": 1,
+    "notifs": True,
     "ost": 1,
     "palette": 1,
     "played": 0,
@@ -80,3 +83,7 @@ Below is the save that would have been writen:\n{save_data}\n
         B.bottom_text = "Save failure; see logs/errors.txt."
         with open(os.path.join("logs", "errors.txt"), 'a') as f:
             f.write(ERROR_MSG)
+
+
+def keyb(keys, key):
+    return keys[pg.key.key_code(save_data["keybindings"][key])]

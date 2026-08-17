@@ -9,6 +9,7 @@ import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
 from mod.stage.game.game import constants as con
 from mod.stage.game import select
+from mod.stage.game.game.ui import draw_notif
 
 # falling_scorers = ["-50_pts", "25_pts", "50_pts", "100_pts"]
 # for reference ↓↓↓
@@ -81,6 +82,7 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
                 GAMEDATA["iframe"] = True
                 GAMEDATA["last_iframe_time"] = tick
                 ast.assets_data["gameaud/hurt"].play()
+                draw_notif(rsurface, "hurt", tick, GAMEDATA)
         else:
             new_enemies.append({"x": enemy["x"], "y": enemy["y"]})
         if save_data['indicators']:
@@ -107,6 +109,7 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
         if not GAMEDATA["paused"] and plr.colliderect(i):
             GAMEDATA["life"] += 1
             ast.assets_data["gameaud/heal"].play()
+            draw_notif(rsurface, "heal", tick, GAMEDATA)
         else:
             new_heals.append({"x": heal["x"], "y": heal["y"]})
         if save_data['indicators']:
@@ -151,7 +154,7 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
                 ast.assets_data["gameaud/jump"].play()
                 GAMEDATA["enemies"] = []
             elif fall["type"] == "max_life":
-                ast.assets_data["gameaud/heal"].play()
+                ast.assets_data["gameaud/max_life"].play()
                 GAMEDATA["life"] = 5
             elif fall["type"] == "max_jump":
                 ast.assets_data["gameaud/jump"].play()
@@ -165,6 +168,8 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
             else:
                 GAMEDATA["life"] = 0
                 ast.assets_data["gameaud/falling_obj_kill"].play()
+            if f"game/notif_{fall['type']}" in ast.assets_data:
+                draw_notif(rsurface, fall["type"], tick, GAMEDATA)
         else:
             new_falls.append(fall)
     GAMEDATA["falls"] = new_falls

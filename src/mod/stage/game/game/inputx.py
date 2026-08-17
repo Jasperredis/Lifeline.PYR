@@ -7,8 +7,12 @@ from mod.core.save import save_data
 from mod.stage.game.game import constants as con
 from mod.stage.game import select
 
+moving = False
+
 
 def take_input(GAMEDATA, keys, tick, mx, my, mb):
+    global moving
+
     if not GAMEDATA["paused"] and not GAMEDATA["gameover"]:
         # Get game type dependent keys
         slow_key = keys[pg.K_s] if select.game_type != "2d" \
@@ -16,51 +20,47 @@ def take_input(GAMEDATA, keys, tick, mx, my, mb):
         jump_key = keys[pg.K_w] if select.game_type != "2d" \
             else keys[pg.K_UP]
 
+        # Take input
+        moving_left = (keys[pg.K_a] and not save_data["mouse-move"]) or (
+            mx < (GAMEDATA["plrx"] + 10) and mb[0] and save_data["mouse-move"])
+        moving_right = (keys[pg.K_d] and not save_data["mouse-move"]) or (
+            mx > (GAMEDATA["plrx"] - 10) and mb[0] and save_data["mouse-move"])
+        moving_up = (select.game_type == "2d" and
+                     keys[pg.K_w] and not save_data["mouse-move"]) or (
+            my < (GAMEDATA["plry"] + 10) and mb[0] and save_data["mouse-move"])
+        moving_down = (select.game_type == "2d" and
+                       keys[pg.K_s] and not save_data["mouse-move"]) or (
+            my > (GAMEDATA["plry"] - 10) and mb[0] and save_data["mouse-move"])
+        moving = (moving_left or moving_right or moving_up or moving_down)
+
         # Calculate plrx changes
         plrx_mod = con.plrx_slow_mod if slow_key else con.plrx_norm_mod
+        plry_mod = con.plrx_slow_mod if slow_key else con.plrx_norm_mod
         # Dash
-        if keys[pg.K_e] and (keys[pg.K_a] or keys[pg.K_d]):
+        if keys[pg.K_e] and moving:
             GAMEDATA["dash"] -= con.dash_decrement
             if GAMEDATA["dash"] > con.dash_functioning_min:
-                plrx_mod *= con.dash_multiplier
+                if moving_left or moving_right:
+                    plrx_mod *= con.dash_multiplier
+                if moving_up or moving_down:
+                    plry_mod *= con.dash_multiplier
                 ast.assets_data['gameaud/dash'].play()
         else:
             GAMEDATA["dash"] += con.dash_constant_increment
         GAMEDATA["dash"] = max(0, min(GAMEDATA["dash"], con.dash_max))
 
-        # Calculate plry changes (if in 2D mode)
-        if select.game_type == "2d":
-            plry_mod = con.plrx_slow_mod if slow_key else con.plrx_norm_mod
-            # Dash
-            if keys[pg.K_e] and (keys[pg.K_w] or keys[pg.K_s]):
-                GAMEDATA["dash"] -= con.dash_decrement
-                if GAMEDATA["dash"] > con.dash_functioning_min:
-                    plry_mod *= con.dash_multiplier
-                    ast.assets_data['gameaud/dash'].play()
-            else:
-                GAMEDATA["dash"] += con.dash_constant_increment
-            GAMEDATA["dash"] = max(0, min(GAMEDATA["dash"], con.dash_max))
-
         # Inertia
         if save_data["inertia"]:
             plrx_mod /= con.inertia_base_plrx_divisor
-            if (keys[pg.K_a] and not save_data["mouse-move"]) or (
-                mx < (GAMEDATA["plrx"] + 10) and mb[0] and save_data["mouse-move"]
-            ):
+            if moving_left:
                 GAMEDATA["velocity"] -= plrx_mod
-            if (keys[pg.K_d] and not save_data["mouse-move"]) or (
-                mx > (GAMEDATA["plrx"] - 10) and mb[0] and save_data["mouse-move"]
-            ):
+            if moving_right:
                 GAMEDATA["velocity"] += plrx_mod
             if select.game_type == "2d":
                 plry_mod /= con.inertia_base_plrx_divisor
-                if (keys[pg.K_w] and not save_data["mouse-move"]) or (
-                    my < (GAMEDATA["plry"] + 10) and mb[0] and save_data["mouse-move"]
-                ):
+                if moving_up:
                     GAMEDATA["velocity_y"] -= plry_mod
-                if (keys[pg.K_s] and not save_data["mouse-move"]) or (
-                    my > (GAMEDATA["plry"] - 10) and mb[0] and save_data["mouse-move"]
-                ):
+                if moving_down:
                     GAMEDATA["velocity_y"] += plry_mod
             GAMEDATA["plrx"] += GAMEDATA["velocity"]
             GAMEDATA["velocity"] -= (
@@ -73,18 +73,14 @@ def take_input(GAMEDATA, keys, tick, mx, my, mb):
                 else GAMEDATA["velocity_y"] / con.inertia_divisor_norm
             )
         else:  # No inertia
-            if (keys[pg.K_a] and not save_data["mouse-move"]) or (
-                mx < GAMEDATA["plrx"] and mb[0] and save_data["mouse-move"]
-            ):
+            if moving_left:
                 GAMEDATA["plrx"] -= plrx_mod
-            if (keys[pg.K_d] and not save_data["mouse-move"]) or (
-                mx > GAMEDATA["plrx"] and mb[0] and save_data["mouse-move"]
-            ):
+            if moving_right:
                 GAMEDATA["plrx"] += plrx_mod
             if select.game_type == "2d":
-                if keys[pg.K_w]:
+                if moving_up:
                     GAMEDATA["plry"] -= plry_mod
-                elif keys[pg.K_s]:
+                elif moving_down:
                     GAMEDATA["plry"] += plry_mod
 
         GAMEDATA["plrx"] = max(con.x_min, min(GAMEDATA["plrx"], con.x_max))

@@ -9,6 +9,8 @@ from mod.core.save import save_data
 import mod.etc.etcils as etc
 import mod.etc.magicvars as mgv
 from mod.stage.game import select
+from mod.stage.game.game import constants as con
+
 
 def make_text(rsurface, content, order, *, lessen_base=False):
     if select.game_type != "2d":
@@ -28,15 +30,18 @@ def make_text(rsurface, content, order, *, lessen_base=False):
     y_pos = y_pos_base + y_base + (order * 6)
     rsurface.blit(text, (x_pos, y_pos))
 
+
 def draw_tl_icon(rsurface, image, y, *, text=None):
     rsurface.blit(image, (2, y))
     if text is not None:
         text_surf = ast.assets_data["font1"].render(
             text, False, mgv.colours[19], mgv.colours[1]
         )  # Make text
-        rsurface.blit(text_surf, (15, y+3))  # Blit text     
+        rsurface.blit(text_surf, (15, y+3))  # Blit text
+
 
 def draw_ui(rsurface, GAMEDATA, tick, keys):
+    global pts_y, showing_pts
     # * Life
     if not GAMEDATA["gameover"]:
         life_width = ast.assets_data["game/life0"].get_width()
@@ -59,7 +64,7 @@ def draw_ui(rsurface, GAMEDATA, tick, keys):
             else:
                 life_y += life_width + 1
 
-        # Render missing life             
+        # Render missing life
         for i in range(5 - GAMEDATA["life"]):
             rsurface.blit(
                 ast.assets_data["game/life0"], (life_x, life_y)
@@ -96,6 +101,9 @@ def draw_ui(rsurface, GAMEDATA, tick, keys):
             make_text(rsurface, "GAME:", 9)
             make_text(rsurface, str(save_data["played"]), 10)
     elif GAMEDATA["gameover"]:  # Game over
+        if not GAMEDATA["shown_death_notif"]:
+            draw_notif(rsurface, "dead", tick, GAMEDATA)
+            GAMEDATA["shown_death_notif"] = True
         if select.game_type != "2d":
             make_text(rsurface, f"SCORE: {GAMEDATA['score']}", 1, lessen_base=True)
             make_text(rsurface, "GAMEOVER!", 0, lessen_base=True)
@@ -157,6 +165,16 @@ def draw_ui(rsurface, GAMEDATA, tick, keys):
     )
     pg.draw.rect(rsurface, mgv.colours[6], dash_fill)
 
+    # Draw points popup
+    if showing_pts:
+        if tick - last_show_pts_time <= 3 or tick - last_show_pts_time == 5:
+            pts_y -= 1
+        elif tick - last_show_pts_time >= con.show_pts_time:
+            showing_pts = False
+    if showing_pts:
+        rsurface.blit(ast.assets_data[f"game/notif_{showing_pts_num}"],
+                      (pts_x, pts_y))
+
     #! The code below was made when enemies were only one coordinate because 2D mode didn't exist yet.
     #! I still want the feature, but I don't really feel like working with the logic as of right now,
     #! so it's going to stay commented out.
@@ -177,3 +195,17 @@ def draw_ui_before_entities(rsurface):
         rsurface.blit(ast.assets_data["game/bar"], (etc.centrexy(ast.assets_data["game/bar"])))
     elif select.game_type == "2d":
         rsurface.blit(ast.assets_data["game/field"], (etc.centrexy(ast.assets_data["game/field"])))
+
+
+showing_pts = False
+pts_x, pts_y, last_show_pts_time, showing_pts_num = 0, 0, 0, 0
+
+
+def draw_notif(rsurface, num, tick, GAMEDATA):
+    global showing_pts, pts_x, pts_y, last_show_pts_time, showing_pts_num
+    if save_data["notifs"]:
+        showing_pts = True
+        pts_x, pts_y = GAMEDATA["plrx"], GAMEDATA["plry"] - \
+            con.show_pts_y_offset
+        last_show_pts_time = tick
+        showing_pts_num = num

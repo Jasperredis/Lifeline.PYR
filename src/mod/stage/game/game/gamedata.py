@@ -31,7 +31,8 @@ def init(tick):
         "falls": [],
         "dash": 106,
         "start_tick": tick,
-        "lasers": []
+        "lasers": [],
+        "shown_death_notif": False
     }
     save_data["played"] += 1
 

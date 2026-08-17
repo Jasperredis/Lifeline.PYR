@@ -5,6 +5,8 @@ import mod.core.assets as ast
 from mod.core.save import save_data, write_save
 import mod.etc.etcils as etc
 from mod.stage.game.game import constants as con
+from mod.stage.game.game.ui import draw_notif
+
 
 def do_updates(rsurface, tick, GAMEDATA):
     if not GAMEDATA["paused"]:
@@ -15,6 +17,9 @@ def do_updates(rsurface, tick, GAMEDATA):
             if not GAMEDATA["gameover"]: # Score
                 GAMEDATA["score"] += con.score_increment
                 save_data["total"] += con.score_increment
+                draw_notif(rsurface, "50_pts", tick, GAMEDATA)
+                if save_data["life-tick-sound"]:
+                    ast.assets_data["gameaud/tick"].play()
                 # Handle highscore
                 if GAMEDATA["score"] > save_data["high"]:
                     save_data["high"] = GAMEDATA["score"]

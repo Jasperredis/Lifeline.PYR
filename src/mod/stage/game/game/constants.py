@@ -54,6 +54,10 @@ jump_cooldown_time = 300
 jumpend_marker = 45
 pointer_y = 55
 
+# ui
+show_pts_time = 10
+show_pts_y_offset = 7
+
 # Global
 dash_functioning_min = 10
 
