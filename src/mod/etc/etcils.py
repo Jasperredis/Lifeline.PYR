@@ -26,14 +26,18 @@ def srp(tick, lkpt):  # Stop repeating (key) presses
 
 
 # Make a text option in a screen
-def mk_text_option(rsurface, sel, order, txt, unsel_colour, centre_x, start_y):
+def mk_text_option(rsurface, sel, order, txt, unsel_colour, centre_x, start_y,
+                   *, return_rect=False):
     if sel == order:
         text = assets.assets_data['font1'].render(
             txt, False, mgv.colours[16], mgv.colours[1])
     else:
         text = assets.assets_data['font1'].render(txt, False, unsel_colour)
     x = centrexy(text, onecoord='x') if centre_x else 5
-    rsurface.blit(text, (x, start_y + (order * 6)))
+    y = start_y + (order * 6)
+    rsurface.blit(text, (x, y))
+    if return_rect:
+        return text.get_rect(topleft=(x, y))
 
 
 def close(*, error=False):

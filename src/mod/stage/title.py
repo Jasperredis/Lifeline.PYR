@@ -81,12 +81,15 @@ def show_stats_screen(rsurface, keys):
         stats = False
 
 
-def show_title_screen(rsurface):
+def show_title_screen(rsurface, mx, my):
+    global sel
     rsurface.blit(ast.assets_data['title/title'], (
         etc.centrexy(ast.assets_data['title/title'], onecoord='x'), 17))
     for i, button in enumerate(BUTTONS):
-        etc.mk_text_option(rsurface, sel, i + 1, button, mgv.colours[1],
-                           True, 52)
+        rect = etc.mk_text_option(rsurface, sel, i + 1, button, mgv.colours[1],
+                                  True, 52, return_rect=True)
+        if save_data["mouse-nav"] and rect.collidepoint(mx, my):
+            sel = i
 
 
 def show_title_cat(rsurface, mx, my):
@@ -99,7 +102,7 @@ def show_title_cat(rsurface, mx, my):
     rsurface.blit(cat_image, cat_rect)
 
 
-def take_input(keys, tick):
+def take_input(keys, tick, mb):
     global sel, lkpt, stats
     if keys[pg.K_DOWN] and etc.srp(tick, lkpt):
         sel += 1
@@ -110,7 +113,7 @@ def take_input(keys, tick):
         lkpt = tick
         ast.assets_data['mainaud/blip'].play()
     sel = max(1, min(sel, len(BUTTONS)))
-    if keys[pg.K_RETURN] and etc.srp(tick, lkpt):
+    if (keys[pg.K_RETURN] or mb[0]) and etc.srp(tick, lkpt):
         ast.assets_data['mainaud/blip'].play()
         if sel == 1:
             return "game"
@@ -131,7 +134,7 @@ def take_input(keys, tick):
         return None
 
 
-def act(rsurface, keys, tick, mx, my):
+def act(rsurface, keys, tick, mx, my, mb):
     global friction, lkpt, done_text, show_cat
 
     # Initialise
@@ -158,5 +161,5 @@ def act(rsurface, keys, tick, mx, my):
         if stats:
             show_stats_screen(rsurface, keys)
         else:  # Regular title screen
-            show_title_screen(rsurface)
-            return take_input(keys, tick)
+            show_title_screen(rsurface, mx, my)
+            return take_input(keys, tick, mb)

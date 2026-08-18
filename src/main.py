@@ -79,20 +79,20 @@ STAGES = {
         "function": lambda: intro.act(game_area, tick)
     },
     "title": {
-        "function": lambda: title.act(game_area, keys, tick, mx, my)
+        "function": lambda: title.act(game_area, keys, tick, mx, my, mb)
     },
     "game": {
         "function": lambda: game.act(game_area, keys, tick, mx, my, mb)
     },
     "options": {
-        "function": lambda: options.act(game_area, keys, key, tick,
+        "function": lambda: options.act(game_area, keys, key, tick, mx, my,
                                         stage_history, "options"),
         "special": {
             "remake_display": make_display
         }
     },
     "keybindings": {
-        "function": lambda: options.act(game_area, keys, key, tick,
+        "function": lambda: options.act(game_area, keys, key, tick, mx, my,
                                         stage_history, "keybindings")
     },
     "license": {

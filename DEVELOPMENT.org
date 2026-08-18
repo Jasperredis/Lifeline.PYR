@@ -1,4 +1,4 @@
-Yes, this is an org file. I use Emacs.
+1Yes, this is an org file. I use Emacs.
 
 ** Please consider contributing!
 During development of this update, I am /very/ open to contributions!
@@ -11,12 +11,12 @@ prioritise working on, and to list (and publish) what I'm planning.
 ** Playability Status
 Working!
 
-** New QoL features for Lifeline.PYR [4/5]
+** New QoL features for Lifeline.PYR [5/5]
 - [x] Save file generation / reset
 - [x] Keybinding support
 - [x] Mouse-based player movement
   - [x] ^^^ Refactor this
-- [ ] Mouse-based menu navigation
+- [x] Mouse-based menu navigation
 - +More tips+ (tips no longer exist)
 
 ** Meta changes [0/1]
@@ -27,8 +27,9 @@ myself in third person?
 
 ** Gameplay features for Lifeline.PYR [1/2]
 - [x] Score powerups/hazards (-50, +25, +50, +100)
-- [ ] Cheats
+- [ ] Difficulties that actually work
 - +Scoring screen on death+ (scrapped)
+- +Cheat+ (moved to a later update)
 
 ** Bugs to fix [3/4]
 *Note:* If you find any bugs, /please/ make a GitHub Issue, Discussion, or
@@ -46,10 +47,10 @@ contact me about it (see _Contact_ header @ https://jasperredis.net)!
 - Remove unneccessary comments
 - Make the game look overall better
 
-** Considerable features [1/2]
+** Considerable features [1/1]
 These are things that may be added, though I'm not all too sure.
 - [x] Update colour palette
-- [ ] Perhaps another game mode? o.o
+- +Perhaps another game mode? o.o+ (moved to a later update)
 
 * Changes so Far
 If you're coming here for gameplay updates, note that this is a mix of both
@@ -99,3 +100,6 @@ technical changes and updates!
   - This required adding the ability for the music module to stop music if the
     track is None
 - Removed "Alternate" soundtrack
+- Added mouse menu navigation
+  - This also requried adding a save field and options screen configuration for
+    it.

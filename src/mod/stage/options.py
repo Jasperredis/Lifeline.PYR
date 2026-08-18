@@ -84,6 +84,15 @@ $opts/bg_preview",
         "bool": True
     },
     {
+        "desc": "Navigate menus]]with your mouse.]]You may still use the]]\
+keyboard with this on.",
+        "key": "mouse-nav",
+        "name": "Mouse menu nav",
+        "call": {0: "Off", 1: "On"},
+        "clamp": "0,1",
+        "bool": True
+    },
+    {
         "desc": "Change the soundtrack]]selection.",
         "key": "ost",
         "name": "Soundtrack",
@@ -266,7 +275,7 @@ def get_numeric_key_value(key):  # Turn bools into ints
 
 
 def get_option_clamp(value):  # Parse the 'clamp' in options_data
-    clamp = OPTS[sel]['clamp'].split(',')
+    clamp = OPTS[sel - 1]['clamp'].split(',')
     return max(int(clamp[0]), min(value, int(clamp[1])))
 
 
@@ -282,11 +291,11 @@ def take_input(keys, key, tick, stage_history, context):
         sel -= 1
         lkpt = tick
         ast.assets_data['mainaud/blip'].play()
-    sel = max(1, min(sel, item_count - 1))
+    sel = max(1, min(sel, item_count))
     # Change option value
     if context == "options" and (
             keyb(keys, "menu-increase") or keyb(keys, "menu-decrease")):
-        new_value = get_numeric_key_value(save_data[data[sel]['key']])
+        new_value = get_numeric_key_value(save_data[data[sel - 1]['key']])
         if keyb(keys, "menu-decrease") and etc.srp(tick, lkpt):
             new_value -= 1
             lkpt = tick
@@ -296,18 +305,18 @@ def take_input(keys, key, tick, stage_history, context):
             lkpt = tick
             ast.assets_data['mainaud/blip'].play()
         new_value = get_option_clamp(new_value)
-        if data[sel]['bool']:
+        if data[sel - 1]['bool']:
             new_value = bool(new_value)
-        og_value = save_data[data[sel]['key']]
-        save_data[data[sel]['key']] = new_value
+        og_value = save_data[data[sel - 1]['key']]
+        save_data[data[sel - 1]['key']] = new_value
 
         # Check if display or assets need to be remade
         KEYS_NEEDING_REMADE_DISPLAY = ['fullscreen', 'winscale']
-        if data[sel]['key'] in KEYS_NEEDING_REMADE_DISPLAY \
+        if data[sel - 1]['key'] in KEYS_NEEDING_REMADE_DISPLAY \
            and og_value != new_value:
             return "remake_display"
         KEYS_NEEDING_ASSET_RELOAD = ['palette']
-        if data[sel]['key'] in KEYS_NEEDING_ASSET_RELOAD \
+        if data[sel - 1]['key'] in KEYS_NEEDING_ASSET_RELOAD \
            and og_value != new_value:
             ast.load_assets(only_images=True)
     elif context == "keybindings":
@@ -315,7 +324,7 @@ def take_input(keys, key, tick, stage_history, context):
             save_data["keybindings"] = DEFAULT_SAVE["keybindings"]
         elif setting_key:
             if key is not None:
-                save_data["keybindings"][data[sel]["key"]] = \
+                save_data["keybindings"][data[sel - 1]["key"]] = \
                     pg.key.name(key)
                 setting_key = False
         elif keyb(keys, "select") and not setting_key:
@@ -328,7 +337,8 @@ def take_input(keys, key, tick, stage_history, context):
     return None
 
 
-def show_screen(rsurface, context):
+def show_screen(rsurface, context, mx, my):
+    global sel
     data = OPTS if context == "options" else KEYS
     # Background
     bg_asset = "opts/bg-keys" if context == "keybindings" else "opts/bg"
@@ -338,17 +348,22 @@ def show_screen(rsurface, context):
     text = ast.assets_data['font1'].render(title_text, False, mgv.colours[19])
     rsurface.blit(text, (5, 4))
     # Options list
-    for i in range(1, item_count):
-        etc.mk_text_option(rsurface, sel, i, data[i]['name'],
-                           mgv.colours[19], False, 5)
+    for i in range(item_count):
+        rect = etc.mk_text_option(rsurface, sel, i + 1, data[i]['name'],
+                                  mgv.colours[19], False, 5, return_rect=True)
+        # I have genuinely no idea why I need "- 8" in the condition below, but
+        # it wasn't working and I just tried that to see if it'd work and it
+        # just did????
+        if save_data["mouse-nav"] and rect.collidepoint(mx, my - 8):
+            sel = i + 1
     # Show description
     if sel != item_count:
-        current = data[sel]['call'][save_data[data[sel]['key']]] \
+        current = data[sel - 1]['call'][save_data[data[sel - 1]['key']]] \
             if context == "options" else (
-               save_data["keybindings"][data[sel]['key']])
+               save_data["keybindings"][data[sel - 1]['key']])
         exit_key = save_data['keybindings']['menu-exit'].upper()
         desc_text = (
-            data[sel]['desc']
+            data[sel - 1]['desc']
             + "]]]]Use left/right arrows]]to change."
             + f"]]Currently set to:]]{current}"
             + f"]]]]Press [{exit_key}] to leave."
@@ -371,14 +386,8 @@ def show_screen(rsurface, context):
                     line, False, mgv.colours[19], mgv.colours[1])
                 rsurface.blit(text, (DESC_X, DESC_Y + (y * 6)))
 
-# Press [RETURN]
-# followed by any key
-# to set to said key.
-#
-# Currently set to:
 
-
-def act(rsurface, keys, key, tick, stage_history, context):
+def act(rsurface, keys, key, tick, mx, my, stage_history, context):
     global lkpt, item_count, sel, setting_key
     # Initialize
     if tick <= 1:
@@ -392,5 +401,5 @@ def act(rsurface, keys, key, tick, stage_history, context):
         lkpt = 0
         B.bottom_text = "Reset LKPT."
 
-    show_screen(rsurface, context)
+    show_screen(rsurface, context, mx, my)
     return take_input(keys, key, tick, stage_history, context)
