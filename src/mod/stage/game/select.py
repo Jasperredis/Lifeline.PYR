@@ -5,12 +5,13 @@ import pygame as pg
 import mod.core.assets as ast
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
+from mod.core.save import save_data, keyb
 
 sel = 1
 lkpt = 0
 game_type = None
 
-def ACT(rsurface, keys, tick):
+def act(rsurface, keys, tick, mx, my, mb):
     global sel, lkpt, game_type
 
     # Fix lkpt
@@ -27,11 +28,11 @@ def ACT(rsurface, keys, tick):
     )
 
     # Get input
-    if keys[pg.K_RIGHT] and etc.srp(tick, lkpt):
+    if keyb(keys, "menu-right") and etc.srp(tick, lkpt):
         sel += 1
         lkpt = tick
         ast.assets_data['mainaud/blip'].play()
-    elif keys[pg.K_LEFT] and etc.srp(tick, lkpt):
+    elif keyb(keys, "menu-up") and etc.srp(tick, lkpt):
         sel -= 1
         lkpt = tick
         ast.assets_data['mainaud/blip'].play()
@@ -48,21 +49,25 @@ def ACT(rsurface, keys, tick):
         "back": "back"
     }
     count = 0
-    closeness = 7 # i was gonna give this a funny name but decided against it
+    closeness = 7
     # Render & act
     for i in options:
         count += 1
         # Get position
         y = opt_y - 2 if sel == count else opt_y
         x = base_x_offset + (
-            ast.assets_data['game/normal_game'].get_width() * 
-            0.75 * 
+            ast.assets_data['game/normal_game'].get_width() *
+            0.75 *
             (count - 1)
-        ) - ( count * closeness )
+        ) - (count * closeness)
         # Render
-        rsurface.blit(ast.assets_data[f"game/{i}"], (x, y))
+        rect = ast.assets_data[f"game/{i}"].get_rect(topleft=(x, y))
+        rsurface.blit(ast.assets_data[f"game/{i}"], rect)
+        if save_data["mouse-nav"] and rect.collidepoint(mx, my - 8):
+            sel = count
         # Act
-        if keys[pg.K_RETURN] and etc.srp(tick, lkpt) and sel == count:
+        if ((keys[pg.K_RETURN] or (save_data["mouse-nav"] and mb[0]))
+                and etc.srp(tick, lkpt) and sel == count):
             lkpt = tick
             ast.assets_data['mainaud/blip'].play()
             game_type = i

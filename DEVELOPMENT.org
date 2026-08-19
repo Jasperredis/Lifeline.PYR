@@ -19,11 +19,14 @@ Working!
 - [x] Mouse-based menu navigation
 - +More tips+ (tips no longer exist)
 
-** Meta changes [0/1]
+** Meta changes [1/3]
 These are changes that aren't exactly to the game itself, but to the docs around
 it. These are to be handled by jasperredis xemself. …Why am I talking about
 myself in third person?
-- [ ] Document constants override
+- [x] Document constants override
+- [ ] Write updated how to play screen
+- [ ] Update palette on website CSS and its images, and preview images
+  everywhere
 
 ** Gameplay features for Lifeline.PYR [1/2]
 - [x] Score powerups/hazards (-50, +25, +50, +100)

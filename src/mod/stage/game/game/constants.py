@@ -35,7 +35,6 @@ laser_fire_time = 80
 laser_frame_interval = 5
 laser_end_time = 179
 laser_warn_y_pos = 59
-laser_flash_time = 10
 
 # inputx
 plrx_slow_mod = 1

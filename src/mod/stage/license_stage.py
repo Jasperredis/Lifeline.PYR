@@ -3,7 +3,7 @@
 
 import pygame as pg
 import mod.core.assets as ast
-from mod.core.save import save_data
+from mod.core.save import keyb
 import mod.etc.magicvars as mgv
 
 # Make surface to render
@@ -23,7 +23,8 @@ FONT     : SIL OFL 1.1  | LICENSE-OFL
 See the LICENSE file for links to these
 licenses and more info.
 
-Press [X] to close this.
+Press (Menu Exit) to close this.
+  Menu Exit defaults to [X].
 """
 y = 1
 text_surface = pg.Surface((256, 128))
@@ -40,5 +41,5 @@ text_surface.blit(gplv3_sprite,
 
 def act(rsurface, screen, keys):
     rsurface.blit(text_surface, (0, 0))
-    if keys[pg.K_x]:
+    if keyb(keys, "menu-exit"):
         return "title"

@@ -4,7 +4,7 @@
 import pygame as pg
 import webbrowser
 import mod.core.assets as ast
-from mod.core.save import save_data
+from mod.core.save import save_data, keyb
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
 import mod.etc.BTXT as B
@@ -70,14 +70,14 @@ def show_stats_screen(rsurface, keys):
         f"Highscore   : {save_data['high']}",
         f"Totalscore  : {save_data['total']}",
         f"Games Played: {save_data['played']}",
-        "Press [X] to close."
+        f"Press [{save_data['keybindings']['menu-exit'].upper()}] to close."
     ]
     for line in text:
         text_surf = ast.assets_data['font1'].render(
             line, False, mgv.colours[19])
         rsurface.blit(text_surf, (text_x, text_y))
         text_y += 6
-    if keys[pg.K_x]:
+    if keyb(keys, "menu-exit"):
         stats = False
 
 
@@ -88,8 +88,8 @@ def show_title_screen(rsurface, mx, my):
     for i, button in enumerate(BUTTONS):
         rect = etc.mk_text_option(rsurface, sel, i + 1, button, mgv.colours[1],
                                   True, 52, return_rect=True)
-        if save_data["mouse-nav"] and rect.collidepoint(mx, my):
-            sel = i
+        if save_data["mouse-nav"] and rect.collidepoint(mx, my - 8):
+            sel = i + 1
 
 
 def show_title_cat(rsurface, mx, my):
@@ -104,16 +104,17 @@ def show_title_cat(rsurface, mx, my):
 
 def take_input(keys, tick, mb):
     global sel, lkpt, stats
-    if keys[pg.K_DOWN] and etc.srp(tick, lkpt):
+    if keyb(keys, "menu-down") and etc.srp(tick, lkpt):
         sel += 1
         lkpt = tick
         ast.assets_data['mainaud/blip'].play()
-    elif keys[pg.K_UP] and etc.srp(tick, lkpt):
+    elif keyb(keys, "menu-up") and etc.srp(tick, lkpt):
         sel -= 1
         lkpt = tick
         ast.assets_data['mainaud/blip'].play()
     sel = max(1, min(sel, len(BUTTONS)))
-    if (keys[pg.K_RETURN] or mb[0]) and etc.srp(tick, lkpt):
+    if ((keys[pg.K_RETURN] or (save_data["mouse-nav"] and mb[0])) and
+            etc.srp(tick, lkpt)):
         ast.assets_data['mainaud/blip'].play()
         if sel == 1:
             return "game"

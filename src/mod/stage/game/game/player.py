@@ -7,6 +7,7 @@ import mod.etc.magicvars as mgv
 from mod.stage.game.game import constants as con
 from mod.stage.game import select
 from mod.stage.game.game import inputx
+from mod.core.save import keyb
 
 def make_player(rsurface, GAMEDATA, tick, keys):
     global plr
@@ -35,16 +36,16 @@ def make_player(rsurface, GAMEDATA, tick, keys):
     else: # Not jumping
         y_deduction = 1
         if select.game_type != "2d":
-            if keys[pg.K_s]:
+            if keyb(keys, "game-1d-slow"):
                 plrcol = mgv.colours[10]
-            elif keys[pg.K_e] and inputx.moving and GAMEDATA["dash"] > con.dash_functioning_min:
+            elif keyb(keys, "game-dash") and inputx.moving and GAMEDATA["dash"] > con.dash_functioning_min:
                 plrcol = mgv.colours[5]
             else:
                 plrcol = mgv.colours[19]
         else:
-            if keys[pg.K_DOWN]:
+            if keyb(keys, "game-2d-slow"):
                 plrcol = "slow_"
-            elif keys[pg.K_e] and inputx.moving and GAMEDATA["dash"] > con.dash_functioning_min:
+            elif keyb(keys, "game-dash") and inputx.moving and GAMEDATA["dash"] > con.dash_functioning_min:
                 plrcol = "dash_"
             else:
                 plrcol = ""
@@ -53,7 +54,7 @@ def make_player(rsurface, GAMEDATA, tick, keys):
     # Create rect
     plr_height = 1 if select.game_type != "2d" else 3
     plr = pg.Rect(
-        (GAMEDATA["plrx"], GAMEDATA["plry"] - y_deduction), 
+        (GAMEDATA["plrx"], GAMEDATA["plry"] - y_deduction),
         (3, plr_height)
     )
 

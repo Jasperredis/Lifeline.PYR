@@ -213,7 +213,7 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
                     laser_rect.height = rsurface.get_height()
                     rsurface.blit(
                         ast.assets_data[f"game/laser_{laser['frame']}_bottom"],
-                        (laser["x"] - 2,
+                        (laser["x"] - 3,
                          ast.assets_data["game/laser_1_top"].get_height())
                     )
                     if tick - laser["last_frame_change"] >= \
@@ -224,12 +224,6 @@ def do_spawns(rsurface, plr, GAMEDATA, tick):
                         GAMEDATA["life"] = 0
                     else:
                         new_lasers.append(laser)
-                if (tick - laser["start_time"] >= con.laser_fire_time and
-                        tick - laser["start_time"] <= con.laser_flash_time):
-                    flash_rect = pg.Rect(0, 0,
-                                         rsurface.get_width(),
-                                         rsurface.get_height())
-                    pg.draw.rect(rsurface, mgv.colours[19], flash_rect)
         else:
             laser["start_time"] += 1
             laser["last_frame_change"] += 1

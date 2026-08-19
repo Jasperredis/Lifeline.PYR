@@ -3,7 +3,7 @@
 
 import pygame as pg
 import mod.core.assets as ast
-from mod.core.save import save_data
+from mod.core.save import save_data, keyb
 from mod.stage.game.game import constants as con
 from mod.stage.game import select
 
@@ -15,21 +15,25 @@ def take_input(GAMEDATA, keys, tick, mx, my, mb):
 
     if not GAMEDATA["paused"] and not GAMEDATA["gameover"]:
         # Get game type dependent keys
-        slow_key = keys[pg.K_s] if select.game_type != "2d" \
-            else keys[pg.K_DOWN]
-        jump_key = keys[pg.K_w] if select.game_type != "2d" \
-            else keys[pg.K_UP]
+        slow_key = keyb(keys, "game-1d-slow") if select.game_type != "2d" \
+            else keyb(keys, "game-2d-slow")
+        jump_key = keyb(keys, "game-1d-jump") if select.game_type != "2d" \
+            else keyb(keys, "game-2d-jump")
 
         # Take input
-        moving_left = (keys[pg.K_a] and not save_data["mouse-move"]) or (
+        moving_left = (keyb(keys, "game-move-left")
+                       and not save_data["mouse-move"]) or (
             mx < (GAMEDATA["plrx"] + 10) and mb[0] and save_data["mouse-move"])
-        moving_right = (keys[pg.K_d] and not save_data["mouse-move"]) or (
+        moving_right = (keyb(keys, "game-move-right")
+                        and not save_data["mouse-move"]) or (
             mx > (GAMEDATA["plrx"] - 10) and mb[0] and save_data["mouse-move"])
         moving_up = (select.game_type == "2d" and
-                     keys[pg.K_w] and not save_data["mouse-move"]) or (
+                     keyb(keys, "game-2d-move-up")
+                     and not save_data["mouse-move"]) or (
             my < (GAMEDATA["plry"] + 10) and mb[0] and save_data["mouse-move"])
         moving_down = (select.game_type == "2d" and
-                       keys[pg.K_s] and not save_data["mouse-move"]) or (
+                       keyb(keys, "game-2d-move-down")
+                       and not save_data["mouse-move"]) or (
             my > (GAMEDATA["plry"] - 10) and mb[0] and save_data["mouse-move"])
         moving = (moving_left or moving_right or moving_up or moving_down)
 
@@ -37,7 +41,7 @@ def take_input(GAMEDATA, keys, tick, mx, my, mb):
         plrx_mod = con.plrx_slow_mod if slow_key else con.plrx_norm_mod
         plry_mod = con.plrx_slow_mod if slow_key else con.plrx_norm_mod
         # Dash
-        if keys[pg.K_e] and moving:
+        if keyb(keys, "game-dash") and moving:
             GAMEDATA["dash"] -= con.dash_decrement
             if GAMEDATA["dash"] > con.dash_functioning_min:
                 if moving_left or moving_right:
@@ -99,7 +103,7 @@ def take_input(GAMEDATA, keys, tick, mx, my, mb):
             ast.assets_data["gameaud/jump"].play()
 
     # Pause
-    if keys[pg.K_ESCAPE] and not GAMEDATA["paused"]:
+    if keyb(keys, "game-pause") and not GAMEDATA["paused"]:
         ast.assets_data["gameaud/pause"].play()
         GAMEDATA["paused"] = True
 

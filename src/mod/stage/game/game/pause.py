@@ -3,14 +3,14 @@
 
 import pygame as pg
 import mod.core.assets as ast
-from mod.core.save import save_data, write_save
+from mod.core.save import save_data, write_save, keyb
 import mod.etc.etcils as etc
 import mod.etc.magicvars as mgv
 
 lkpt, sel = 0, 1
 
 
-def do_pause(rsurface, keys, tick, GAMEDATA):
+def do_pause(rsurface, keys, tick, GAMEDATA, mx, my, mb):
     global lkpt, sel
 
     if lkpt > tick:
@@ -21,18 +21,22 @@ def do_pause(rsurface, keys, tick, GAMEDATA):
                   etc.centrexy(ast.assets_data["game/pause"]))
     OPTIONS = ["RESUME", "RESTART", "OPTIONS", "TITLE"]
     for i, text in enumerate(OPTIONS):
-        etc.mk_text_option(rsurface, sel, i + 1, text, mgv.colours[19], True,
-                           (rsurface.get_height() / 2) - 19)
+        rect = etc.mk_text_option(rsurface, sel, i + 1, text, mgv.colours[19],
+                                  True, (rsurface.get_height() / 2) - 19,
+                                  return_rect=True)
+        if save_data["mouse-nav"] and rect.collidepoint(mx, my - 8):
+            sel = i + 1
     # Take input
-    if keys[pg.K_UP] and etc.srp(tick, lkpt):
+    if keyb(keys, "menu-up") and etc.srp(tick, lkpt):
         sel -= 1
         lkpt = tick
         ast.assets_data["mainaud/blip"].play()
-    elif keys[pg.K_DOWN] and etc.srp(tick, lkpt):
+    elif keyb(keys, "menu-down") and etc.srp(tick, lkpt):
         sel += 1
         lkpt = tick
         ast.assets_data["mainaud/blip"].play()
-    elif keys[pg.K_RETURN] and etc.srp(tick, lkpt):
+    elif ((keys[pg.K_RETURN] or (save_data["mouse-nav"] and mb[0]))
+          and etc.srp(tick, lkpt)):
         ast.assets_data["mainaud/blip"].play()
         if sel == 1:
             GAMEDATA["paused"] = False

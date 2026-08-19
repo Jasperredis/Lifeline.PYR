@@ -215,8 +215,8 @@ KEYS = [
         "key": "menu-exit"
     },
     {
-        "name": "Select",
-        "key": "select"
+        "name": "Screenshot",
+        "key": "screenshot"
     },
     {
         "name": "Game Move Left",
@@ -239,32 +239,24 @@ KEYS = [
         "key": "game-1d-jump"
     },
     {
-        "name": "Game Slow Down (1D)",
+        "name": "Game Slow/Land (1D)",
         "key": "game-1d-slow"
-    },
-    {
-        "name": "Game Stop Jump (1D)",
-        "key": "game-1d-stop-jump"
     },
     {
         "name": "Game Jump (2D)",
         "key": "game-2d-jump"
     },
     {
-        "name": "Game Slow Down (2D)",
+        "name": "Game Slow/Land (2D)",
         "key": "game-2d-slow"
     },
     {
-        "name": "Game Stop Jump (2D)",
-        "key": "game-2d-stop-jump"
+        "name": "Game Dash",
+        "key": "game-dash"
     },
     {
         "name": "Game Pause",
         "key": "game-pause"
-    },
-    {
-        "name": "Screenshot",
-        "key": "screenshot"
     }
 ]
 setting_key = False
@@ -327,7 +319,7 @@ def take_input(keys, key, tick, stage_history, context):
                 save_data["keybindings"][data[sel - 1]["key"]] = \
                     pg.key.name(key)
                 setting_key = False
-        elif keyb(keys, "select") and not setting_key:
+        elif keys[pg.K_RETURN] and not setting_key:
             setting_key = True
     # Leave
     if keyb(keys, "menu-exit"):
@@ -357,34 +349,34 @@ def show_screen(rsurface, context, mx, my):
         if save_data["mouse-nav"] and rect.collidepoint(mx, my - 8):
             sel = i + 1
     # Show description
-    if sel != item_count:
-        current = data[sel - 1]['call'][save_data[data[sel - 1]['key']]] \
-            if context == "options" else (
-               save_data["keybindings"][data[sel - 1]['key']])
-        exit_key = save_data['keybindings']['menu-exit'].upper()
-        desc_text = (
-            data[sel - 1]['desc']
-            + "]]]]Use left/right arrows]]to change."
-            + f"]]Currently set to:]]{current}"
-            + f"]]]]Press [{exit_key}] to leave."
-        ) if context == "options" else (
-            f"Press [{save_data['keybindings']['select'].upper()}] ]]"
-            + "followed by any key]]to set to said key."
-            + f"]]]]Currently set to:]][{current.upper()}] "
-            + f"]]]]Press [{exit_key}] to leave.]]"
-            + "Press [R] to reset]]all keybindings."
-        )
-        lines = desc_text.split(']]')
-        DESC_X = 119 if context == "options" else 128
-        DESC_Y = 42 if context == "options" else 46
-        for y, line in enumerate(lines):
-            if line.startswith("$"):
-                image = ast.assets_data[line[1:]]
-                rsurface.blit(image, (DESC_X, DESC_Y + (y * 6)))
-            else:
-                text = ast.assets_data['font1'].render(
-                    line, False, mgv.colours[19], mgv.colours[1])
-                rsurface.blit(text, (DESC_X, DESC_Y + (y * 6)))
+    current = data[sel - 1]['call'][save_data[data[sel - 1]['key']]] \
+        if context == "options" else (
+           save_data["keybindings"][data[sel - 1]['key']])
+    exit_key = save_data['keybindings']['menu-exit'].upper()
+    desc_text = (
+        data[sel - 1]['desc']
+        + "]]]]Use left/right arrows]]to change."
+        + f"]]Currently set to:]]{current}"
+        + f"]]]]Press [{exit_key}] to leave."
+    ) if context == "options" else (
+        "Press [RETURN] ]]"
+        + "followed by any key]]to set to said key."
+        + f"]]]]Currently set to:]][{current.upper()}] "
+        + f"]]]]Press [{exit_key}] to leave.]]]]"
+        + "Press [R] to reset]]all keybindings (you]]"
+        + "may have to restart]]the game)."
+    )
+    lines = desc_text.split(']]')
+    DESC_X = 119 if context == "options" else 128
+    DESC_Y = 42 if context == "options" else 46
+    for y, line in enumerate(lines):
+        if line.startswith("$"):
+            image = ast.assets_data[line[1:]]
+            rsurface.blit(image, (DESC_X, DESC_Y + (y * 6)))
+        else:
+            text = ast.assets_data['font1'].render(
+                line, False, mgv.colours[19], mgv.colours[1])
+            rsurface.blit(text, (DESC_X, DESC_Y + (y * 6)))
 
 
 def act(rsurface, keys, key, tick, mx, my, stage_history, context):
@@ -394,6 +386,8 @@ def act(rsurface, keys, key, tick, mx, my, stage_history, context):
         lkpt = 0
         sel = 1
         setting_key = False
+    if tick < 5:
+        return
     item_count = len(KEYS) if context == "keybindings" else len(OPTS)
 
     # RESET LKPT if needed

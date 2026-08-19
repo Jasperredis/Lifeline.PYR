@@ -1,33 +1,141 @@
+=== CONTROLS ===
+
 This is a document explaining the controls of the game!
-* [ and ] are not buttons that you have to press. It is just formatting.
-  I doubt that anybody would be confused about this, but I make this note just in case.
-  
+These can all be re-binded, but these are all of the defaults.
+Below will be some layouts that I made and reccommend if you don't like the
+default!
+
+Formatting notice: Directions (e.g., [UP]) notate the arrow keys that are for
+that direction. Also, keys like alt, shift, and ctrl will be notated as side
+(L/R) + the name in all caps (example: left ctrl = LCTRL).
+
+
+=== Default ===
+
 Menu Navigation:
-- Up: Up Arrow
-- Down: Down Arrow
-- Left: Left Arrow
-- Right: Right Arrow
-- Decrease Option: Left Arrow
-- Increase Option: Right Arrow
-- Select: Return / Enter
-- Exit Menu: [X]
+- Menu Up      : [UP]
+- Menu Down    : [DOWN]
+- Menu Left    : [LEFT]
+- Menu Right   : [RIGHT]
+- Menu Decrease: [LEFT]
+- Menu Increase: [RIGHT]
+- Menu Exit    : [X]
+- Select       : [RETURN]
 
 Gameplay (1D & 2D Modes):
-- Move Left: A
-- Move Right: D
-- Pause: ESC
+- Game Move Left : [A]
+- Game Move Right: [D]
+- Game Pause     : [ESCAPE]
+- Game Dash      : [E]
 
 Gameplay (1D Mode):
-- Jump: [W]
-- Slow: [S]
-- Stop Jump: [S]
+- Game Jump (1D)     : [W]
+- Game Slow/Land (1D): [S]
 
 Gameplay (2D Mode):
-- Move Up: [W]
-- Move Down: [S]
-- Jump: Up Arrow
-- Slow: Down Arrow
-- Stop Jump: Down Arrow
+- Game Move Up (2D)  : [W]
+- Game Move Down (2D): [S]
+- Game Jump (2D)     : [UP]
+- Game Slow/Land (2D): [DOWN]
 
 Other:
-- Take Screenshot: [F2]
+- Screenshot: [F2]
+
+
+Now, for the alternative layouts.
+
+
+=== Southpaw ===
+
+Menu Navigation:
+- Menu Up      : [UP]
+- Menu Down    : [DOWN]
+- Menu Left    : [LEFT]
+- Menu Right   : [RIGHT]
+- Menu Decrease: [LEFT]
+- Menu Increase: [RIGHT]
+- Menu Exit    : [X]
+- Select       : [RETURN]
+
+Gameplay (1D & 2D Modes):
+- Game Move Left : [LEFT]
+- Game Move Right: [RIGHT]
+- Game Pause     : [ESCAPE]
+- Game Dash      : [RCTRL]
+
+Gameplay (1D Mode):
+- Game Jump (1D)     : [UP]
+- Game Slow/Land (1D): [DOWN]
+
+Gameplay (2D Mode):
+- Game Move Up (2D)  : [UP]
+- Game Move Down (2D): [DOWN]
+- Game Jump (2D)     : [W]
+- Game Slow/Land (2D): [S]
+
+Other:
+- Screenshot: [F2]
+
+
+=== Alternate ===
+
+Menu Navigation:
+- Menu Up      : [UP]
+- Menu Down    : [DOWN]
+- Menu Left    : [LEFT]
+- Menu Right   : [RIGHT]
+- Menu Decrease: [LEFT]
+- Menu Increase: [RIGHT]
+- Menu Exit    : [X]
+- Select       : [RETURN]
+
+Gameplay (1D & 2D Modes):
+- Game Move Left : [LEFT]
+- Game Move Right: [RIGHT]
+- Game Pause     : [ESCAPE]
+- Game Dash      : [LSHIFT]
+
+Gameplay (1D Mode):
+- Game Jump (1D)     : [SPACE]
+- Game Slow/Land (1D): [LALT]
+
+Gameplay (2D Mode):
+- Game Move Up (2D)  : [UP]
+- Game Move Down (2D): [DOWN]
+- Game Jump (2D)     : [SPACE]
+- Game Slow/Land (2D): [LALT]
+
+Other:
+- Screenshot: [F2]
+
+
+=== Alternate (Southpaw) ===
+
+Menu Navigation:
+- Menu Up      : [UP]
+- Menu Down    : [DOWN]
+- Menu Left    : [LEFT]
+- Menu Right   : [RIGHT]
+- Menu Decrease: [LEFT]
+- Menu Increase: [RIGHT]
+- Menu Exit    : [X]
+- Select       : [RETURN]
+
+Gameplay (1D & 2D Modes):
+- Game Move Left : [LEFT]
+- Game Move Right: [RIGHT]
+- Game Pause     : [ESCAPE]
+- Game Dash      : [RCTRL]
+
+Gameplay (1D Mode):
+- Game Jump (1D)     : [SPACE]
+- Game Slow/Land (1D): [RALT]
+
+Gameplay (2D Mode):
+- Game Move Up (2D)  : [UP]
+- Game Move Down (2D): [DOWN]
+- Game Jump (2D)     : [SPACE]
+- Game Slow/Land (2D): [RALT]
+
+Other:
+- Screenshot: [F2]

@@ -4,6 +4,7 @@
 import pygame as pg
 import time
 from mod.core.assets import assets_data
+from mod.core.save import keyb
 import mod.etc.etcils as etc
 
 lkpt = 0
@@ -12,7 +13,7 @@ lkpt = 0
 def act(keys, rsurface, nc_tick):
     global lkpt
 
-    if keys[pg.K_F2] and etc.srp(nc_tick, lkpt):
+    if keyb(keys, "screenshot") and etc.srp(nc_tick, lkpt):
         lkpt = nc_tick
         ssf = f"screenshots/{int(time.time())}.png"
         pg.image.save(rsurface, ssf)

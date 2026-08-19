@@ -19,12 +19,11 @@ DEFAULT_SAVE = {
     "keybindings": {
         "game-1d-jump": "w",
         "game-1d-slow": "s",
-        "game-1d-stop-jump": "s",
         "game-2d-jump": "UP",
         "game-2d-move-down": "s",
         "game-2d-move-up": "w",
         "game-2d-slow": "DOWN",
-        "game-2d-stop-jump": "DOWN",
+        "game-dash": "e",
         "game-move-left": "a",
         "game-move-right": "d",
         "game-pause": "ESCAPE",
@@ -35,8 +34,7 @@ DEFAULT_SAVE = {
         "menu-left": "LEFT",
         "menu-right": "RIGHT",
         "menu-up": "UP",
-        "screenshot": "F12",
-        "select": "RETURN",
+        "screenshot": "F2"
     },
     "life-tick-sound": False,
     "mouse-move": False,
