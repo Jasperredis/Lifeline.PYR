@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lifeline.PYR | How to Play</title>
+	<link rel="icon" type="image/x-icon" href="assets/favicon.png">
+	<link rel="stylesheet" href="styles.css">
+	<script src="look.js"></script>
+  </head>
+  
+  <body>
+	<header>
+	  <img src="./assets/title.png" alt="Lifeline.PYR logo" id="title"><br>
+	  <h2>Constants Override</h2>
+	  <p>
+		<a href="index.html">Home</a><br>
+		<a href="https://jasperredis.net">jasperredis</a> | 
+		<a href="https://jasperredis.itch.io/lifelinepyr">Itch.io</a> |
+		<a href="https://gamejolt.com/games/lifelinepyr/1074695">GameJolt</a> |
+		<a href="https://codeberg.org/jasperredis/Lifeline.PYR">Codeberg Repository</a> |
+		<a href="https://jasperredis.net/updates.html#lifelinepyr">Updates</a>
+	  </p>
+	  <div id="new">
+		<p><strong>NEWEST NEW THING:</strong>
+		  This thing is now unnecessary; Lifeline.PYR now has an updates page!
+		  <a href="https://jasperredis.net/updates.html#lifelinepyr">See it here!</a></p>
+	  </div>
+	</header>
+	
+	<main>
+	  <button onclick="toggleFont()" class="look-btn" id="font-btn">Change font (for easier reading)</button>
+	  <div class="dropdown">
+		<button class="look-btn">Change theme</button>
+		<div class="dropdown-content">
+		  <p>
+			These are all based on the in-game "HTP Themes" (how-to-play themes).<br>
+			These are not built for readability; they are just novelty looks for fun :P<br>
+			The default is "<b>White-on-Black (Dark)</b>".
+		  </p>
+		  <button onclick="setTheme('light')">Black-on-White (Light)</button>
+		  <button onclick="setTheme('sand')">Sand</button>
+		  <button onclick="setTheme('ocean')">Ocean</button>
+		  <button onclick="setTheme('watermelon')">Watermelon</button>
+		  <button onclick="setTheme('dark')">White-on-Black (Dark)</button>
+		  <button onclick="setTheme('demo')">Demo</button>
+		  <button onclick="setTheme('original')">Original</button>
+		</div>
+	  </div><br>
+
+	  <h1>Constants Override</h1>
+	  <p>
+		Note: This only applies to Lifeline.PYR v1.1. Said version is still in development
+		and does not have a release besides manually setting it up from the Codeberg repository.<br><br>
+
+		Constants override is a feature that allows you to change gameplay constants, which
+		are the numbers that determine things like chances, speeds, etc..<br>
+		To use it, add a file in the directory that the game executale (or <code>main.py</code> if source build)
+		called <code>constants.json</code>. This is a JSON file, and the syntax is as such; if you do not know
+		JSON syntax, <a href="https://noai.duckduckgo.com/?q=json+syntax&ia=web">look it up</a>.<br>
+		The file alone does not run constants override; to make it take affect, you must run the game in your
+		terminal with the <code>-c</code> flag. Examples:<br>
+		<pre>
+		  ./Lifeline.PYR-1.1 -c      # Linux
+		  .\Lifeline.PYR-1.1.exe -c  # Windows
+		</pre><br>
+
+		Below will be a table of all of the constants that you can override. <b>Do not make typos!</b>
+		You can easily crash the game.
+	  </p>
+	  <table>
+		<thead><tr><th>Name</th><th>Used for</th><th>Type</th><th>Default Value</th></tr></thead>
+		<tbody>
+		  <tr>
+			<td><code>life_depletion_time</code></td>
+			<td>The amount of time that it takes for a life point to deplete, in ticks.</td>
+			<td>Integer</td>
+			<td>60</td>
+		  </tr>
+		  <tr>
+			<td><code>score_increment</code></td>
+			<td>How many points the score goes up per life tick.</td>
+			<td>Integer</td>
+			<td>50</td>
+		  </tr>
+		  <tr>
+			<td><code>iframe_end_time</code></td>
+			<td>The amount of time that you are invincible from enemies after getting hit, in ticks.</td>
+			<td>Float</td>
+			<td>10</td>
+		  </tr>
+		  <tr>
+			<td><code>spawn_chance</code></td>
+			<td>The chance of a heal or enemy spawning per frame.</td>
+			<td>Float</td>
+			<td>4.7</td>
+		  </tr>
+		  <tr>
+			<td><code>enemy_indicator_offset</code></td>
+			<td>The amount of pixels that the enemy indicator is offset, to make it hover above the enemy.</td>
+			<td>Integer</td>
+			<td>6</td>
+		  </tr>
+		  <tr>
+			<td><code>heal_indicator_offset</code></td>
+			<td>The amount of pixels that the heal indicator is offset, to make it hover above the heal.</td>
+			<td>Integer</td>
+			<td>8</td>
+		  </tr>
+		  <tr>
+			<td><code>falling_thing_chance</code></td>
+			<td>The chance of a falling object spawning per frame.</td>
+			<td>Integer</td>
+			<td>1</td>
+		  </tr>
+		  <tr>
+			<td><code>dire_falling_thing_chance</code></td>
+			<td>The chance of a falling object spawning per frame when in urgency.</td>
+			<td>Float</td>
+			<td>3.5</td>
+		  </tr>
+		  <tr>
+			<td><code>falling_powerup_chance</code></td>
+			<td>The chance of each falling object to be a power-up.</td>
+			<td>Integer</td>
+			<td>10</td>
+		  </tr>
+		  <tr>
+			<td><code>falling_scorer_chance</code></td>
+			<td>The chance of each falling object to be a scorer.</td>
+			<td>Integer</td>
+			<td>25</td>
+		  </tr>
+		  <tr>
+			<td><code>dire_falling_powerup_chance</code></td>
+			<td>The chance of each falling object to be a power-up when in urgency.</td>
+			<td>Integer</td>
+			<td>80</td>
+		  </tr>
+		  <tr>
+			<td><code>falling_hazards</code></td>
+			<td>The list of falling hazards. <b>You should not add to this.</b></td>
+			<td>List</td>
+			<td><code>["ow_a", "ow_b"]</code></td>
+		  </tr>
+		  <tr>
+			<td><code>falling_powerups</code></td>
+			<td>The list of power-ups. <b>You should not add to this.</b></td>
+			<td>List</td>
+			<td><code>["max_life", "clear_enemies", "max_jump"]</code></td>
+		  </tr>
+		  <tr>
+			<td><code>falling_scorers</code></td>
+			<td>The list of scorers. <b>You should not add to this.</b></td>
+			<td>List</td>
+			<td><code>["-50_pts", "25_pts", "50_pts", "100_pts"]</code></td>
+		  </tr>
+		  <tr>
+			<td><code>falling_ignore_pref_chance</code></td>
+			<td>The chance of each falling object, in urgency, to not be the one that helps with the reason urgency was triggered.</td>
+			<td>Integer</td>
+			<td>10</td>
+		  </tr>
+		  <tr>
+			<td><code>enemy_crowdedness</code></td>
+			<td>The number of how many enemies must be present to trigger urgency.</td>
+			<td>Integer</td>
+			<td>12</td>
+		  </tr>
+		  <tr>
+			<td><code>falling_hazard_x_range</code></td>
+			<td>The range, in pixels, around your player that a falling hazard can spawn in.</td>
+			<td>Integer</td>
+			<td>55</td>
+		  </tr>
+		  <tr>
+			<td><code>falling_object_init_y</code></td>
+			<td>The Y coordinate that falling objects start at.</td>
+			<td>Integer</td>
+			<td>-9</td>
+		  </tr>
+		  <tr>
+			<td><code>jump_init</code></td>
+			<td>The number that your jump charge starts at (1 charge unit is equal to -75).</td>
+			<td>Integer</td>
+			<td>-300</td>
+		  </tr>
+		  <tr>
+			<td><code>laser_chance</code></td>
+			<td>The chance of a laser spawning per frame.</td>
+			<td>Float</td>
+			<td>0.2</td>
+		  </tr>
+		  <tr>
+			<td><code>laser_fire_time</code></td>
+			<td>The amount of time, in ticks, that a laser takes to fire after a warning appears.</td>
+			<td>Integer</td>
+			<td>80</td>
+		  </tr>
+		  <tr>
+			<td><code>laser_frame_interval</code></td>
+			<td>The amount of time, in ticks, in between each frame of the laser animation.</td>
+			<td>Integer</td>
+			<td>5</td>
+		  </tr>
+		  <tr>
+			<td><code>laser_end_time</code></td>
+			<td>The amount of time, in ticks, a laser takes to stop firing, starting from when the warning appeared.</td>
+			<td>Integer</td>
+			<td>179</td>
+		  </tr>
+		  <tr>
+			<td><code>laser_warn_y_pos</code></td>
+			<td>The Y coordinate that laser warnings appear at.</td>
+			<td>Integer</td>
+			<td>59</td>
+		  </tr>
+		  <tr>
+			<td><code>plrx_slow_mod</code></td>
+			<td>How much your player moves when slowed down.</td>
+			<td>Integer</td>
+			<td>1</td>
+		  </tr>
+		  <tr>
+			<td><code>plrx_norm_mod</code></td>
+			<td>How much your player moves when not slowed down.</td>
+			<td>Integer</td>
+			<td>3</td>
+		  </tr>
+		  <tr>
+			<td><code>dash_decrement</code></td>
+			<td>How much your dash charge goes down per tick that you are dashing.</td>
+			<td>Integer</td>
+			<td>12</td>
+		  </tr>
+		  <tr>
+			<td><code>dash_multiplier</code></td>
+			<td>The multiplier applied to your speed while dashing.</td>
+			<td>Float</td>
+			<td>3.5</td>
+		  </tr>
+		  <tr>
+			<td><code>dash_constant_increment</code></td>
+			<td>How much your dash charge increases per tick.</td>
+			<td>Float</td>
+			<td>0.7</td>
+		  </tr>
+		  <tr>
+			<td><code>dash_max</code></td>
+			<td>The dash charge limit.</td>
+			<td>Integer</td>
+			<td>106</td>
+		  </tr>
+		  <tr>
+			<td><code>inertia_base_plrx_divisor</code></td>
+			<td>The number that divides plrx_norm_mod/plrx_slow_mod with inertia on.</td>
+			<td>Integer</td>
+			<td>3</td>
+		  </tr>
+		  <tr>
+			<td><code>inertia_divisor_slow</code></td>
+			<td>The number that your velocity is divided by each tick when slowed down, with inertia on.</td>
+			<td>Integer</td>
+			<td>2</td>
+		  </tr>
+		  <tr>
+			<td><code>inertia_divisor_norm</code></td>
+			<td>The number that your velocity is divided by each tick when not slowed down, with inertia on.</td>
+			<td>Integer</td>
+			<td>5</td>
+		  </tr>
+		  <tr>
+			<td><code>jump_tick_end</code></td>
+			<td>The amount of time, in ticks, that a jump lasts for.</td>
+			<td>Integer</td>
+			<td>60</td>
+		  </tr>
+		  <tr>
+			<td><code>jump_cooldown_time</code></td>
+			<td>The amount of time, in ticks, that jump takes to recharge.</td>
+			<td>Integer</td>
+			<td>300</td>
+		  </tr>
+		  <tr>
+			<td><code>jumpend_marker</code></td>
+			<td>The amount of time, in ticks, that it takes after jumping for the player point to become an exclamation point.</td>
+			<td>Integer</td>
+			<td>45</td>
+		  </tr>
+		  <tr>
+			<td><code>pointer_y</code></td>
+			<td>The Y coordinate that the player pointer is at in 1D Mode.</td>
+			<td>Integer</td>
+			<td>55</td>
+		  </tr>
+		  <tr>
+			<td><code>show_pts_time</code></td>
+			<td>The amount of time, in ticks, that notifs take to disappear.</td>
+			<td>Integer</td>
+			<td>10</td>
+		  </tr>
+		  <tr>
+			<td><code>show_pts_y_offset</code></td>
+			<td>The offset from your player's Y coordinate that notifs are at.</td>
+			<td>Integer</td>
+			<td>7</td>
+		  </tr>
+		  <tr>
+			<td><code>dash_functioning_min</code></td>
+			<td>The number that your dash charge has to be greater than to dash.</td>
+			<td>Integer</td>
+			<td>10</td>
+		  </tr>
+		  <tr>
+			<td><code>x_min</code></td>
+			<td>The furthest X coordinate left that you and spawns can be. This changes depending on 1D and 2D mode.</td>
+			<td>Integer</td>
+			<td>4 in 1D, 42 in 2D</td>
+		  </tr>
+		  <tr>
+			<td><code>x_max</code></td>
+			<td>The furthest X coordinate right that you and spawns can be. This changes depending on 1D and 2D mode.</td>
+			<td>Integer</td>
+			<td>249 in 1D, 211 in 2D</td>
+		  </tr>
+		  <tr>
+			<td><code>y_min</code></td>
+			<td>The furthest Y coordinate up that you and spawns can be. This changes depending on 1D and 2D mode.</td>
+			<td>Integer</td>
+			<td>64 in 1D, 19 in 2D</td>
+		  </tr>
+		  <tr>
+			<td><code>y_max</code></td>
+			<td>The furthest Y coordinate down that you and spawns can be. This changes depending on 1D and 2D mode.</td>
+			<td>Integer</td>
+			<td>64 in 1D, 107 in 2D</td>
+		  </tr>
+		</tbody>
+	  </table><br>
+	</main>
+
+	<footer>
+	  <img id="license-logos" src="./assets/licenses.png" alt="Pixelated versions of license logos">
+	</footer>
+  </body>
+</html>
