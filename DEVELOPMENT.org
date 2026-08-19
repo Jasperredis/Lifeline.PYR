@@ -34,14 +34,14 @@ myself in third person?
 - +Scoring screen on death+ (scrapped)
 - +Cheat+ (moved to a later update)
 
-** Bugs to fix [3/4]
+** Bugs to fix [4/4]
 *Note:* If you find any bugs, /please/ make a GitHub Issue, Discussion, or
 contact me about it (see _Contact_ header @ https://jasperredis.net)!
 - [x] Mouse must be in 256x144 frame in windowed mode
 - [x] Cannot dash in mouse player movement mode
 - [x] Unneccessary extra assets are present. While this isn't exactly a /bug/,
   it still needs to be fixed.
-- [ ] Keybindings do not apply outside of the options and keybindings menus.
+- [x] Keybindings do not apply outside of the options and keybindings menus.
 
 ** General goals to work for
 - Refactor old and bad code
