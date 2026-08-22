@@ -1,154 +1,166 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
+# Lifeline.PYR v1.1-dev
 
-# Lifeline.PYR -- A retro-style arcade game made by jasperredis.
-# Copyright (C) 2025  jasperredis
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>
-
-# Lifeline.PYR v1.0.1
-
-# Import libraries
-from cerbose import cprint
 import pygame as pg
-import sys
-
-# Core modules
+import webbrowser
 import mod.core.assets as ast
-from mod.core.save import S
-
-# Other modules
+from mod.core.save import save_data, keyb
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
 import mod.etc.BTXT as B
 
-friction, sel, lkpt, stats, done_text, done_animation, show_cat = 1, 1, 0, False, False, False, False
+friction, sel, lkpt = 1, 1, 0
+stats, done_text, done_animation, show_cat = False, False, False, False
+INTRO_TEXT = """
+Welcome to Lifeline.PYR! Game by jasperredis.
+See info at:
+- Github     : https://github.com/jasperredis/Lifeline.PYR
+- Website    : https://lifelinepyr.jasperredis.net
+- Itch.io    : https://jasperredis.itch.io/lifelinepyr
+- jasperredis: https://www.jasperredis.net
+--------------------------------------------------------------------------------
+This is FREE SOFTWARE. "Free" refers not to cost, but to FREEDOM.
+You are FREE to:
+- Run it as you wish and for any purpose
+- Study and modify it
+- Freely redistribute it
+- Freely distribute modifications of it
+...under applicable licenses.
+If you are not familiar with it, I highly recommend seeing the GNU Project's
+Free Software definition at https://www.gnu.org/philosophy/free-sw.html.
+--------------------------------------------------------------------------------
+This game is licensed under multiple licenses. For more information, see the
+packaged LICENSE file.
+"""
+HOW_TO_PLAY_URL = "https://lifelinepyr.jasperredis.net/how-to-play.html"
+WEBSITE_URL = "https://lifelinepyr.jasperredis.net"
+BUTTONS = ["START", "OPTIONS", "KEYBINDINGS", "STATS", "LICENSE",
+           "HOW TO PLAY", "WEBSITE", "QUIT"]
 
-def ACT(rsurface, keys, tick, mx, my):
-    global friction, sel, lkpt, stats, done_text, done_animation, show_cat
-    
+
+def do_title_animation(rsurface, tick):
+    global done_animation
+    TICK_STAGES = [30, 80]
+    FRICTION_INCREMENT = 0.013
+    global friction
+    if tick <= TICK_STAGES[0] and not done_animation:
+        rsurface.blit(ast.assets_data['title/title'],
+                      etc.centrexy(ast.assets_data['title/title']))
+    elif tick <= TICK_STAGES[1] and not done_animation:
+        x = etc.centrexy(ast.assets_data['title/title'], onecoord='x')
+        y = etc.centrexy(
+            ast.assets_data['title/title'], onecoord='y') - \
+            ((tick - 30) / friction)
+        rsurface.blit(ast.assets_data['title/title'], (x, y))
+        friction += FRICTION_INCREMENT
+    else:
+        done_animation = True
+        return True  # Do render like normal (no, this isn't AI
+                     # I just need to clarify)
+    return False
+
+
+def show_stats_screen(rsurface, keys):
+    global stats
+    box_asset = ast.assets_data['title/stats']
+    rsurface.blit(box_asset, etc.centrexy(box_asset))
+    text_x = etc.centrexy(box_asset, onecoord='x') + 3
+    text_y = etc.centrexy(box_asset, onecoord='y') + 11
+    text = [
+        f"Highscore   : {save_data['high']}",
+        f"Totalscore  : {save_data['total']}",
+        f"Games Played: {save_data['played']}",
+        f"Press [{save_data['keybindings']['menu-exit'].upper()}] to close."
+    ]
+    for line in text:
+        text_surf = ast.assets_data['font1'].render(
+            line, False, mgv.colours[19])
+        rsurface.blit(text_surf, (text_x, text_y))
+        text_y += 6
+    if keyb(keys, "menu-exit"):
+        stats = False
+
+
+def show_title_screen(rsurface, mx, my):
+    global sel
+    rsurface.blit(ast.assets_data['title/title'], (
+        etc.centrexy(ast.assets_data['title/title'], onecoord='x'), 17))
+    for i, button in enumerate(BUTTONS):
+        rect = etc.mk_text_option(rsurface, sel, i + 1, button, mgv.colours[1],
+                                  True, 52, return_rect=True)
+        if save_data["mouse-nav"] and rect.collidepoint(mx, my - 8):
+            sel = i + 1
+
+
+def show_title_cat(rsurface, mx, my):
+    cat_rect = ast.assets_data["title/cat"].get_rect()
+    cat_rect.y = rsurface.get_height() - \
+        (ast.assets_data["title/cat"].get_height() + 1)
+    cat_rect.x = 1
+    cat_image = ast.assets_data["title/cat_pet"] if \
+        cat_rect.collidepoint(mx, my) else ast.assets_data["title/cat"]
+    rsurface.blit(cat_image, cat_rect)
+
+
+def take_input(keys, tick, mb):
+    global sel, lkpt, stats
+    if keyb(keys, "menu-down") and etc.srp(tick, lkpt):
+        sel += 1
+        lkpt = tick
+        ast.assets_data['mainaud/blip'].play()
+    elif keyb(keys, "menu-up") and etc.srp(tick, lkpt):
+        sel -= 1
+        lkpt = tick
+        ast.assets_data['mainaud/blip'].play()
+    sel = max(1, min(sel, len(BUTTONS)))
+    if ((keys[pg.K_RETURN] or (save_data["mouse-nav"] and mb[0])) and
+            etc.srp(tick, lkpt)):
+        ast.assets_data['mainaud/blip'].play()
+        if sel == 1:
+            return "game"
+        elif sel == 2:
+            return "options"
+        elif sel == 3:
+            return "keybindings"
+        elif sel == 4:
+            stats = True
+        elif sel == 5:
+            return "license"
+        elif sel == 6:
+            webbrowser.open(HOW_TO_PLAY_URL)
+        elif sel == 7:
+            webbrowser.open(WEBSITE_URL)
+        elif sel == 8:
+            etc.close()
+        return None
+
+
+def act(rsurface, keys, tick, mx, my, mb):
+    global friction, lkpt, done_text, show_cat
+
     # Initialise
     if tick <= 1:
         friction = 1
         lkpt = 0
         show_cat = etc.chance(20)
-        
     if not done_text:
-        print(
-            "Welcome to Lifeline.PYR!\n" +
-            "Made by jasperredis, in open-source.\n" +
-            "See info at: \n" +
-            "- Github     : https://github.com/jasperredis/Lifeline.PYR \n" +
-            "- Website    : https://jasperredis.github.io/Lifeline.PYR \n" +
-            "- Itch.io    : https://jasperredis.itch.io/lifelinepyr \n" +
-            "- jasperredis: https://jris.straw.page/a \n" +
-            "This game is licensed under the GNU General Public License v3.0 or later. \n" +
-            "For more information, do any of the following:\n" +
-            "- Visit the packaged LICENSE file\n" +
-            "- See the 'License' section on the 'ABOUT' screen\n" +
-            "- Go to the GNU website at: https://gnu.org/licenses/gpl-3.0.en.html\n" +
-            "---- \n" +
-            "Lifeline.PYR  Copyright (C) 2025  jasperredis \n" +
-            "This program comes with ABSOLUTELY NO WARRANTY; for details, see the GPLv3. \n" +
-            "This is free software, and you are welcome to redistribute it \n" +
-            "under certain conditions; see the GPLv3 for details."
-        )
+        print(INTRO_TEXT)
         done_text = True
 
-    # Render BG
-    rsurface.blit(mgv.BGS[str(S['bg'])], (0, 0))
-
-    # Render title
-    tick_stages = [30, 80]
-    friction_increment = 0.013
-
-    
-    if tick <= tick_stages[0] and not done_animation:
-        rsurface.blit(ast.ASSETS['title/title'], etc.centrexy(ast.ASSETS['title/title']))
-    elif tick <= tick_stages[1] and not done_animation:
-        x = etc.centrexy(ast.ASSETS['title/title'], onecoord='x')
-        y = etc.centrexy(ast.ASSETS['title/title'], onecoord='y') - ((tick - 30) / friction)
-        rsurface.blit(ast.ASSETS['title/title'], (x, y))
-        friction += friction_increment
-    else:
-        if not done_animation:
-            done_animation = True
-        if stats:
-            box_asset = ast.ASSETS['title/stats']
-            rsurface.blit(box_asset, etc.centrexy(box_asset))
-            text_x = etc.centrexy(box_asset, onecoord='x') + 3
-            text_y = etc.centrexy(box_asset, onecoord='y') + 11
-            text = [
-                f"Highscore   : {S['high']}",
-                f"Totalscore  : {S['total']}",
-                f"Games Played: {S['played']}",
-                "Press [X] to close."
-            ]
-            for line in text:
-                text_surf = ast.ASSETS['font1'].render(line, False, mgv.COLOURS[18])
-                rsurface.blit(text_surf, (text_x, text_y))
-                text_y += 6
-            if keys[pg.K_x]:
-                stats = False
-        else:
-            rsurface.blit(ast.ASSETS['title/title'], (etc.centrexy(ast.ASSETS['title/title'], onecoord='x'), 17))
-            etc.MKTX(rsurface, sel, 1, "START", "title")
-            etc.MKTX(rsurface, sel, 2, "OPTIONS", "title")
-            etc.MKTX(rsurface, sel, 3, "UPDATES", "title")
-            etc.MKTX(rsurface, sel, 4, "HOW TO PLAY", "title")
-            etc.MKTX(rsurface, sel, 5, "TIPS", "title")
-            etc.MKTX(rsurface, sel, 6, "STATS", "title")
-            etc.MKTX(rsurface, sel, 7, "ABOUT", "title")
-            etc.MKTX(rsurface, sel, 8, "QUIT", "title")
-
-            # Take input
-            if keys[pg.K_DOWN] and etc.srp(tick, lkpt):
-                sel += 1
-                lkpt = tick
-                ast.ASSETS['mainaud/blip'].play()
-            elif keys[pg.K_UP] and etc.srp(tick, lkpt):
-                sel -= 1
-                lkpt = tick
-                ast.ASSETS['mainaud/blip'].play()
-            sel = max(1, min(sel, 8))
-            if keys[pg.K_RETURN] and etc.srp(tick, lkpt):
-                ast.ASSETS['mainaud/blip'].play()
-                if sel == 1:
-                    return "game"
-                elif sel == 2:
-                    return "options"
-                elif sel == 3:
-                    return "updates"
-                elif sel == 4:
-                    return "howtoplay"
-                elif sel == 5:
-                    return "tips"
-                elif sel == 6:
-                    stats = True
-                elif sel == 7:
-                    return "about"
-                elif sel == 8:
-                    etc.CLOSE()
-
-    # Cat
-    if show_cat:
-        cat_rect = ast.ASSETS["title/cat"].get_rect()
-        cat_rect.y = rsurface.get_height() - (ast.ASSETS["title/cat"].get_height() + 1)
-        cat_rect.x = 1
-        cat_image = ast.ASSETS["title/cat_pet"] if cat_rect.collidepoint(mx, my) else ast.ASSETS["title/cat"]
-        rsurface.blit(cat_image, cat_rect)
-
-    # RESET LKPT if needed
+    # Reset lkpt if needed
     if keys[pg.K_l]:
         lkpt = 0
-        B.BTX = "Reset LKPT."
+        B.bottom_text = "Reset LKPT."
+
+    rsurface.blit(mgv.bgs[str(save_data['bg'])], (0, 0))
+    if show_cat:  # Title cat!!!!! :3c
+        show_title_cat(rsurface, mx, my)
+
+    if not done_animation:
+        proceed_to_title = do_title_animation(rsurface, tick)
+    if done_animation or proceed_to_title:
+        if stats:
+            show_stats_screen(rsurface, keys)
+        else:  # Regular title screen
+            show_title_screen(rsurface, mx, my)
+            return take_input(keys, tick, mb)

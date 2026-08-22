@@ -1,62 +1,88 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
+# Lifeline.PYR v1.1-dev
 
-# Lifeline.PYR -- A retro-style arcade game made by jasperredis.
-# Copyright (C) 2025  jasperredis
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>
-
-# Lifeline.PYR v1.0.1
-
-# Import libraries
-from cerbose import cprint, mprint, cerbar
+from cerbose import cprint
 from datetime import datetime
-import yaml
-import sys
-
-# Core modules
-from mod.core import args
-
-# Other modules
+import pygame as pg
+import json
+import os
 import mod.etc.BTXT as B
 
-args.cprint_iv("proc", "Loading save...")
-try:
-    with open('save.yaml', 'r') as f: # Read and parse save.yaml
-        DATA = f.read()
-    args.cprint_iv("ok", "Opened and read save!")
-    S = yaml.safe_load(DATA) #* SAVE DATA!!!
-    args.cprint_iv("ok", "Fully loaded save!")
-except Exception as e:
-    cprint("fatal", f"Could not read save because: {e}.", logfile="logs/errors.txt", timestamp=True)
-    cprint("debug", "Press [RETURN] to exit.")
-    input()
-    sys.exit()
+DEFAULT_SAVE = {
+    "bg": 1,
+    "dif": 2,
+    "fullscreen": False,
+    "high": 0,
+    "htp-theme": 1,
+    "indicators": True,
+    "inertia": True,
+    "keybindings": {
+        "game-1d-jump": "w",
+        "game-1d-slow": "s",
+        "game-2d-jump": "UP",
+        "game-2d-move-down": "s",
+        "game-2d-move-up": "w",
+        "game-2d-slow": "DOWN",
+        "game-dash": "e",
+        "game-move-left": "a",
+        "game-move-right": "d",
+        "game-pause": "ESCAPE",
+        "menu-decrease": "LEFT",
+        "menu-down": "DOWN",
+        "menu-exit": "x",
+        "menu-increase": "RIGHT",
+        "menu-left": "LEFT",
+        "menu-right": "RIGHT",
+        "menu-up": "UP",
+        "screenshot": "F2"
+    },
+    "life-tick-sound": False,
+    "mouse-move": False,
+    "mouse-nav": False,
+    "mouse-theme": 1,
+    "notifs": True,
+    "ost": 1,
+    "palette": 1,
+    "played": 0,
+    "seen_begin": False,
+    "seenup": False,
+    "total": 0,
+    "velocity-icon": False,
+    "winscale": 4,
+}
 
-def wr(sv): # Write the save to save.yaml
-    """
-    Writes to the save file. Arguments:
-    - sv (dict): Save data.
-    """
+cprint("proc", "Loading save...")
+try:
+    with open('save.json', 'r') as f:  # Read and parse save.json
+        save_data = json.load(f)  # Save data variable!!!
+    cprint("ok", "Loaded save!")
+except FileNotFoundError:  # Write new save if save is not found
+    with open('save.json', 'w') as f:
+        json.dump(DEFAULT_SAVE, f)
+    save_data = DEFAULT_SAVE
+    cprint("info", "Save not found; Wrote new save.")
+
+
+def write_save(save_data):  # Write the save to save.json
     cprint("proc", "Writing save...")
+    time = datetime.now()
     try:
-        with open('save.yaml', 'w') as f:
-            yaml.dump(sv, f)
+        with open('save.json', 'w') as f:
+            json.dump(save_data, f)
         cprint("ok", "Wrote save!")
-        time = datetime.now()
-        B.BTX = f"Updated save at {time.hour}:{time.minute}:{time.second}."
+        B.bottom_text = \
+            f"Updated save at {time.hour}:{time.minute}:{time.second}."
+
     except Exception as e:
-        cprint("error", f"Could not write save because: {e}", logfile="logs/errors.txt", timestamp=True)
-        cprint("warn", f"The game can continue, but it cannot write your save. Below, your save that would have been written will be show:")
-        mprint("debug", f"Save:\n{sv}", logfile="logs/errors.txt", timestamp=True)
-        B.BTX = "Check logs/errors.txt NOW!"
+        ERROR_MSG = f"""
+=== SAVE ERROR AT {time.hour}:{time.minute}:{time.second} ===
+Could not write save because of an unknown error:\n{e}\n
+Below is the save that would have been writen:\n{save_data}\n
+        """
+        B.bottom_text = "Save failure; see logs/errors.txt."
+        with open(os.path.join("logs", "errors.txt"), 'a') as f:
+            f.write(ERROR_MSG)
+
+
+def keyb(keys, key):
+    return keys[pg.key.key_code(save_data["keybindings"][key])]
