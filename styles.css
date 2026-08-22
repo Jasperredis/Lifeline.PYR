@@ -4,45 +4,45 @@
 }
 
 :root {
-	font-family: PYR5x5;
-	--font-btn-font: sans-serif;
-	--dark: #192130;
-	--header-text: #192130;
-	--grey: #5c677d;
+	font-family: sans-serif;
+	--font-btn-font: PYR5x5;
+	--dark: #141923;
+	--header-text: #141923;
+	--grey: #4a566e;
 	--light: #ffffff;
-	--red-1: #9f1825;
-	--red-2: #d95763;
-	--green-1: #487d15;
-	--green-2: #c7eca4;
+	--red-1: #750f0f;
+	--red-2: #d9576c;
+	--green-1: #0f673d;
+	--green-2: #d3eca4;
 	--bg-img: url("./assets/background.png");
 }
-:root.easy-font { font-family: sans-serif; --font-btn-font: PYR5x5; }
+:root.cool-font { font-family: PYR5x5; --font-btn-font: sans-serif; }
 :root.light {
-	--dark: #ffffff; --light: #192130;
-	--red-2: #9f1825; --red-1: #d95763;
+	--dark: #ffffff; --light: #141923;
+	--red-2: #750f0f; --red-1: #d9576c;
 }
 :root.sand {
-	--dark: #dd9551; --light: #ffe3c9;
-	--red-2: #9f1825; --red-1: #d95763;
+	--dark: #d18947; --light: #ffefc9;
+	--red-2: #750f0f; --red-1: #d9576c;
 	--bg-img: url("./assets/background-sand.png");
 }
 :root.ocean {
-	--dark: #2a8282; --light: #ffe3c9;
-	--red-2: #9f1825; --red-1: #d95763;
+	--dark: #2b8282; --light: #ffefc9;
+	--red-2: #750f0f; --red-1: #d9576c;
 	--bg-img: url("./assets/background-thunder.png");
 }
 :root.watermelon {
-	--dark: #e27d86; --light: #c7eca4;
-	--red-2: #9f1825; --red-1: #d95763;
+	--dark: #e27d86; --light: #d3eca4;
+	--red-2: #750f0f; --red-1: #d9576c;
 	--bg-img: url("./assets/background-alt.png");
 }
 :root.demo {
-	--dark: #9f1825; --light: #ffffff;
+	--dark: #750f0f; --light: #ffffff;
 	--bg-img: url("./assets/background-red.png");
 }
 :root.original {
-	--dark: #ca7728; --light: #192130;
-	--red-2: #9f1825; --red-1: #d95763;
+	--dark: #ca7728; --light: #141923;
+	--red-2: #750f0f; --red-1: #d9576c;
 	--bg-img: url("./assets/background-jrises.png");
 }
 

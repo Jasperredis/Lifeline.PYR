@@ -23,13 +23,14 @@
 	  </p>
 	  <div id="new">
 		<p><strong>NEWEST NEW THING:</strong>
-		  This thing is now unnecessary; Lifeline.PYR now has an updates page!
-		  <a href="https://jasperredis.net/updates.html#lifelinepyr">See it here!</a></p>
+		  <a href="https://jasperredis.net/updates.html/lifelinepyr-2026-08-22.html">
+			(2026-08-22) v1.1 Released!
+		</a></p>
 	  </div>
 	</header>
 	
 	<main>
-	  <button onclick="toggleFont()" class="look-btn" id="font-btn">Change font (for easier reading)</button>
+	  <button onclick="toggleFont()" class="look-btn" id="font-btn">Classic font</button>
 	  <div class="dropdown">
 		<button class="look-btn">Change theme</button>
 		<div class="dropdown-content">
@@ -47,13 +48,6 @@
 		  <button onclick="setTheme('original')">Original</button>
 		</div>
 	  </div>
-
-	  <p>
-		Note that this is not word-for-word the exact in-game how to play screen,
-		but it is an arguably better how to play screen.<br>
-		This will soon be the new how to play screen, as v1.1 replaces the how to play screen
-		with a link to this website.
-	  </p>
 
 	  <h1>Table of Contents</h1>
 	  <ul>
@@ -89,7 +83,8 @@
 		This is your life. It starts at, and has a maximum of, 5. Each green orb represents a health point.<br>
 		In gameplay, you may, and should, notice that you are constantly losing these orbs.<br>
 		On the far right of your health bar is the time orb;
-		it shows how long you have until your next health point decreases. This interval is <i>2 seconds</i>.<br><br>
+		it shows how long you have until your next health point decreases. This interval is <i>2 seconds</i>
+		(1 second in Intense difficulty).<br><br>
 		<b>Note:</b> You can pause by pressing <code>[ESCAPE]</code>.
 	  </p>
 	  <img src="assets/htp-enemy.png">
@@ -156,6 +151,10 @@
 		<li><b>max_life</b> restores your health to the maximum of <i>5</i>.</li>
 		<li><b>max_jump</b> instantly charges your jump charge to maximum capacity (4/4).</li>
 		<li><b>clear_enemies</b> gets rid of all <i>current</i> enemies (it does not stop more from spawning).</li>
+		<li><b>Scorers</b> give you points when you touch them. Except for -50_pts, which takes away points
+		  when you touch it, and please do so at least once because I worked really hard on the sound effect >.<<br>
+		  Note: Scorers only exist in v1.1.
+		</li>
 	  </ul>
 	  <img src="assets/htp-laser-warn.png">
 	  <p>

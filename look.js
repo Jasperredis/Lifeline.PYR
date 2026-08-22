@@ -1,4 +1,4 @@
-function toggleFont() { document.documentElement.classList.toggle("easy-font") }
+function toggleFont() { document.documentElement.classList.toggle("cool-font") }
 const THEMES = ['light', 'sand', 'ocean', 'watermelon', 'dark', 'demo', 'original'];
 function setTheme(theme) {
 	document.documentElement.classList.remove(...THEMES);
