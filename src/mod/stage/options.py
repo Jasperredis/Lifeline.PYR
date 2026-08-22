@@ -26,7 +26,7 @@ OPTS = [
             9: "Rust",
             10: "Sand",
             11: "Thunder",
-            12: "rain.",
+            12: "Rain",
             13: "Engine",
             14: "Jrises",
             15: "Wave",
