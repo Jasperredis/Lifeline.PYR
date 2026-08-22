@@ -147,7 +147,7 @@ def form_backgrounds(assets_data):
         "18": assets_data['bg/nothing'],
         "19": assets_data['bg/wire'],
         "20": assets_data['bg/palette_test'],
-        "21": assets_data['bg/gradientaa']
+        "21": assets_data['bg/gradient']
     }
 
 
