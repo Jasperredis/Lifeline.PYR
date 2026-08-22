@@ -28,9 +28,9 @@ myself in third person?
 - [ ] Update palette on website CSS and its images, and preview images
   everywhere
 
-** Gameplay features for Lifeline.PYR [1/2]
+** Gameplay features for Lifeline.PYR [2/2]
 - [x] Score powerups/hazards (-50, +25, +50, +100)
-- [ ] Difficulties that actually work
+- [x] Difficulties that actually work
 - +Scoring screen on death+ (scrapped)
 - +Cheat+ (moved to a later update)
 
@@ -106,3 +106,5 @@ technical changes and updates!
 - Added mouse menu navigation
   - This also requried adding a save field and options screen configuration for
     it.
+- Added functioning difficulties.
+- Added "Gradient" background.

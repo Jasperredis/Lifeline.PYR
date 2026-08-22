@@ -10,7 +10,7 @@ import mod.etc.BTXT as B
 
 DEFAULT_SAVE = {
     "bg": 1,
-    "dif": 1,
+    "dif": 2,
     "fullscreen": False,
     "high": 0,
     "htp-theme": 1,
@@ -38,7 +38,7 @@ DEFAULT_SAVE = {
     },
     "life-tick-sound": False,
     "mouse-move": False,
-    "mouse-nav": True,
+    "mouse-nav": False,
     "mouse-theme": 1,
     "notifs": True,
     "ost": 1,

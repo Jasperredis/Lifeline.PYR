@@ -11,8 +11,7 @@ import mod.etc.BTXT as B
 sel, lkpt = 1, 0
 OPTS = [
     {
-        "desc": "Use one of 9]]background options of]]various colours.]]\
-$opts/bg_preview",
+        "desc": "Use one of 21]]background options.",
         "key": "bg",
         "name": "Background",
         "call": {
@@ -35,9 +34,10 @@ $opts/bg_preview",
             17: "Deer",
             18: "Nothing",
             19: "Wire",
-            20: "Palette Test"
+            20: "Palette Test",
+            21: "Gradient"
         },
-        "clamp": "1,20",
+        "clamp": "1,21",
         "bool": False,
     },
     {
@@ -84,8 +84,8 @@ $opts/bg_preview",
         "bool": True
     },
     {
-        "desc": "Navigate menus]]with your mouse.]]You may still use the]]\
-keyboard with this on.",
+        "desc": "Navigate menus with]]your mouse.]]You may still use the]]\
+keyboard with this on.]]Can be buggy!",
         "key": "mouse-nav",
         "name": "Mouse menu nav",
         "call": {0: "Off", 1: "On"},
@@ -128,11 +128,12 @@ keyboard with this on.",
         "bool": False,
     },
     {
-        "desc": "Change the chance of]]enemy spawns.",
+        "desc": "Make the game harder.]]Or easier.]]Score bonuses and\
+]]pentalties apply.",
         "key": "dif",
         "name": "Difficulty",
-        "call": {1: "Mostly heals", 2: "Balanced", 3: "Mostly enemies"},
-        "clamp": "1,3",
+        "call": {1: "Easy", 2: "Normal", 3: "Hard", 4: "Intense"},
+        "clamp": "1,4",
         "bool": False,
     },
     {

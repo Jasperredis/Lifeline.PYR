@@ -8,12 +8,18 @@ from cerbose import cprint
 import json
 
 # core_updates
-life_depletion_time = 60
 score_increment = 50
 iframe_end_time = 10
+life_depletion_time = 60
+life_depletion_time_intense = 30
+score_multipliers = [None, 0.8, 1, 1.2, 1.2]
 
 # spawns
 spawn_chance = 4.7
+spawn_chance_intense = 6.8
+enemy_chance_hard = 60
+enemy_chance_easy = 40
+enemy_chance_normal = 50
 enemy_indicator_offset = 6
 heal_indicator_offset = 8
 falling_thing_chance = 1

@@ -11,24 +11,28 @@ from mod.stage.game.game.ui import draw_notif
 def do_updates(rsurface, tick, GAMEDATA):
     if not GAMEDATA["paused"]:
         # Deplete life and add score
-        if tick - GAMEDATA["last_loss"] >= con.life_depletion_time:
+        depletion_time = con.life_depletion_time if save_data["dif"] != 4 \
+            else con.life_depletion_time_intense
+        if tick - GAMEDATA["last_loss"] >= depletion_time:
             GAMEDATA["last_loss"] = tick
             GAMEDATA["life"] -= 1
-            if not GAMEDATA["gameover"]: # Score
+            if not GAMEDATA["gameover"]:  # Score
                 GAMEDATA["score"] += con.score_increment
                 save_data["total"] += con.score_increment
                 draw_notif(rsurface, "50_pts", tick, GAMEDATA)
                 if save_data["life-tick-sound"]:
                     ast.assets_data["gameaud/tick"].play()
-                # Handle highscore
-                if GAMEDATA["score"] > save_data["high"]:
-                    save_data["high"] = GAMEDATA["score"]
 
         # Handle game over
         if GAMEDATA["life"] <= 0 and not GAMEDATA["gameover"]:
             write_save(save_data)  # Update save
+            GAMEDATA["score"] *= con.score_multipliers[save_data["dif"]]
+            GAMEDATA["score"] = int(GAMEDATA["score"])
             GAMEDATA["gameover"] = True  # Enable flag
             ast.assets_data["gameaud/gameover"].play()
+            # Handle highscore
+            if GAMEDATA["score"] > save_data["high"]:
+                save_data["high"] = GAMEDATA["score"]
 
         # Handle iframes
         if GAMEDATA["iframe"]:
@@ -37,11 +41,12 @@ def do_updates(rsurface, tick, GAMEDATA):
             else:
                 rsurface.blit(
                     ast.assets_data["game/iframe"],
-                    (etc.centrexy(ast.assets_data["game/iframe"], onecoord="x"), 1),
+                    (etc.centrexy(ast.assets_data["game/iframe"],
+                                  onecoord="x"), 1),
                 )
 
     # Ensure correct life ticking
     else:
-            GAMEDATA["last_loss"] += 1
+        GAMEDATA["last_loss"] += 1
 
     return GAMEDATA

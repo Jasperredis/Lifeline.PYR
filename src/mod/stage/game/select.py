@@ -32,7 +32,7 @@ def act(rsurface, keys, tick, mx, my, mb):
         sel += 1
         lkpt = tick
         ast.assets_data['mainaud/blip'].play()
-    elif keyb(keys, "menu-up") and etc.srp(tick, lkpt):
+    elif keyb(keys, "menu-left") and etc.srp(tick, lkpt):
         sel -= 1
         lkpt = tick
         ast.assets_data['mainaud/blip'].play()

@@ -46,18 +46,29 @@ def get_falling_type(GAMEDATA):
         return rd.choice(con.falling_hazards)
 
 
+def get_spawn_type():
+    if save_data["dif"] == 1:
+        enemy_chance = con.enemy_chance_easy
+    elif save_data["dif"] == 2:
+        enemy_chance = con.enemy_chance_normal
+    else:
+        enemy_chance = con.enemy_chance_hard
+    if etc.chance(enemy_chance):
+        return "enemies"
+    return "heals"
+
+
 def do_spawns(rsurface, plr, GAMEDATA, tick):
     # Spawn enemies and heals
-    if not GAMEDATA["paused"] and etc.chance(con.spawn_chance):
+    spawn_chance = con.spawn_chance if save_data["dif"] != 4 \
+        else con.spawn_chance_intense
+    if not GAMEDATA["paused"] and etc.chance(spawn_chance):
         addition = {
                 "x": rd.randint(con.x_min, con.x_max),
                 "y": 63 if select.game_type != "2d" else
                 rd.randint(con.y_min, con.y_max)
            }
-        if etc.chance(50):
-            GAMEDATA['enemies'].append(addition)
-        else:
-            GAMEDATA['heals'].append(addition)
+        GAMEDATA[get_spawn_type()].append(addition)
 
     # Handle each enemy and heal
     new_enemies, new_heals = [], []

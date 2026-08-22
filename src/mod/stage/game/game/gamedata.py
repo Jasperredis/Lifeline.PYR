@@ -6,20 +6,21 @@ from mod.stage.game.game import constants
 
 GAMEDATA = {}
 
+
 def init(tick):
     global GAMEDATA
     constants.do_depend()
     GAMEDATA = {
-        "plrx": 126, # player x pos
+        "plrx": 126,  # player x pos
         "plry": 64,
         "life": 5,
         "last_loss": 0,
         "enemies": [],
         "heals": [],
         "paused": False,
-        "sel": 1, # selected pause option
-        "lkpt": 0, # last key press time
-        "iframe": 0, # invincibility frame
+        "sel": 1,  # selected pause option
+        "lkpt": 0,  # last key press time
+        "iframe": 0,  # invincibility frame
         "last_iframe_time": 0,
         "score": 0,
         "gameover": False,
