@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Lifeline.PYR v1.1-dev
+# Lifeline.PYR v1.2-dev
 
 from mod.core.save import save_data
 import mod.etc.magicvars as mgv

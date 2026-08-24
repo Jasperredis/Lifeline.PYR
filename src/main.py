@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>
 
-# Lifeline.PYR v1.1-dev
+# Lifeline.PYR v1.2-dev
 
 from cerbose import cprint
 import pygame as pg

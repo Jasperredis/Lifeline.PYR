@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Lifeline.PYR v1.1-dev
+# Lifeline.PYR v1.2-dev
 
 from mod.core import args
 import mod.etc.BTXT as B
