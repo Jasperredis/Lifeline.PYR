@@ -124,6 +124,29 @@ themes = {}
 bgs = {}
 mice = {}
 colours = {}
+bg_isdark = {
+    1: False,   # Main
+    2: False,   # Alt
+    3: False,   # Alt 2
+    4: False,   # Cotton Candy
+    5: False,   # Blood
+    6: False,   # Cyber
+    7: False,   # Green
+    8: False,   # Red
+    9: False,   # Rust
+    10: False,  # Sand
+    11: False,  # Thunder
+    12: True,   # Rain
+    13: False,  # Engine
+    14: True,   # Jrises
+    15: True,   # Wave
+    16: True,   # Sohappy
+    17: True,   # Deer
+    18: False,  # Nothing
+    19: True,   # Wire
+    20: False,  # Palette Test
+    21: False   # Gradient
+}
 
 
 def form_backgrounds(assets_data):

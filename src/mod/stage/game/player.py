@@ -7,7 +7,7 @@ import mod.core.assets as ast
 import mod.etc.magicvars as mgv
 from mod.stage.game import constants as con
 from mod.stage.game import inputx
-from mod.core.save import keyb
+from mod.core.save import save_data, keyb
 
 
 def make_player(rsurface, game, tick, keys):
@@ -15,10 +15,12 @@ def make_player(rsurface, game, tick, keys):
 
     if game.jumping:
         y_deduction = 999
-        pointer_sprite = (
-            ast.assets_data["game/pointer_jumpend"]
-            if (tick - game.last_jump) >= con.jumpend_marker
-            else ast.assets_data["game/pointer_jump"])
+        pointer_sprite_name = (
+            "pointer/jumpend" if (tick - game.last_jump) >= con.jumpend_marker
+            else "pointer/jump")
+        if mgv.bg_isdark[save_data["bg"]]:
+            pointer_sprite_name += "_light"
+        pointer_sprite = ast.assets_data[pointer_sprite_name]
         # Player ghost
         if game.mode != "2d":
             plrcol = mgv.colours[20] if (
@@ -49,7 +51,9 @@ def make_player(rsurface, game, tick, keys):
                 plrcol = "dash_"
             else:
                 plrcol = ""
-        pointer_sprite = ast.assets_data["game/pointer"]
+        pointer_sprite = (ast.assets_data["pointer/pointer"]
+                          if not mgv.bg_isdark[save_data["bg"]] else
+                          ast.assets_data["pointer/pointer_light"])
 
     # Create rect
     plr_height = 1 if game.mode != "2d" else 3

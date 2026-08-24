@@ -104,8 +104,9 @@ def handle_spawn(rsurface, tick, plr, new_enemies, new_heals, spawn,
         elif spawn_type == "heal":
             new_heals.append({"x": spawn["x"], "y": spawn["y"]})
     if save_data['indicators']:
-        sprite = "game/enemy_indicator" if spawn_type == "enemy" else \
-            "game/heal_indicator"
+        sprite = "pointer/enemy" if spawn_type == "enemy" else "pointer/heal"
+        if mgv.bg_isdark[save_data["bg"]]:
+            sprite += "_light"
         offset = con.enemy_indicator_offset if spawn_type == "enemy" else \
             con.heal_indicator_offset
         rsurface.blit(
@@ -135,10 +136,10 @@ def spawn_falling_objects(game):
 
 def handle_falling_object(rsurface, tick, plr, new_falls, fall, game):
     # Create rect
-    fall_rect = ast.assets_data[f"game/{fall['type']}"].get_rect()
+    fall_rect = ast.assets_data[f"falling_obj/{fall['type']}"].get_rect()
     fall["y"] += 2 if not game.paused else 0
     fall_rect.x, fall_rect.y = fall["x"], fall["y"]
-    rsurface.blit(ast.assets_data[f"game/{fall['type']}"],
+    rsurface.blit(ast.assets_data[f"falling_obj/{fall['type']}"],
                   fall_rect)  # Render
     # Collisions
     if not game.paused and plr.colliderect(fall_rect):
@@ -160,7 +161,7 @@ def handle_falling_object(rsurface, tick, plr, new_falls, fall, game):
         else:
             game.life = 0
             ast.assets_data["gameaud/falling_obj_kill"].play()
-        if f"game/notif_{fall['type']}" in ast.assets_data:
+        if f"notif/{fall['type']}" in ast.assets_data:
             draw_notif(rsurface, fall["type"], tick, game)
     else:
         new_falls.append(fall)

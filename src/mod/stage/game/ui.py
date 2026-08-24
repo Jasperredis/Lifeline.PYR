@@ -166,7 +166,7 @@ def draw_notifs(rsurface, tick):
         elif tick - last_show_pts_time >= con.show_pts_time:
             showing_pts = False
     if showing_pts:
-        rsurface.blit(ast.assets_data[f"game/notif_{showing_pts_num}"],
+        rsurface.blit(ast.assets_data[f"notif/{showing_pts_num}"],
                       (pts_x, pts_y))
 
 
