@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Lifeline.PYR v1.2-dev
+# This is FREE SOFTWARE. See the LICENSE-GPL file for more information.
 
 import mod.core.assets as ast
 from mod.core.save import save_data, write_save

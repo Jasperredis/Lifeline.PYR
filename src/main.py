@@ -17,6 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 # Lifeline.PYR v1.2-dev
+# This is FREE SOFTWARE. See the LICENSE-GPL file for more information.
 
 from cerbose import cprint
 import pygame as pg
