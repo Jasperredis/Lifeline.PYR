@@ -10,7 +10,7 @@ import mod.etc.magicvars as mgv
 lkpt, sel = 0, 1
 
 
-def do_pause(rsurface, keys, tick, GAMEDATA, mx, my, mb):
+def do_pause(rsurface, keys, tick, game, mx, my, mb):
     global lkpt, sel
 
     if lkpt > tick:
@@ -39,8 +39,8 @@ def do_pause(rsurface, keys, tick, GAMEDATA, mx, my, mb):
           and etc.srp(tick, lkpt)):
         ast.assets_data["mainaud/blip"].play()
         if sel == 1:
-            GAMEDATA["paused"] = False
-            return GAMEDATA
+            game.paused = False
+            return game
         elif sel == 2:
             sel = 1
             return "restart"

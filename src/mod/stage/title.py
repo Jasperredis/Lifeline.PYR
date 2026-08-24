@@ -117,7 +117,7 @@ def take_input(keys, tick, mb):
             etc.srp(tick, lkpt)):
         ast.assets_data['mainaud/blip'].play()
         if sel == 1:
-            return "game"
+            return "game_sel"
         elif sel == 2:
             return "options"
         elif sel == 3:

@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Lifeline.PYR v1.1-dev
 
-from mod.stage.game import select
 from mod.core import args
 import mod.etc.BTXT as B
 from cerbose import cprint
@@ -68,12 +67,12 @@ dash_functioning_min = 10
 
 
 # Game type dependent
-def do_depend():
+def do_depend(mode):
     global x_min, x_max, y_min, y_max
-    x_min = 4 if select.game_type == "normal_game" else 42
-    x_max = 249 if select.game_type == "normal_game" else 211
-    y_min = 64 if select.game_type == "normal_game" else 19
-    y_max = 64 if select.game_type == "normal_game" else 107
+    x_min = 4 if mode == "normal_game" else 42
+    x_max = 249 if mode == "normal_game" else 211
+    y_min = 64 if mode == "normal_game" else 19
+    y_max = 64 if mode == "normal_game" else 107
 
     # Additionally, check for constants to override
     if args.constants_override:

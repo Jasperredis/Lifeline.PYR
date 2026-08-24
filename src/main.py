@@ -24,11 +24,8 @@ from mod.core.save import save_data
 import mod.core.assets as ast
 import mod.core.args as args
 import mod.core.music as music
-import mod.stage.game.stage as game
-import mod.stage.options as options
-import mod.stage.title as title
-import mod.stage.license_stage as license_stage
-import mod.stage.intro as intro
+from mod.stage import game_sel, title, options, license_stage, intro
+from mod.stage.game import stage as game
 import mod.etc.screenshot as screenshot
 import mod.etc.magicvars as mgv
 import mod.etc.etcils as etc
@@ -81,8 +78,15 @@ STAGES = {
     "title": {
         "function": lambda: title.act(game_area, keys, tick, mx, my, mb)
     },
-    "game": {
-        "function": lambda: game.act(game_area, keys, tick, mx, my, mb)
+    "game_sel": {
+        "function": lambda: game_sel.act(game_area, keys, tick, mx, my, mb)
+    },
+    "game_1d": {
+        "function": lambda: game.act("normal_game", game_area, keys, tick, mx,
+                                     my, mb)
+    },
+    "game_2d": {
+        "function": lambda: game.act("2d", game_area, keys, tick, mx, my, mb)
     },
     "options": {
         "function": lambda: options.act(game_area, keys, key, tick, mx, my,

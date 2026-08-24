@@ -1,110 +1,38 @@
-1Yes, this is an org file. I use Emacs.
+Yes, this is an org file. I use Emacs.
 
 ** Please consider contributing!
 During development of this update, I am /very/ open to contributions!
 See the ~CONTRIBUTING.md~ for more info. :-3
 
-* Lifeline.PYR v1.1 Development
+* Lifeline.PYR v1.2 Development
 This file is for me to organise what I (and possibly contributers) should
 prioritise working on, and to list (and publish) what I'm planning.
 
 ** Playability Status
 Working!
 
-** New QoL features for Lifeline.PYR [5/5]
-- [x] Save file generation / reset
-- [x] Keybinding support
-- [x] Mouse-based player movement
-  - [x] ^^^ Refactor this
-- [x] Mouse-based menu navigation
-- +More tips+ (tips no longer exist)
+** Gameplay features for Lifeline.PYR [0/2]
+- [ ] Cheats
+- [ ] New gamemode (unnamed, though planned)
 
-** Meta changes [1/3]
-These are changes that aren't exactly to the game itself, but to the docs around
-it. These are to be handled by jasperredis xemself. …Why am I talking about
-myself in third person?
-- [x] Document constants override
-- [ ] Write updated how to play screen
-- [ ] Update palette on website CSS and its images, and preview images
-  everywhere
+** Smaller changes [0/1]
 
-** Gameplay features for Lifeline.PYR [2/2]
-- [x] Score powerups/hazards (-50, +25, +50, +100)
-- [x] Difficulties that actually work
-- +Scoring screen on death+ (scrapped)
-- +Cheat+ (moved to a later update)
-
-** Bugs to fix [4/4]
+** Bugs to fix [0/0]
 *Note:* If you find any bugs, /please/ make a GitHub Issue, Discussion, or
 contact me about it (see _Contact_ header @ https://jasperredis.net)!
-- [x] Mouse must be in 256x144 frame in windowed mode
-- [x] Cannot dash in mouse player movement mode
-- [x] Unneccessary extra assets are present. While this isn't exactly a /bug/,
-  it still needs to be fixed.
-- [x] Keybindings do not apply outside of the options and keybindings menus.
 
-** General goals to work for
+Currently no known bugs!
+
+** General goals to work towards
 - Refactor old and bad code
 - Make bad systems better, more extensible, more practical, etc.
 - Adhere to style guides and conventions
 - Remove unneccessary comments
 - Make the game look overall better
 
-** Considerable features [1/1]
-These are things that may be added, though I'm not all too sure.
-- [x] Update colour palette
-- +Perhaps another game mode? o.o+ (moved to a later update)
-
 * Changes so Far
 If you're coming here for gameplay updates, note that this is a mix of both
 technical changes and updates!
-- Save file is now in JSON
-- Save file can now be generated if not found
-  - This also means that the save file does not need to be packaged/included!
-- Various excsessive comments removed
-- Various variables renamed (to make more sense, fit conventions, etc.)
-- Colour palette changing added. This means:
-  - New colour palette option in settings, reloads images when changed
-  - Colour palette is applied when loading images
-  - Assets reload now rebuilds other magic variables
-  - Colour palette preview in options menu
-  - Some magic variable architecture changed to accomodate
-- wintop.py moved into mod/etc
-- Other minor changes, including but not limited to:
-  - Corrected links in terminal greeting
-- Added optional mouse-based player movement
-  - This is done by simply adding mouse input to the normal movement system
-- Got rid of updates screen, how to play screen, and about screen. They're
-  excsessively (did I spell that right?) complictaed for an arcade game, and
-  web pages/TXT files do that better for various reasons (update no. 3 in
-  updates.yaml, read it).
-  - Add license stage to disclose basic licensing info.
-- Added falling scorers.
-  - Added the constants for falling scorers
-  - Added the assets for falling scorers (images, sfx)
-  - Added the scoring functions for falling scorers
-  - Slightly changed falling object type picking logic to allow scorers to exist
-  - /The chances will need to be iterated on and tweaked!/
-- Added constants override
-  - This will be needing documentation.
-  - Added the -c flag for constants override.
-  - Added the empty (for now) JSON file for constants override.
-  - Added the constants override logic to the game constants module.
-- Various refactors, many involving breaking mega-functions into multiple
-  smaller functions.
-- Added "notifs" (I couldn't think of a better name) that appear when you:
-  - Get points
-  - Collide with a heal/enemy/falling object
-  ...as small numbers/symbols over you.
-- Added keybindings menu as an argument in the options func (and its own stage
-  for ease of use)
-- Added helper function in save module for getting key input
-- Added "No music" soundtrack
-  - This required adding the ability for the music module to stop music if the
-    track is None
-- Removed "Alternate" soundtrack
-- Added mouse menu navigation
-  - This also requried adding a save field and options screen configuration for
-    it.
-- Added functioning difficulties.
-- Added "Gradient" background.
+- Large refactors in gameplay involving splitting "mega-functions" into smaller
+  functions. Also included slight improvements to many functions.
+- Split gameplay and game mode selection into separate stages.
