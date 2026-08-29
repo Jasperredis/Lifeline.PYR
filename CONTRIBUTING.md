@@ -17,7 +17,7 @@ Your bug report should include:
   explanation of the bug already makes it clear 
 
 ## Contact
-- **My email:** jasperredisispublic@gmail.com
+- **My e-mail:** jasper@jasperredis.net
 - **My XMPP:** jasperredis@jabjab.de
   - My XMPP is both personal and… quote-unquote “proffesional”.
   	Feel free to chat!
